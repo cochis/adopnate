@@ -59,11 +59,10 @@ export class RegisterPage implements OnInit {
       console.log(this.registerForm.value);
       this.usuario = {
         ...this.registerForm.value
-      }
+      };
       this.auth.nuevoUsuario(this.usuario).subscribe(resp=>{
         console.log(resp);
-      })
-
+      });
     }
   }
 }
