@@ -9,18 +9,64 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.noBorder {
+    background-image: none;
+    border: none;
+    box-shadow: none;
+}
+
+.center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pd25 {
+    padding: 25px;
+}
+
+.pd50 {
+    padding: 50px;
+}
+
+.mgT25 {
+    margin-top: 25px;
+}
+
+.mgT50 {
+    margin-top: 50px;
+}
+
+.error {
+    color: red;
+    font-size: 15px;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Formularios
+.inputLabel {
+    font-size: 18px;
+    color: blue;
+    font-weight: 700;
+}
