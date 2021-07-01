@@ -70,3 +70,23 @@
     color: blue;
     font-weight: 700;
 }
+
+//alertas
+.alertSuccess .alert-wrapper {
+    background: green;
+    border-radius: 30px;
+}
+
+.alertWarning .alert-wrapper {
+    background: yellow;
+    border-radius: 30px;
+}
+
+.alertDanger .alert-wrapper {
+    background: red;
+    border-radius: 30px;
+}
+
+.alert-wrapper {
+    background: #e5e5e5;
+}

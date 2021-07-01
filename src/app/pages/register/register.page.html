@@ -66,23 +66,24 @@
                              El número de correo ingresado no valido.
                             </span> -->
                             <ion-row>
-                                <ion-col class="center">
-                                    <ion-checkbox color="primary"></ion-checkbox>
-                                    <ion-label> Recordar usuario</ion-label>
-                                </ion-col>
-                            </ion-row>
-                            <ion-row>
-                                <ion-col class="center">
-                                    <ion-label>¿Ya tienes Cuenta? / Ingresar</ion-label>
-                                </ion-col>
-                            </ion-row>
-                            <ion-row>
                                 <ion-col>
-                                    <!-- [disabled]="registerForm.invalid" -->
-                                    <ion-button type="submit" color="danger" expand="block">Enviar</ion-button>
+                                    <ion-button type="submit" color="danger" [disabled]="registerForm.invalid" expand="block">Enviar</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>
+                        <ion-row>
+                            <ion-col class="center">
+                                <ion-checkbox color="primary" [(ngModel)]="recordarme"></ion-checkbox>
+                                <ion-label> Recordar usuario </ion-label>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col class="center">
+                                <a [routerLink]="['/login']">
+                                    <ion-label>¿Ya tienes Cuenta? / Ingresar</ion-label>
+                                </a>
+                            </ion-col>
+                        </ion-row>
                     </ion-card-content>
                 </ion-card>
 
