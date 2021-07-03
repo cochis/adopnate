@@ -6,7 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  isPc = false;
   constructor() {}
+  isPcV(isPcm: string) {
+    console.log('isPc   publications', isPcm);
+    if (isPcm ==='Desktop'){
+      this.isPc= true;
+    }
+    else {
+      this.isPc = false;
+    }
+    }
 
 }

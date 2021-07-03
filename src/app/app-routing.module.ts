@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: 'register',
@@ -19,15 +21,25 @@ const routes: Routes = [
     loadChildren: () => import('./pages/rememberpass/rememberpass.module').then( m => m.RememberpassPageModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    path: 'publications',
+    loadChildren: () => import('./pages/publications/publications.module').then( m => m.PublicationsPageModule)
+  },
+  {
+    path: 'single-publication/:id',
+    loadChildren: () => import('./pages/single-publication/single-publication.module').then( m => m.SinglePublicationPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: 'publications',
     pathMatch: 'full'
-  },
+  }
+
+
+
 ];
 
 @NgModule({

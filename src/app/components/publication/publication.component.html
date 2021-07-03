@@ -1,0 +1,15 @@
+<ion-card style="min-height:300px" class="mgB25">
+    <ion-card-header class="center">
+        <ion-card-subtitle class="pd10">{{item.user}}</ion-card-subtitle>
+        <img src="assets/img/perro.jpg" alt="">
+        <ion-title> {{item.pets.name}}</ion-title>
+    </ion-card-header>
+    <ion-card-content>
+
+        <p>{{item.desc}} </p>
+
+    </ion-card-content>
+    <ion-footer class="center">
+        <ion-button *ngIf="token" color="primary" class="mgB10" (click)="seePet() "> Solicitar</ion-button>
+    </ion-footer>
+</ion-card>

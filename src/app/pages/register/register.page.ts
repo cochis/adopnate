@@ -5,6 +5,7 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { LoadingController } from '@ionic/angular';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -18,8 +19,10 @@ export class RegisterPage implements OnInit {
   usuario: UsuarioModel;
   loading: HTMLIonLoadingElement;
   recordarme = false;
+  isPc = false;
   constructor(public formBuilder: FormBuilder,
               private auth: AuthService,
+              private usuariosService: UsuariosService,
               private loadingCtrl: LoadingController,
               private funService: FunctionsService) { }
 
@@ -30,11 +33,9 @@ export class RegisterPage implements OnInit {
   createForm() {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       password: ['', Validators.required]
-      // ,
-      // dob: [],
-      // phone: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]
     });
   }
   fetchDate(e) {
@@ -48,7 +49,6 @@ export class RegisterPage implements OnInit {
     return this.registerForm.controls;
   }
   viewPassFunction(bol) {
-    console.log('bol', bol);
     if (bol) {
       this.viewPass = false;
     }
@@ -63,7 +63,6 @@ export class RegisterPage implements OnInit {
       return false;
     } else {
       this.presentLoading( 'Por favor espere');
-      console.log(this.registerForm.value);
       this.usuario = {
         ...this.registerForm.value
       };
@@ -74,18 +73,22 @@ export class RegisterPage implements OnInit {
           this.funService.removeLocal('email');
         }
         setTimeout(() => {
-          this.loading.dismiss();
-          console.log(resp);
-          this.funService.navigate('/home');
+          this.usuario.role = 'USR';
+          this.usuario.dateCreated =  new Date().getTime();
+          this.usuario.activated = true;
+          console.log(this.usuario);
+          this.usuariosService.crearUsuario(this.usuario).subscribe((res)=>{
+            console.log(res);
+            this.loading.dismiss();
+           this.funService.navigate('/publications');
+          } );
         }, 2000);
       },
       (err)=> {
         setTimeout(() => {
           this.loading.dismiss();
-          console.log(err.error.error.message);
           const msg = err.error.error.message;
           this.funService.sendMessage('alertDanger','Alert','SubTitle',msg);
-          console.log(err.error.error.message);
         }, 2000);
       });
     }
@@ -97,6 +100,15 @@ export class RegisterPage implements OnInit {
     });
     await this.loading.present();
   }
+  isPcV(isPcm: string) {
+    console.log('isPc   publications', isPcm);
+      if (isPcm ==='Desktop'){
+        this.isPc= true;
+      }
+      else {
+        this.isPc = false;
+      }
+    }
 }
 
 

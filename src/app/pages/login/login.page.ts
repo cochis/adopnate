@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
   usuario: UsuarioModel;
   loading: HTMLIonLoadingElement;
   recordarme = false;
+  isPc = false;
   constructor(public formBuilder: FormBuilder,
               private auth: AuthService,
               private loadingCtrl: LoadingController,
@@ -24,8 +25,6 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.createForm();
     if (   this.funService.getLocal('email') ) {
-      console.log('local email');
-      console.log(this.funService.getLocal('email'));
       this.loginForm.setValue({
         email:  this.funService.getLocal('email'),
         password: ''
@@ -56,12 +55,9 @@ export class LoginPage implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (!this.loginForm.valid) {
-      console.log('Todos los campos son requeridos.');
       return false;
     } else {
       this.presentLoading( 'Por favor espere');
-      console.log(this.loginForm.value);
-      console.log(this.loginForm.value);
       this.usuario = {
         ...this.loginForm.value
       };
@@ -73,17 +69,14 @@ export class LoginPage implements OnInit {
         }
         setTimeout(() => {
           this.loading.dismiss();
-          console.log(resp);
-          this.funService.navigate('/home');
+          this.funService.navigate('/publications');
         }, 2000);
       },
       (err)=> {
         setTimeout(() => {
           this.loading.dismiss();
-          console.log(err.error.error.message);
           const msg = err.error.error.message;
           this.funService.sendMessage('alertDanger','Alert','SubTitle',msg);
-          console.log(err.error.error.message);
         }, 2000);
       });
     }
@@ -95,4 +88,13 @@ export class LoginPage implements OnInit {
     });
     await this.loading.present();
   }
+  isPcV(isPcm: string) {
+    console.log('isPc   publications', isPcm);
+      if (isPcm ==='Desktop'){
+        this.isPc= true;
+      }
+      else {
+        this.isPc = false;
+      }
+    }
 }

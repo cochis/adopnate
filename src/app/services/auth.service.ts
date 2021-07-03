@@ -15,58 +15,74 @@ export class AuthService {
   //Login
   //   /accounts:signInWithPassword?key=[API_KEY]
   private apikey = 'AIzaSyBF1ZAzkNAnnka432zXTHvmoAtIIMVwjeo';
-  private url =  'https://identitytoolkit.googleapis.com/v1';
+  private url = 'https://identitytoolkit.googleapis.com/v1';
   userToken: any;
   constructor(private http: HttpClient,
-              private funService: FunctionsService) { }
+    private funService: FunctionsService) { }
 
 
-  logout(){
-
+  logout() {
+    this.funService.removeLocal('token');
   }
-  login(usuario: UsuarioModel){
+  login(usuario: UsuarioModel) {
     const authData = {
       ...usuario,
       returnSecureToken: true
     };
-    console.log(`${this.url}/accounts:signInWithPassword?key=${this.apikey}`,authData);
-    return this.http.post(`${this.url}/accounts:signInWithPassword?key=${this.apikey}`,authData).
-    pipe(
-      map( resp =>{
-        console.log("Entro en el map del pipe login");
-        this.saveToken(resp['idToken']);
-        return resp;
-      })
-    );
+    return this.http.post(`${this.url}/accounts:signInWithPassword?key=${this.apikey}`, authData).
+      pipe(
+        map(resp => {
+          this.saveToken(resp['idToken']);
+          return resp;
+        })
+      );
 
   }
-  nuevoUsuario(usuario: UsuarioModel){
+  nuevoUsuario(usuario: UsuarioModel) {
     const authData = {
       ...usuario,
       returnSecureToken: true
     };
-    console.log(`${this.url}/accounts:signUp?key=${this.apikey}`,authData);
-    return this.http.post(`${this.url}/accounts:signUp?key=${this.apikey}`,authData).
-    pipe(
-      map( resp =>{
-        // eslint-disable-next-line @typescript-eslint/quotes
-        console.log("Entro en el map del pipe nuevop  usuario");
-        this.saveToken(resp['idToken']);
-        return resp;
-      })
-    );
+    return this.http.post(`${this.url}/accounts:signUp?key=${this.apikey}`, authData).
+      pipe(
+        map(resp => {
+          // eslint-disable-next-line @typescript-eslint/quotes
+          this.saveToken(resp['idToken']);
+          return resp;
+        })
+      );
   }
 
-  private saveToken(idToken){
+  private saveToken(idToken) {
     this.userToken = idToken;
-    this.funService.setLocal('token',idToken);
+    this.funService.setLocal('token', idToken);
+    const today = new Date();
+    today.setSeconds(3600);
+    this.funService.setLocal('expira', today.getTime().toString());
+
+
   }
   leerToken() {
-    if (localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
       this.userToken = this.funService.getLocal('token');
-    }else {
+    } else {
       this.userToken = '';
     }
-  return this.userToken;
+    return this.userToken;
+  }
+
+  isAuth() {
+    this.userToken = this.funService.getLocal('token');
+    if (this.userToken.length < 2) {
+      return false;
+    }
+    const expira = Number(this.funService.getLocal('expira'));
+    const expiraDate = new Date();
+    expiraDate.setTime(expira);
+    if (expiraDate > new Date()) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

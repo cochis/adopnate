@@ -1,5 +1,4 @@
-<app-navbar titulo="Registro"></app-navbar>
-
+<app-navbar titulo="Registro" (propagar)=" isPcV($event)"></app-navbar>
 <ion-content>
     <ion-grid>
         <ion-row>
@@ -16,6 +15,16 @@
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Nombre</ion-label>
                                 <ion-input formControlName="name" type="text" id="name"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                              El nombre es requerido.
+                            </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                              La cantidad de caracteres minima es 3.
+                            </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Apellidos</ion-label>
+                                <ion-input formControlName="lastName" type="text" id="lastName"></ion-input>
                             </ion-item>
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
                               El nombre es requerido.

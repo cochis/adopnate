@@ -1,5 +1,31 @@
-<ion-header>
+<ion-header class="ion-no-border" translucent>
     <ion-toolbar color="primary">
-        <ion-title class="ion-text-center">{{titulo}}</ion-title>
+        <ion-buttons slot="start">
+            <ion-button color="secondary">
+                <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-buttons slot="end">
+            <ion-back-button defaultHref="/" color="secondary">
+            </ion-back-button>
+
+            <ion-button *ngIf="isPc" color="secondary" (click)="presentPopover( $event )">
+                <ion-avatar>
+                    <ion-img *ngIf="authenticated" src="/assets/img/user.png"></ion-img>
+                    <ion-img *ngIf="!authenticated" src="/assets/img/batman.png"></ion-img>
+                </ion-avatar>
+            </ion-button>
+            <ion-button *ngIf="!isPc" color="secondary" (click)="avatarClick()">
+                <ion-avatar>
+                    <ion-img *ngIf="authenticated" src="/assets/img/user.png"></ion-img>
+                    <ion-img *ngIf="!authenticated" src="/assets/img/batman.png"></ion-img>
+                </ion-avatar>
+            </ion-button>
+            <ion-button color="secondary" (click)="logOut()">
+                <ion-icon name="exit-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title color="dark" class="ion-text-center ion-text-capitalize"> {{ titulo }}</ion-title>
     </ion-toolbar>
 </ion-header>

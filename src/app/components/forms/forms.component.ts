@@ -16,17 +16,11 @@ export class FormsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.form);
     this.formName = this.form.form;
     this.formDescription = this.form.formDescription;
     this.formTitle = this.form.formTitle;
     this.formFunction = this.form.function;
     this.inputs = this.form.inputs;
-    console.log('this.formName',this.formName);
-    console.log('this.formDescription',this.formDescription);
-    console.log('this.formTitle',this.formTitle);
-    console.log('this.formFunction',this.formFunction);
-    console.log('this.inputs',this.inputs);
 
   }
 
