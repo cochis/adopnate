@@ -24,10 +24,16 @@ isPc= false;
     public platform: Platform,
     ) {
       this.whatPlatform();
-      this.authenticated = this.auth.isAuth();
+      if(this.funService.getLocal('token') || this.auth.isAuth() ){
+        this.authenticated = true;
+      }
     console.log('authenticated' , this.authenticated);
     }
   ngOnInit() {
+
+    if(this.funService.getLocal('token') || this.auth.isAuth() ){
+      this.authenticated = true;
+    }
   }
   logOut() {
     this.funService.removeLocal('token');

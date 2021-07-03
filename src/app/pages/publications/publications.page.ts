@@ -10,7 +10,7 @@ import { FunctionsService } from 'src/app/services/functions.service';
 export class PublicationsPage implements OnInit {
   data: any[]=[];
   // eslint-disable-next-line id-blacklist
-  number = 20;
+  number = 50;
   token: string;
   nextStep = false;
   @ViewChild( IonInfiniteScroll ) inifiteScroll: IonInfiniteScroll;
@@ -38,12 +38,12 @@ export class PublicationsPage implements OnInit {
       // event.target.complete();
       this.inifiteScroll.complete();
       this.nextStep = true;
-    }, 1500);
+    }, 250);
   }
   createData(){
     const publication: any =     {
       uId: 'Simon Grimm',
-      user: 'www.ionicacademy.com',
+      user: 'User',
       desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem exercitationem sapiente quisquam laborum eum',
       pets: {
         name: 'gorda',
