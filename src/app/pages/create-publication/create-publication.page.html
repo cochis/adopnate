@@ -1,0 +1,109 @@
+<app-navbar titulo="Crear publicación" (propagar)=" isPcV($event)"></app-navbar>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+
+
+                <ion-card>
+                    <ion-card-header>
+                        Crea tu nueva cuenta
+                    </ion-card-header>
+                    <ion-card-content>
+                        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate>
+
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Nombre</ion-label>
+                                <ion-input formControlName="name" type="text" id="name"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                            El nombre es requerido.
+                          </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                            La cantidad de caracteres minima es 3.
+                          </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                <ion-input formControlName="age" type="text" id="age"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                            La edad es requerida
+                          </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                            La cantidad de caracteres minima es 3.
+                          </span>
+
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Raza</ion-label>
+                                <ion-input formControlName="race" type="text" id="race"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
+                           La raza es requerida
+                          </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
+                            Raza ingresado invalido.
+                          </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                <ion-input formControlName="age" type="text" id="age"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                        La edad es requerida
+                      </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                        La cantidad de caracteres minima es 3.
+                      </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                <ion-input formControlName="age" type="text" id="age"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                    La edad es requerida
+                  </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                    La cantidad de caracteres minima es 3.
+                  </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                <ion-input formControlName="age" type="text" id="age"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                La edad es requerida
+              </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                La cantidad de caracteres minima es 3.
+              </span>
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                <ion-input formControlName="age" type="text" id="age"></ion-input>
+                            </ion-item>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+            La edad es requerida
+          </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+            La cantidad de caracteres minima es 3.
+          </span>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-button type="submit" color="danger" [disabled]="addForm.invalid" expand="block">Enviar</ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </form>
+
+                        <ion-row>
+                            <ion-col class="center">
+                                <a [routerLink]="['/login']">
+                                    <ion-label>¿Ya tienes Cuenta? / Ingresar</ion-label>
+                                </a>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+</ion-content>
+<app-footer></app-footer>

@@ -30,7 +30,8 @@ isPc= false;
     console.log('authenticated' , this.authenticated);
     }
   ngOnInit() {
-
+    console.log(this.funService.getLocal('token'));
+    console.log(this.auth.isAuth() );
     if(this.funService.getLocal('token') || this.auth.isAuth() ){
       this.authenticated = true;
     }
@@ -40,39 +41,77 @@ isPc= false;
     this.funService.navigate('/login');
   }
   async avatarClick() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Perfil',
-      backdropDismiss: true,
-      buttons: [
-      {
-        text: 'Ayuda',
-        icon: 'share-outline',
-        handler: () => {
-          console.log('Share clicked');
-        }
-      }, {
-        text: 'Editar perfil',
-        icon: 'caret-forward-circle-outline',
-        handler: () => {
-          console.log('Play clicked');
-        }
-      }, {
-        text: 'Favoritos',
-        icon: 'heart-outline',
-        handler: () => {
-          console.log('Favorite clicked');
-        }
-      }, {
-        text: 'Salir',
-        icon: 'close-outline',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-          this.logOut();
-        }
-      }]
-    });
-    await actionSheet.present();
+    if( this.authenticated ){
+      const actionSheet = await this.actionSheetCtrl.create({
+        header: 'Perfil',
+        backdropDismiss: true,
+        buttons: [
+          {
+            text: 'Ayuda',
+            icon: 'share-outline',
+            handler: () => {
+              console.log('Share clicked');
+            }
+          }, {
+            text: 'Editar perfil',
+            icon: 'color-wand',
+            handler: () => {
+              this.funService.navigateTo('/perfil');
+            }
+          }, {
+            text: 'Favoritos',
+            icon: 'heart-circle',
+            handler: () => {
+              console.log('Favorite clicked');
+            }
+          }, {
+            text: 'Publicaciones',
+            icon: 'bookmarks',
+            handler: () => {
+              console.log('Publicaciones');
+              this.funService.navigateTo('/publications');
+            }
+          }, {
+            text: 'Salir',
+            icon: 'exit',
+            role: 'cancel',
+            handler: () => {
+              console.log('Salir');
+              this.logOut();
+            }
+          }
+        ]
+      });
+      await actionSheet.present();
+
+    }else {
+      const actionSheet = await this.actionSheetCtrl.create({
+        header: 'Perfil',
+        backdropDismiss: true,
+        buttons: [
+          {
+            text: 'Ingresar',
+            icon: 'log-in',
+            handler: () => {
+         this.funService.navigateTo('/login');
+            }
+          }, {
+            text: 'Registrarse',
+            icon: 'create',
+            handler: () => {
+              this.funService.navigateTo('/register');
+            }
+          }, {
+            text: 'Publicaciones',
+            icon: 'bookmarks',
+            handler: () => {
+              this.funService.navigateTo('/publications');
+            }
+          }
+        ]
+      });
+      await actionSheet.present();
+    }
   }
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
@@ -96,6 +135,10 @@ isPc= false;
       this.plat = 'mobile';
       this.isPc = false;
     }
+    // const send: any = {
+    //   plat: this.plat,
+    //   authenticated: this.authenticated
+    // };
     console.log('plat',this.plat);
     this.messageEvent.emit(this.plat);
     this.propagar.emit(this.plat);

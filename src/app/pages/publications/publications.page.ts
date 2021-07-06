@@ -71,4 +71,8 @@ export class PublicationsPage implements OnInit {
         this.isPc = false;
       }
     }
+
+  add() {
+    this.funService.navigateTo('/create-publication');
+  }
 }

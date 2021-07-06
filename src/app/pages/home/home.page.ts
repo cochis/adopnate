@@ -7,15 +7,16 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   isPc = false;
+  authenticated = false;
   constructor() {}
   isPcV(isPcm: string) {
     console.log('isPc   publications', isPcm);
-    if (isPcm ==='Desktop'){
-      this.isPc= true;
-    }
-    else {
-      this.isPc = false;
-    }
+      if (isPcm ==='Desktop'){
+        this.isPc= true;
+      }
+      else {
+        this.isPc = false;
+      }
     }
 
 }

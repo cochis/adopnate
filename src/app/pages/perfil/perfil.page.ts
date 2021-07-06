@@ -8,7 +8,7 @@ import { IonList } from '@ionic/angular';
 export class PerfilPage implements OnInit {
 @ViewChild(IonList) ionList: IonList;
   isPc= false;
-
+  authenticated: false;
   constructor() { }
 
   ngOnInit() {

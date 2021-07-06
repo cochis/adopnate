@@ -1,7 +1,14 @@
 <app-navbar titulo="Publicaciones" (propagar)=" isPcV($event)"></app-navbar>
 
 <app-loading *ngIf="!nextStep" [nextStep]="nextStep"></app-loading>
-<ion-content>
+
+<ion-content color="tertiary">
+
+    <ion-fab vertical="bottom" horizontal="start" edge slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="add" (click)="add()"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     <app-refresher></app-refresher>
     <div class="center" style="position: -webkit-sticky;
     position: sticky;
@@ -10,21 +17,16 @@
     ">
         <ion-button *ngIf="!token" class="center" color="warning" [routerLink]="['/login']"> Login </ion-button>
     </div>
+    <app-slider></app-slider>
+    <div class="container">
+        <ion-grid>
+            <ion-row>
+                <ion-col size="12" size-md="6" size-lg="4" size-xl="3" *ngFor="let item of data; let i = index;">
+                    <app-publication [item]="item"></app-publication>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
-
-    <ion-grid>
-        <ion-row>
-            <ion-col size="12" size-md="6" size-lg="4" size-xl="3" *ngFor="let item of data; let i = index;">
-                <app-publication [item]="item"></app-publication>
-
-            </ion-col>
-
-        </ion-row>
-    </ion-grid>
-    <!-- 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-        <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="Cargando mas publicaciones...">
-        </ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
 </ion-content>
 <app-footer></app-footer>

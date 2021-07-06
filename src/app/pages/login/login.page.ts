@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   loading: HTMLIonLoadingElement;
   recordarme = false;
   isPc = false;
+  authenticated = false;
   constructor(public formBuilder: FormBuilder,
               private auth: AuthService,
               private loadingCtrl: LoadingController,

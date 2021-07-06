@@ -9,6 +9,7 @@ import { PublicationComponent } from './publication/publication.component';
 import { RefresherComponent } from './refresher/refresher.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AvatarMenuComponent } from './avatar-menu/avatar-menu.component';
+import { SliderComponent } from './slider/slider.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AvatarMenuComponent } from './avatar-menu/avatar-menu.component';
                 PublicationComponent,
                 RefresherComponent,
                 LoadingComponent,
-                AvatarMenuComponent
+                AvatarMenuComponent,
+                SliderComponent
 
                  ],
   imports: [
@@ -35,7 +37,8 @@ import { AvatarMenuComponent } from './avatar-menu/avatar-menu.component';
                 PublicationComponent,
                 RefresherComponent,
                 LoadingComponent,
-                AvatarMenuComponent
+                AvatarMenuComponent,
+                SliderComponent
 
               ]
 })

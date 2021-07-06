@@ -33,10 +33,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/perfil/perfil.module').then( m => m.PerfilPageModule)
   },
   {
+    path: 'create-publication',
+    loadChildren: () => import('./pages/create-publication/create-publication.module').then( m => m.CreatePublicationPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'publications',
     pathMatch: 'full'
   }
+
 
 
 

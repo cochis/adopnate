@@ -1,18 +1,34 @@
-import { ApplicationRef, Injectable } from '@angular/core';
+import {  Injectable } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
-import { concat, interval } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
+import {  interval } from 'rxjs';
+import { FunctionsService } from './functions.service';
 @Injectable({
   providedIn: 'root'
 })
 export class AppUpdateService {
-  constructor(appRef: ApplicationRef, updates: SwUpdate) {
-    // Allow the app to stabilize first, before starting polling for updates with `interval()`.
-    const appIsStable$ = appRef.isStable.pipe(first(isStable => isStable === true));
-    // const everySixHours$ = interval(6 * 60 * 60 * 1000);
-    const everySixHours$ = interval(1  * 60 * 1000);
-    const everySixHoursOnceAppIsStable$ = concat(appIsStable$, everySixHours$);
+  constructor(public updates: SwUpdate,
+    private funService: FunctionsService) {
+    if (updates.isEnabled) {
+      interval(60* 60 * 1000).subscribe(() => updates.checkForUpdate()
+        .then(() => {
+          console.log('Actualizando ...');
+          this.funService.toast('Actualizando...');
+        }
+        ));
+    }
+  }
 
-    everySixHoursOnceAppIsStable$.subscribe(() => updates.checkForUpdate());
+  public checkForUpdates(): void {
+    this.updates.available.subscribe(event => {
+      console.log('Buscando actualizaciones...');
+      this.funService.toast('Buscando actualizaciones...');
+      this.promptUser();});
+  }
+
+  private promptUser(): void {
+    console.log('Actualizando a nueva version');
+    this.funService.toast('Actualizando a nueva version');
+    this.updates.activateUpdate().then(() => document.location.reload());
   }
 }
