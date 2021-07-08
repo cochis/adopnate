@@ -193,17 +193,30 @@
     max-height: 250px;
 }
 
-.slidePet {
-    width: 25%;
-    max-height: 200px;
-}
-
 @media only screen and (max-width: 768px) {
     .swiper-wrapper {
         height: 280px;
     }
+}
+
+@media only screen and (max-width: 768px) {
+    .sc-ion-modal-md-h {
+        --width: 100%;
+        --height: 100%;
+    }
     .slidePet {
         width: 100%;
         height: auto;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .sc-ion-modal-md-h {
+        --width: 90%;
+        --height: 90%;
+    }
+    .slidePet {
+        width: 25% !important;
+        max-height: 200px;
     }
 }

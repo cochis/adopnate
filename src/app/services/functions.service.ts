@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import * as SecureLS from 'secure-ls';
 import { ToastController } from '@ionic/angular';
+import { ModalComponent } from '../components/modal/modal.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +13,8 @@ export class FunctionsService {
   constructor(private router: Router,
               public alertController: AlertController,
               public loadingCtrl: LoadingController,
-              public toastController: ToastController
+              public toastController: ToastController,
+              private modalCtrl: ModalController
               ) { }
 
   navigateTo(link) {
@@ -67,6 +69,25 @@ export class FunctionsService {
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+  async mostrarModal(props) {
+
+    const modal = await this.modalCtrl.create({
+      component: ModalComponent,
+      componentProps: {
+        props
+      }
+    });
+    await modal.present();
+    // const { data } = await modal.onDidDismiss();
+    const { data } = await modal.onWillDismiss();
+    console.log('onWillDismiss');
+
+    console.log(data);
+    return data;
+
+  }
+
 
   navigate(link){
     this.router.navigateByUrl(link);

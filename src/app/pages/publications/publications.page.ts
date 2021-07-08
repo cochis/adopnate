@@ -42,19 +42,101 @@ export class PublicationsPage implements OnInit {
   }
   createData(){
     const publication: any =     {
-      uId: 'Simon Grimm',
-      user: 'User',
-      desc:'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem exercitationem sapiente quisquam laborum eum',
-      pets: {
-        name: 'gorda',
-        picture: 'perro.jpg',
-        age: 12
+      uId: 'SimonGrimm',
+      user: {
+                nameUser:'Cochis',
+                lastNameUser:'Ramirez',
+                surNameUser:'rosas',
+                ageUser: 36,
+                ocupationUser:'Enginer',
+                adressUser: {
+                streetAdress:'Madrugada',
+                numberAdressExt: '25b',
+                numberAdressInt: '25b',
+                coloniAdress:'Benito juarez',
+                cityAdress:'Nezahualcoyotl',
+                stateAdress:'Mexico',
+                cpAdress:57000,
+                },
+                conexionUser:{
+                  phoneHome:{visible:true,
+                            value: '5557434444'},
+                  phoneCel:{visible:true,
+                            value: '5515380666'},
+                  email:{
+                          visible:false,
+                          value:'ing.oarrs@gmail.com'
+                  }
+                },
+                descriptionUser:'Lorem hdkjkl jdkasjkl sajdkajkdlasjkdsak dj djasdjas dsadsiako dasniej wqnndn a jdksajdk sa j',
+                activatedUser:true,
+                dateCreatedUser:123456789
       },
-      addrees: {
-        street:'violeta',
-        numberAddrees: '12b',
-        phone: '55157456781'
-      }
+      pets:[
+        { uIdPet:'111',
+        uIdUser:'SimonGrimm',
+          categoriesPet:[
+                      {type:'Tipo mascota',
+                        value:'Canino'},
+                      {type:'Tipo de raza',
+                       value:'Raza unica'},
+                      {type:'Edad',
+                       value:'Adulto'},
+                       {type:'Genero',
+                       value:'Macho'},
+                       {type:'Tamaño de raza',
+                       value:'Pequeño'}
+                      ],
+          namePet: 'gorda',
+          picturePet: [{picture:'assets/img/perro.jpg',
+          desc:'hjdajdka mndkoajmdokasmd kdaskmdlas kdaskmldas'},
+          {picture:'assets/img/perro1.jpg',
+          desc:'hjdajdka mndkoajmdokasmd kdaskmdlas kdaskmldas'},
+          {picture:'assets/img/perro2.jpg',
+          desc:'hjdajdka mndkoajmdokasmd kdaskmdlas kdaskmldas'},
+          {picture:'assets/img/perro3.jpg',
+          desc:'hjdajdka mndkoajmdokasmd kdaskmdlas kdaskmldas'},
+          {picture:'assets/img/perro4.jpg',
+          desc:'hjdajdka mndkoajmdokasmd kdaskmdlas kdaskmldas'}],
+          agePet: 12,
+          qualitysPet:[  {
+                      sentence:'Adaptacion a departamento',
+                       value: 1
+                      },
+                      {
+                      sentence:'Afectuoso con la familia',
+                      value: 2
+                      },
+                      {
+                      sentence:'Amigable con extrañoso',
+                      value: 3
+                      },
+                      {
+                      sentence:'Amigable con los niños',
+                      value: 4
+                      },
+                      {
+                      sentence:'Necesidad de ejercicio',
+                      value: 1
+                      },
+                      {
+                      sentence:'Necesidad de jugar',
+                      value: 2
+                      },
+                      {
+                      sentence:'Nivel de energía',
+                      value: 0
+                      },
+                      {
+                      sentence:'Tendencia a ladrar o aullar',
+                      value: 3
+                      }
+                    ],
+                    descriptionPet:'Lorem hdkjkl jdkasjkl sajdkajkdlasjkdsak dj djasdjas dsadsiako dasniej wqnndn a jdksajdk sa j',
+          adoptatedPet: false,
+          dateCreated: 1234567897894
+        }
+      ]
     };
     for( let i =0 ; i < this.number ; i++){
       this.data.push(publication);

@@ -10,6 +10,8 @@ import { RefresherComponent } from './refresher/refresher.component';
 import { LoadingComponent } from './loading/loading.component';
 import { AvatarMenuComponent } from './avatar-menu/avatar-menu.component';
 import { SliderComponent } from './slider/slider.component';
+import { ModalComponent } from './modal/modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,12 +24,15 @@ import { SliderComponent } from './slider/slider.component';
                 RefresherComponent,
                 LoadingComponent,
                 AvatarMenuComponent,
-                SliderComponent
+                SliderComponent,
+                ModalComponent
 
                  ],
   imports: [
     CommonModule,
     IonicModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports:      [
                 AlertComponent,
@@ -38,7 +43,8 @@ import { SliderComponent } from './slider/slider.component';
                 RefresherComponent,
                 LoadingComponent,
                 AvatarMenuComponent,
-                SliderComponent
+                SliderComponent,
+                ModalComponent
 
               ]
 })
