@@ -19,10 +19,10 @@ export class PublicationsPage implements OnInit {
   isPc= false;
   constructor(private funService: FunctionsService) {
     this.createData();
-   }
-
-  ngOnInit() {
     this.token = this.funService.getLocal('token');
+    console.log('token' , this.token);
+   }
+  ngOnInit() {
   }
   loadData( event ) {
     this.nextStep = false;
@@ -143,7 +143,6 @@ export class PublicationsPage implements OnInit {
     }
     this.nextStep = true;
   }
-
   isPcV(isPcm: string) {
     console.log('isPc   publications', isPcm);
       if (isPcm ==='Desktop'){
@@ -155,6 +154,7 @@ export class PublicationsPage implements OnInit {
     }
 
   add() {
+    console.log('add');
     this.funService.navigateTo('/create-publication');
   }
 }

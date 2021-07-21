@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UsuarioModel } from '../models/usuario.model';
+import { RegisterUsuarioModel, UsuarioModel } from '../models/usuario.model';
 import { map } from 'rxjs/operators';
 import { FunctionsService } from './functions.service';
 @Injectable({
@@ -16,6 +16,7 @@ export class AuthService {
   //   /accounts:signInWithPassword?key=[API_KEY]
   private apikey = 'AIzaSyBF1ZAzkNAnnka432zXTHvmoAtIIMVwjeo';
   private url = 'https://identitytoolkit.googleapis.com/v1';
+  private url2 = 'https://adopnate-default-rtdb.firebaseio.com';
   userToken: any;
   constructor(private http: HttpClient,
     private funService: FunctionsService) { }
@@ -23,6 +24,8 @@ export class AuthService {
 
   logout() {
     this.funService.removeLocal('token');
+    this.funService.removeLocal('expira');
+    this.funService.removeLocal('localId');
   }
   login(usuario: UsuarioModel) {
     const authData = {
@@ -33,21 +36,26 @@ export class AuthService {
       pipe(
         map(resp => {
           this.saveToken(resp['idToken']);
+          // this.saveLocalId(resp['localId']);
+          this.funService.setLocal('user', JSON.stringify(resp));
           return resp;
         })
       );
 
   }
-  nuevoUsuario(usuario: UsuarioModel) {
+  nuevoUsuario(usuario: RegisterUsuarioModel) {
     const authData = {
-      ...usuario,
+      email: usuario.emailUser,
+      password: usuario.passwordUser,
       returnSecureToken: true
     };
+    console.log(authData);
     return this.http.post(`${this.url}/accounts:signUp?key=${this.apikey}`, authData).
       pipe(
         map(resp => {
           // eslint-disable-next-line @typescript-eslint/quotes
           this.saveToken(resp['idToken']);
+          this.saveLocalId(resp['localId']);
           return resp;
         })
       );
@@ -62,6 +70,10 @@ export class AuthService {
 
 
   }
+
+  private saveLocalId(localId){
+    this.funService.setLocal('localId', localId);
+  }
   leerToken() {
     if (localStorage.getItem('token')) {
       this.userToken = this.funService.getLocal('token');
@@ -72,16 +84,21 @@ export class AuthService {
   }
 
   isAuth() {
+    console.log('is Auth');
     this.userToken = this.funService.getLocal('token');
     if (this.userToken.length < 2) {
+      console.log('no Auth');
       return false;
     }
     const expira = Number(this.funService.getLocal('expira'));
     const expiraDate = new Date();
     expiraDate.setTime(expira);
+    console.log('yes Auth');
     if (expiraDate > new Date()) {
+      console.log('yes Auth');
       return true;
     } else {
+      console.log('no fro expire Auth');
       return false;
     }
   }

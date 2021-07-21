@@ -1,10 +1,10 @@
 <ion-header class="ion-no-border" translucent>
     <ion-toolbar color="primary">
-        <ion-buttons slot="start">
+        <!-- <ion-buttons slot="start">
             <ion-button color="secondary">
                 <ion-icon slot="icon-only" name="menu"></ion-icon>
             </ion-button>
-        </ion-buttons>
+        </ion-buttons> -->
 
         <ion-buttons slot="end">
             <ion-back-button defaultHref="/" color="secondary">
@@ -29,7 +29,12 @@
             <!-- <ion-button color="secondary" (click)="logOut()">
                 <ion-icon name="exit-outline"></ion-icon>
             </ion-button> -->
+            <!-- /assets/img/perro2.jpg -->
         </ion-buttons>
-        <ion-title color="dark" class="ion-text-center ion-text-capitalize"> {{ titulo }}</ion-title>
+        <div class="center" style="background:#F0EBCC;padding:15px; ">
+            <img src="/assets/logo/adopnate_logo.svg" style="backgorund:#fff; windth:100%;max-width:180px;">
+            <ion-title color="dark" class="ion-text-center ion-text-capitalize"> {{ titulo }}</ion-title>
+        </div>
+
     </ion-toolbar>
 </ion-header>

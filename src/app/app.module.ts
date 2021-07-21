@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ComponentsModule } from './components/components.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -21,6 +23,8 @@ import { environment } from '../environments/environment';
               FormsModule,
               HttpClientModule,
               ComponentsModule,
+              AngularFireModule.initializeApp(environment.firebase),
+              AngularFireStorageModule,
               ServiceWorkerModule.register('ngsw-worker.js', {
                 enabled: environment.production,
                 // Register the ServiceWorker as soon as the app is stable

@@ -115,7 +115,8 @@ export class SliderComponent implements OnInit {
     initialSlide: 0,
     slidesPerView: 1,
     autoplay: true,
-    speed: 5000
+    pagination:false,
+    speed: 10000
   };
   constructor(private navCtrl: NavController,
               private funService: FunctionsService,

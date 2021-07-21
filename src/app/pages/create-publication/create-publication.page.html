@@ -1,106 +1,292 @@
 <app-navbar titulo="Crear publicación" (propagar)=" isPcV($event)"></app-navbar>
 <ion-content>
     <ion-grid>
-        <ion-row>
-            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
-
-
-                <ion-card>
+        <ion-row class="center">
+            <ion-col size="12" size-md="8" size-lg="8" size-xl="8" class="center">
+                <ion-card class="center">
                     <ion-card-header>
-                        Crea tu nueva cuenta
+                        Registra a tu pequeño
                     </ion-card-header>
                     <ion-card-content>
                         <form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate>
+                            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                <ion-button color="primary" (click)="addObject(3)">
+                                    <ion-icon name="camera" color="tertiary"></ion-icon>
+                                </ion-button>
+                            </ion-col>
 
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Nombre</ion-label>
-                                <ion-input formControlName="name" type="text" id="name"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-                            El nombre es requerido.
-                          </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                            La cantidad de caracteres minima es 3.
-                          </span>
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
-                                <ion-input formControlName="age" type="text" id="age"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-                            La edad es requerida
-                          </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                            La cantidad de caracteres minima es 3.
-                          </span>
+                            <ion-row>
+                                <ion-item formArrayName="picturesPet" *ngFor="let picturePet of picturesPet.controls; let i =index;" class="center">
+                                    <div [formGroupName]="i">
+                                        <ion-col size="4" style="float:left">
 
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Raza</ion-label>
-                                <ion-input formControlName="race" type="text" id="race"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
-                           La raza es requerida
-                          </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
-                            Raza ingresado invalido.
-                          </span>
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
-                                <ion-input formControlName="age" type="text" id="age"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-                        La edad es requerida
-                      </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                        La cantidad de caracteres minima es 3.
-                      </span>
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
-                                <ion-input formControlName="age" type="text" id="age"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-                    La edad es requerida
-                  </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                    La cantidad de caracteres minima es 3.
-                  </span>
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
-                                <ion-input formControlName="age" type="text" id="age"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-                La edad es requerida
-              </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                La cantidad de caracteres minima es 3.
-              </span>
-                            <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Edad</ion-label>
-                                <ion-input formControlName="age" type="text" id="age"></ion-input>
-                            </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
-            La edad es requerida
-          </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-            La cantidad de caracteres minima es 3.
-          </span>
+                                            <label [attr.for]="'file' + i" style="cursor: pointer;font-size:40px;margin-top:50px; "><ion-icon  name="image"></ion-icon></label>
+                                            <input type="file" type="file" [attr.id]="'file' + i" (change)="setImage($event)" style="display:none">
+                                        </ion-col>
+                                        <ion-col size="4" style="float:left">
+                                            <img [attr.id]="'imagefile' + i" src="/assets/img/notImage.png" style="width:100%" />
+                                        </ion-col>
+
+                                        <ion-col size="4" style="float:left">
+                                            <ion-button color="danger" (click)="removeObject(3,i)" style="margin-top:50px;">
+                                                <ion-icon name="remove-circle"></ion-icon>
+                                            </ion-button>
+                                        </ion-col>
+                                    </div>
+
+                                </ion-item>
+
+                            </ion-row>
+                            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                <ion-item lines="full">
+                                    <ion-label position="floating" class="inputLabel">Nombre</ion-label>
+                                    <ion-input formControlName="namePet" type="text" id="namePet"></ion-input>
+                                </ion-item>
+                                <span class="error ion-padding" *ngIf="submitted && errorCtr.namePet.errors?.required">
+                                    El nombre es requerido.
+                                </span>
+                            </ion-col>
+                            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                <ion-item lines="full">
+                                    <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                                    <ion-input formControlName="agePet" type="text" id="agePet"></ion-input>
+                                </ion-item>
+                                <span class="error ion-padding" *ngIf="submitted && errorCtr.agePet.errors?.required">
+                                    La edad es requerida
+                                </span>
+                            </ion-col>
+                            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                <ion-item lines="full">
+                                    <ion-label position="floating" class="inputLabel">Raza</ion-label>
+                                    <ion-input formControlName="racePet" type="text" id="racePet"></ion-input>
+                                </ion-item>
+                                <span class="error ion-padding" *ngIf="submitted && errorCtr.racePet.errors?.required">
+                                    La raza es requerida
+                                </span>
+                            </ion-col>
+                            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                <ion-item lines="full">
+                                    <ion-label position="floating" class="inputLabel">Descripción</ion-label>
+                                    <ion-input formControlName="descriptionPet" type="text" id="descriptionPet">
+                                    </ion-input>
+                                </ion-item>
+                                <span class="error ion-padding" *ngIf="submitted && errorCtr.descriptionPet.errors?.required">
+                                    La edad es requerida
+                                </span>
+                            </ion-col>
+                            <ion-col>
+                                <ion-item>
+                                    <ion-label>Cartilla de vacunación</ion-label>
+                                    <ion-checkbox slot="end" formControlName="cartillaPet" id="cartillaPet">
+                                    </ion-checkbox>
+                                </ion-item>
+                            </ion-col>
+                            <ion-row>
+                                <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                    <ion-list>
+                                        <ion-button color="success" (click)="addObject(1)" expand="block">
+                                            <ion-icon name="add-circle" color="tertiary"></ion-icon>Vacunas
+                                        </ion-button>
+                                    </ion-list>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="center">
+                                <ion-item formArrayName="vaccines" *ngFor="let vaccine of vaccines.controls; let i =index;" style="width:100%">
+                                    <div [formGroupName]="i" class="center">
+                                        <ion-col size="3" style="float:left">
+                                            <ion-label position="floating" [attr.for]="'vaccine' + i" class="inputLabel">Vacuna</ion-label>
+                                            <ion-input formControlName="vaccine" type="text" [attr.id]="'vaccine' + i">
+                                            </ion-input>
+                                        </ion-col>
+                                        <ion-col size="4" style="float:left">
+                                            <ion-label position="floating" [attr.for]="'description' + i" class="inputLabel">Descripción</ion-label>
+                                            <ion-input formControlName="description" type="text" [attr.id]="'description' + i"></ion-input>
+                                        </ion-col>
+                                        <ion-col size="3" style="float:left">
+                                            <ion-label position="floating" [attr.for]="'date' + i" class="inputLabel">
+                                                Fecha</ion-label>
+                                            <ion-datetime formControlName="date" display-timezone="utc" [attr.id]="'date' + i"></ion-datetime>
+                                        </ion-col>
+                                        <ion-col size="2" style="float:left">
+                                            <ion-button color="danger" (click)="removeObject(1,i)" expand="block">
+                                                <ion-icon name="remove-circle"></ion-icon>
+                                            </ion-button>
+                                        </ion-col>
+                                    </div>
+
+                                </ion-item>
+
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                                    <ion-list>
+                                        <ion-button color="success" (click)="addObject(2)" expand="block">
+                                            <ion-icon name="add-circle" color="tertiary"></ion-icon>Categorias
+                                        </ion-button>
+                                    </ion-list>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="center">
+                                <ion-item formArrayName="categoriesPet" *ngFor="let categoryPet of categoriesPet.controls; let i =index;" style="width=100%">
+                                    <div [formGroupName]="i">
+                                        <ion-col size="5" style="float:left">
+                                            <ion-label position="floating" [attr.for]="'type' + i" class="inputLabel">
+                                                Seleccione</ion-label>
+                                            <ion-select okText="Seleccionar" formControlName="type" type="text" [attr.id]="'type' + i" (ionChange)="seeSelect('type' + i)">
+                                                <ion-select-option value="typePet">Tipo mascota</ion-select-option>
+                                                <ion-select-option value="typeRacePet">Tipo de raza</ion-select-option>
+                                                <ion-select-option value="agePet">Edad</ion-select-option>
+                                                <ion-select-option value="generPet">Genero</ion-select-option>
+                                                <ion-select-option value="sizePet">Tamaño de raza</ion-select-option>
+                                            </ion-select>
+
+
+                                            <ion-input formControlName="type" type="text" [attr.id]="'type' + i">
+                                            </ion-input>
+                                        </ion-col>
+                                        <ion-col size="5" style="float:left">
+                                            <ion-label position="floating" [attr.for]="'value' + i" class="inputLabel">Descripción</ion-label>
+                                            <ion-input formControlName="value" type="text" [attr.id]="'value' + i">
+                                            </ion-input>
+                                        </ion-col>
+
+                                        <ion-col size="2" style="float:left">
+                                            <ion-button color="danger" (click)="removeObject(2,i)" expand="block">
+                                                <ion-icon name="remove-circle"></ion-icon>
+                                            </ion-button>
+                                        </ion-col>
+                                    </div>
+
+                                </ion-item>
+
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Adaptación a departamento</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,1)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{adaptacionDepartamento}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Afectuoso con la familia</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,2)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{afectuosoFamilia}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Amigable con extraños</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,3)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{amigableExtranos}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Amigable con los niños</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,4)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{amigableNinos}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Necesidad de ejercicio</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,5)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{necesitaEjercicio}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Necesidad de jugar</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,6)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{necesitaJugar}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Nivel de energía</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,7)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{nivelEnergia}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col size="4">
+                                    <ion-label class="inputLabel">Tendencia a ladrar o aullar</ion-label>
+                                </ion-col>
+                                <ion-col size="5">
+                                    <ion-range min="0" max="5" step="1" color="secondary" value="0" (ionChange)="rangeChange( $event ,8)">
+                                        <ion-label slot="start">0</ion-label>
+                                        <ion-label slot="end">5</ion-label>
+                                    </ion-range>
+                                </ion-col>
+                                <ion-col size="3">
+                                    <ion-label class="inputLabel">{{tendenciaLadrar}}</ion-label>
+                                </ion-col>
+                            </ion-row>
+
                             <ion-row>
                                 <ion-col>
-                                    <ion-button type="submit" color="danger" [disabled]="addForm.invalid" expand="block">Enviar</ion-button>
+                                    <ion-button type="submit" color="danger" [disabled]="addForm.invalid" expand="block">
+                                        Enviar</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>
 
-                        <ion-row>
-                            <ion-col class="center">
-                                <a [routerLink]="['/login']">
-                                    <ion-label>¿Ya tienes Cuenta? / Ingresar</ion-label>
-                                </a>
-                            </ion-col>
-                        </ion-row>
+
                     </ion-card-content>
                 </ion-card>
-
             </ion-col>
+
+
         </ion-row>
     </ion-grid>
 

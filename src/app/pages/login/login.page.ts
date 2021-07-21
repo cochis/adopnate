@@ -63,15 +63,16 @@ export class LoginPage implements OnInit {
         ...this.loginForm.value
       };
       this.auth.login(this.usuario).subscribe((resp)=>{
-        if ( this.recordarme ) {
-          this.funService.setLocal('email',this.usuario.email);
-        }else {
-          this.funService.removeLocal('email');
-        }
+        console.log(resp);
+        // if ( this.recordarme ) {
+          this.funService.setLocal('email',this.loginForm.value.email);
+        // }else {
+        //   this.funService.removeLocal('email');
+        // }
         setTimeout(() => {
           this.loading.dismiss();
           this.funService.navigate('/publications');
-        }, 2000);
+        }, 3000);
       },
       (err)=> {
         setTimeout(() => {

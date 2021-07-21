@@ -37,7 +37,7 @@ isPc= false;
     }
   }
   logOut() {
-    this.funService.removeLocal('token');
+    this.auth.logout();
     this.funService.navigate('/login');
   }
   async avatarClick() {

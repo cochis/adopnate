@@ -13,50 +13,79 @@
                         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
 
                             <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Nombre</ion-label>
-                                <ion-input formControlName="name" type="text" id="name"></ion-input>
+                                <ion-label position="floating" class="inputLabel">Tipo de registro</ion-label>
+                                <ion-select placeholder="Selecciona uno" formControlName="roleUser" id="roleUser">
+                                    <ion-select-option *ngFor="let item of tiposUsuarios" [value]="item.value">{{item.type}}</ion-select-option>
+                                </ion-select>
                             </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.tiposUsuarios.errors?.required">
                               El nombre es requerido.
-                            </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
-                              La cantidad de caracteres minima es 3.
-                            </span>
+                            </span> -->
                             <ion-item lines="full">
-                                <ion-label position="floating" class="inputLabel">Apellidos</ion-label>
-                                <ion-input formControlName="lastName" type="text" id="lastName"></ion-input>
+                                <ion-label position="floating" class="inputLabel">Nombre</ion-label>
+                                <ion-input formControlName="nameUser" type="text" id="nameUser"></ion-input>
                             </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.required">
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.nameUser.errors?.required">
                               El nombre es requerido.
                             </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.name.errors?.minlength">
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.nameUser.errors?.minlength">
                               La cantidad de caracteres minima es 3.
+                            </span> -->
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Apellido paterno</ion-label>
+                                <ion-input formControlName="lastNameUser" type="text" id="lastNameUser"></ion-input>
+                            </ion-item>
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.lastNameUser.errors?.required">
+                              El nombre es requerido.
                             </span>
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.lastNameUser.errors?.minlength">
+                              La cantidad de caracteres minima es 3.
+                            </span> -->
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Apellido materno</ion-label>
+                                <ion-input formControlName="surNameUser" type="text" id="surNameUser"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="floating" class="inputLabel">Fecha de nacimiento YYYY-MM-DD</ion-label>
+                                <ion-datetime displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" value="" formControlName="dateUser" id="dateUser"></ion-datetime>
+                            </ion-item>
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.dateUser.errors?.required">
+                              El fecha de nacimiento es requerido.
+                            </span> -->
+                            <ion-item lines="full">
+                                <ion-label position="floating" class="inputLabel">Ocupación</ion-label>
+                                <ion-input formControlName="ocupationUser" type="text" id="ocupationUser"></ion-input>
+                            </ion-item>
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.ocupationUser.errors?.required">
+                            La ocupación es requerido.
+                          </span> -->
 
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Correo electrónico</ion-label>
-                                <ion-input formControlName="email" type="email" id="email"></ion-input>
+                                <ion-input formControlName="emailUser" type="email" id="emailUser"></ion-input>
+                                <!-- <ion-label position="floating" class="inputLabel">Mostrar correo electrónico</ion-label>
+                                <ion-checkbox formControlName="visibleEmailUser" id="visibleEmailUser" color="primary"></ion-checkbox> -->
                             </ion-item>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.emailUser.errors?.required">
                               El correo es requerido.
                             </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
+                            <span class="error ion-padding" *ngIf="submitted && errorCtr.emailUser.errors?.pattern">
                               Correo ingresado invalido.
-                            </span>
+                            </span> -->
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Contraseña</ion-label>
-                                <ion-input *ngIf="!viewPass" formControlName="password" type="password" id="password"></ion-input>
-                                <ion-input *ngIf="viewPass" formControlName="password" type="text" id="password"></ion-input>
+                                <ion-input *ngIf="!viewPass" formControlName="passwordUser" type="password" id="passwordUser"></ion-input>
+                                <ion-input *ngIf="viewPass" formControlName="passwordUser" type="text" id="passwordUser"></ion-input>
                             </ion-item>
 
                             <span *ngIf="!viewPass" (click)="viewPassFunction(viewPass)"><ion-icon name="eye"></ion-icon>  Ver Contraseña</span>
                             <span *ngIf="viewPass" (click)="viewPassFunction(viewPass)"> <ion-icon name="eye"></ion-icon>  Ocultar Contraseña</span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.password.errors?.required">
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.passwordUser.errors?.required">
                               El password es requerido.
-                            </span>
-                            <span class="error ion-padding" *ngIf="submitted && errorCtr.password.errors?.pattern">
+                            </span> -->
+                            <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.passwordUser.errors?.pattern">
                               Password ingresado invalido.
-                            </span>
+                            </span> -->
 
 
                             <!-- <ion-item lines="full">
@@ -76,7 +105,7 @@
                             </span> -->
                             <ion-row>
                                 <ion-col>
-                                    <ion-button type="submit" color="danger" [disabled]="registerForm.invalid" expand="block">Enviar</ion-button>
+                                    <ion-button type="submit" color="secondary" expand="block">Enviar</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>

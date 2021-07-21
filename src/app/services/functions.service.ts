@@ -17,8 +17,17 @@ export class FunctionsService {
               private modalCtrl: ModalController
               ) { }
 
-  navigateTo(link) {
-    this.router.navigate([link]);
+  navigateTo(link,role?) {
+    console.log(link);
+    console.log(role);
+
+    if(role){
+      console.log('rgis');
+      this.router.navigate([link],role);
+    }
+    else {
+      this.router.navigate([link]);
+    }
   }
   async toast(msn) {
     const toast = await this.toastController.create({
@@ -107,6 +116,13 @@ export class FunctionsService {
 
   clearLocal(){
     localStorage.clear();
+  }
+  getTime(time?){
+    if(time){
+      return  new Date(time).getTime();
+    }else{
+      return  new Date().getTime();
+    }
   }
 }
 

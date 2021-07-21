@@ -29,6 +29,13 @@ export class PublicationComponent implements OnInit {
         console.log('Entro a adopcion');
         this.funService.mostrarModal(item).then(reps=>{
           console.log(reps);
+          console.log(reps.props.auth);
+          console.log(reps.props.type);
+          console.log(reps.props.role);
+          if(!reps.props.auth && reps.props.type === 'adoption' && reps.props.role === 'userAdopted'){
+            console.log('se tiene que registrar');
+            this.funService.navigateTo('/register');
+          }
         });
       }
       else   if(res.props.type ==='donation'){

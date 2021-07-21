@@ -39,7 +39,7 @@
                                 </ion-col>
                             </ion-row>
                         </form>
-                        <ion-row>
+                        <ion-row class="hidden">
                             <ion-col class="center">
                                 <ion-checkbox color="primary" [(ngModel)]="recordarme"></ion-checkbox>
                                 <ion-label> Recordar usuario </ion-label>
@@ -47,7 +47,7 @@
                         </ion-row>
                         <ion-row>
                             <ion-col class="center">
-                                <a [routerLink]="['/login']">
+                                <a [routerLink]="['/register']">
                                     <ion-label>¿No tienes Cuenta? / Registrarse</ion-label>
                                 </a>
                             </ion-col>

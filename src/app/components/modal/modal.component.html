@@ -1,6 +1,6 @@
 <ion-content class="ion-padding contenedor">
     <!-- Elegir tipo de donador sin registro -->
-    <ion-grid *ngIf="props.type==='register' && !authenticated">
+    <ion-grid *ngIf="props.type ==='donation' && !authenticated">
         <ion-card class="noBorder">
             <ion-row>
                 <ion-col size="12">
@@ -572,6 +572,55 @@
             </form>
         </ion-card>
     </ion-grid>
+
+    <ion-grid *ngIf="props.type ==='adoption' && !authenticated">
+        <ion-card class="noBorder">
+            <ion-row>
+                <ion-col size="12">
+                    <ion-card-header>
+                        <h3>
+                            <ion-icon name="heart-half" color="principal"></ion-icon>
+                            Necesitamos dte registres
+                        </h3>
+                    </ion-card-header>
+
+                </ion-col>
+            </ion-row>
+
+            <ion-card-content>
+                <ion-row>
+                    <ion-col>
+                        <ion-label>
+                            Necesitamos recopilar información para poder generar la adopción
+                        </ion-label>
+                    </ion-col>
+                </ion-row>
+
+
+
+            </ion-card-content>
+            <ion-footer>
+                <ion-row>
+                    <ion-col size="12" size-md="6">
+                        <ion-button (click)="registrarse('adopcion')" expand="block">
+                            Registro
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-footer>
+        </ion-card>
+    </ion-grid>
+    <!-- 
+    <ion-grid *ngIf="props.type ==='adoption' && !authenticated">
+        <ion-row>
+
+            <ion-col size="12">
+                por favor registrare
+
+                <ion-button color="tertiary" routerLink="'/register'">Registro</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
 
 
 

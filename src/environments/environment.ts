@@ -4,7 +4,17 @@
 
 export const environment = {
   urlApiFB: 'https://adopnate-default-rtdb.firebaseio.com/',
-  production: false
+  production: false,
+  firebase:{
+    apiKey: 'AIzaSyBF1ZAzkNAnnka432zXTHvmoAtIIMVwjeo',
+    authDomain: 'adopnate.firebaseapp.com',
+    databaseURL: 'https://adopnate-default-rtdb.firebaseio.com',
+    projectId: 'adopnate',
+    storageBucket: 'adopnate.appspot.com',
+    messagingSenderId: '220413988527',
+    appId: '1:220413988527:web:6718693344fd1131f08e5a',
+    measurementId: 'G-ERVXS24RDK'
+  }
 };
 
 /*

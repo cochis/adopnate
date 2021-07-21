@@ -28,10 +28,20 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+.file {
+    color: transparent;
+    padding-top: 39px;
+    margin-bottom: -50px;
+}
+
 .noBorder {
     background-image: none;
     border: none;
     box-shadow: none !important;
+}
+
+.hidden {
+    display: none;
 }
 
 .center {
@@ -216,7 +226,16 @@
         --height: 90%;
     }
     .slidePet {
-        width: 25% !important;
+        width: 33.3% !important;
         max-height: 200px;
     }
+}
+
+ion-content {
+    --background: none !important;
+    --background: url('/assets/img/background.svg') repeat 100% 100% !important;
+}
+
+.ion-color-light {
+    --ion-color-base: none !important;
 }

@@ -34,7 +34,8 @@ const routes: Routes = [
   },
   {
     path: 'create-publication',
-    loadChildren: () => import('./pages/create-publication/create-publication.module').then( m => m.CreatePublicationPageModule)
+    loadChildren: () => import('./pages/create-publication/create-publication.module').then( m => m.CreatePublicationPageModule),
+    canLoad: [AuthGuard]
   },
   {
     path: '**',

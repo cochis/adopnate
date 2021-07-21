@@ -2,6 +2,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { FunctionsService } from 'src/app/services/functions.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -16,18 +18,20 @@ export class ModalComponent implements OnInit {
   publisher = 'personal';
 
   constructor(private modalCtrl: ModalController,
-    public formBuilder: FormBuilder) {
+              public formBuilder: FormBuilder,
+              private auth: AuthService,
+              private funService: FunctionsService) {
     this.qualitysPet =[];
+    if(this.funService.getLocal('token') || this.auth.isAuth() ){
+      this.authenticated = true;
+    }
+  console.log('authenticated' , this.authenticated);
   }
 
   ngOnInit() {
-
     console.log(this.props.type);
     this.createForm();
-    // console.log(this.props.pets[0].qualitysPet);
-    // console.log(this.qualitysPet);
     this.qualitysPet = this.props.pets[0].qualitysPet;
-    // console.log(this.qualitysPet);
     for(let i =0; i< this.qualitysPet.length;i++){
       // console.log(this.qualitysPet[i].value);
       this.qualitysPet[i].value = (this.qualitysPet[i].value/5);
@@ -75,6 +79,10 @@ export class ModalComponent implements OnInit {
   adoptar()  {
     this.submitted = true;
     this.props.type='adoption';
+    this.props.auth = this.authenticated;
+    if(!this.authenticated){
+      this.props.role='userAdopted';
+    }
     this.modalCtrl.dismiss({
       props:this.props
     });
