@@ -13,6 +13,7 @@ export class User {
     adressUser?:    AdressUser;
     conexionUser?:  ConexionUser;
     dateCreated?: number;
+    photoURL?: string;
 }
 
 export interface AdressUser {

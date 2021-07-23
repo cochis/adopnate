@@ -13,16 +13,16 @@
             <ion-button *ngIf="isPc" color="secondary" (click)="presentPopover( $event )">
                 <ion-chip color="primary" outline="false">
                     <ion-avatar>
-                        <ion-img *ngIf="authenticated" src="/assets/img/user.png"></ion-img>
-                        <ion-img *ngIf="!authenticated" src="/assets/img/batman.png"></ion-img>
+                        <ion-img [src]="avatarImage"></ion-img>
+
                     </ion-avatar>
                 </ion-chip>
             </ion-button>
             <ion-button *ngIf="!isPc" color="secondary" (click)="avatarClick()">
                 <ion-chip color="primary" outline="false">
                     <ion-avatar>
-                        <ion-img *ngIf="authenticated" src="/assets/img/user.png"></ion-img>
-                        <ion-img *ngIf="!authenticated" src="/assets/img/batman.png"></ion-img>
+                        <ion-img [src]="avatarImage"></ion-img>
+
                     </ion-avatar>
                 </ion-chip>
             </ion-button>

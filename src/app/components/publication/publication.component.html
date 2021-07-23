@@ -1,7 +1,10 @@
 <ion-card style="min-height:300px" class="mgB25" style=" border: 5px solid #3dc2ff;
-border-radius: 10px;">
-    <div style="width: 100%;">
-        <img src="assets/img/perro2.jpg" style="width: 100%;" alt="">
+border-radius: 10px;" *ngIf="!item.adoptatedPet">
+    <div style="width: 100%; overflow: hidden;height: 150px;">
+        <div class="inner">
+            <img [src]="item.picturesPet[0].url" style="width: 100%; heigth:180px" alt="">
+        </div>
+
         <ion-fab vertical="top" horizontal="end" slot="fixed">
             <ion-fab-button class="btnFab">
                 <ion-icon name="heart-circle"></ion-icon>
@@ -20,29 +23,56 @@ border-radius: 10px;">
 
 
         <h3 class="petName" color="primary"> Gorda</h3>
-        <h4 class="donName" color="secondary"> Oscar Ramirez</h4>
+        <h4 class="donName" color="secondary"> {{item.userName}}</h4>
     </ion-card-header>
     <ion-card-content>
         <h5 class="ubication" color="tertiary" style="font-style: italic;"> Nezahualcoyotl Edo. de México</h5>
-        <ul style="list-style-type: none;">
+        <ul style="list-style-type: none;height: 100px;
+        
+        overflow-y: scroll;">
             <li>
                 <div class="lstItems">
-                    Pit Bull Terrier Americano
+                    {{item.racePet}}
                 </div>
 
             </li>
             <li>
                 <div class="lstItems">
-                    Joven (1.5 a 3 años)
+                    Edad {{item.agePet}} años
                 </div>
 
             </li>
             <li>
-                <div class="lstItems">
-                    Hembra
+                <div class="lstItems" *ngIf="item.categoriesPet[0]">
+                    {{item.categoriesPet[0].type}} : {{item.categoriesPet[0].value}}
                 </div>
 
             </li>
+            <li>
+                <div class="lstItems" *ngIf="item.categoriesPet[1]">
+                    {{item.categoriesPet[1].type}} : {{item.categoriesPet[1].value}}
+                </div>
+
+            </li>
+            <li>
+                <div class="lstItems" *ngIf="item.categoriesPet[2]">
+                    {{item.categoriesPet[2].type}} : {{item.categoriesPet[2].value}}
+                </div>
+
+            </li>
+            <li>
+                <div class="lstItems" *ngIf="item.categoriesPet[3]">
+                    {{item.categoriesPet[3].type}} : {{item.categoriesPet[3].value}}
+                </div>
+
+            </li>
+            <li>
+                <div class="lstItems" *ngIf="item.categoriesPet[4]">
+                    {{item.categoriesPet[4].type}} : {{item.categoriesPet[4].value}}
+                </div>
+
+            </li>
+
             <li>
                 <div class="lstItems">
                     Mediano (11 Kg a 22 Kg)
@@ -51,13 +81,13 @@ border-radius: 10px;">
             </li>
             <li>
                 <div class="lstItems">
-                    Energético
+                    Descirpcion {{item.descriptionPet}}
                 </div>
 
             </li>
         </ul>
     </ion-card-content>
     <ion-footer class="center">
-        <ion-button   color="secondary" class="mgB10" expand="full" (click)="seePet(item) "> <label color="light">Solicitar</label> </ion-button>
+        <ion-button color="secondary" class="mgB10" expand="full" (click)="seePet(item) "> <label color="light">Solicitar</label> </ion-button>
     </ion-footer>
 </ion-card>

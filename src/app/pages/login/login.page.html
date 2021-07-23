@@ -9,7 +9,7 @@
                         Inicia Sesion
                     </ion-card-header>
                     <ion-card-content>
-                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                        <form [formGroup]="loginForm" novalidate>
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Correo electrónico</ion-label>
                                 <ion-input formControlName="email" type="email" id="email"></ion-input>

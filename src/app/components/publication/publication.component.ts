@@ -14,7 +14,7 @@ export class PublicationComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.token = this.funService.getLocal('token');
+    console.log(this.item);
   }
   seePet(item) {
     // console.log('single-publication/'+ this.item.uId);

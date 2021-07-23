@@ -41,16 +41,16 @@ export class AuthService {
   }
 
   isAuth() {
-    console.log('is Auth');
+    // console.log('is Auth');
     this.userToken = this.funService.getLocal('token');
     if (this.userToken.length < 2) {
-      console.log('no Auth');
+      // console.log('no Auth');
       return false;
     }
     const expira = Number(this.funService.getLocal('expira'));
     const expiraDate = new Date();
     expiraDate.setTime(expira);
-    console.log('yes Auth');
+    // console.log('yes Auth');
     if (expiraDate > new Date()) {
       console.log('yes Auth');
       return true;

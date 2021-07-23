@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   @Output() propagar = new EventEmitter<string>();
   isPc = false;
+  avatarImage = '';
   public user$: Observable<User> = this.auth.afAuth.user;
   constructor(private funService: FunctionsService,
     private actionSheetCtrl: ActionSheetController,
@@ -32,9 +33,13 @@ export class NavbarComponent implements OnInit {
     this.user$.subscribe(res => {
       if (res !== null) {
         this.authenticated = true;
+        console.log(res.photoURL);
+        this.avatarImage = (res.photoURL !== '' ? res.photoURL : '/assets/img/user.png');
+        console.log(this.avatarImage);
         // this.funService.setLocal('user',res);
       } else {
         this.authenticated = false;
+        this.avatarImage = '/assets/img/user.png';
       }
     });
   }
