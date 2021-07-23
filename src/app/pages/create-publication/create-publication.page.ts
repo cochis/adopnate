@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { PetModel } from 'src/app/models/pet.model';
-import { UserRegister } from 'src/app/models/usuarioRegister.model';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -35,20 +34,20 @@ export class CreatePublicationPage implements OnInit {
   agePets = '';
   generPet = '';
   sizePet = '';
-  pics= [];
-  user: UserRegister;
+  pics = [];
+  user: UsuarioModel;
   constructor(public formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private funService: FunctionsService,
     private petService: PetService,
-    private usuarioService: UsuariosService ) {
+    private usuarioService: UsuariosService) {
   }
 
 
   ngOnInit() {
     this.createForm();
-    this.user = JSON.parse(this.funService.getLocal('user'));
-    console.log('This.user' ,this.user);
+    this.user = this.funService.getLocal('user');
+    console.log(this.user);
   }
   createForm() {
     this.addForm = this.formBuilder.group({
@@ -91,7 +90,6 @@ export class CreatePublicationPage implements OnInit {
     return this.addForm.get('picturesPet') as FormArray;
   }
   addObject(type: number) {
-    // console.log('agregar');
     switch (type) {
       case 1:
         const vaccinesFormGroup = this.formBuilder.group({
@@ -123,12 +121,10 @@ export class CreatePublicationPage implements OnInit {
     }
   }
   seeSelect(id) {
-   console.log(id);
     let idR = id.replace('type', '');
     idR = idR.trim();
-    console.log(idR);
-        let type: any = document.getElementById(id);
-        console.log(type.value);
+    let type: any = document.getElementById(id);
+    console.log(type.value);
   }
   removeObject(type: number, index: number) {
     switch (type) {
@@ -165,49 +161,48 @@ export class CreatePublicationPage implements OnInit {
     let imagenPrevisualizacion;
     imagenPrevisualizacion = document.getElementById(id);
     imagenPrevisualizacion.src = objectURL;
-    this.pics.push({ file: archivos[0]});
+    this.pics.push({ file: archivos[0] });
   }
   get errorCtr() {
     return this.addForm.controls;
   }
-  onSubmit() {
-    // console.log(this.addForm.value);
-    const token = this.funService.getLocal('token');
-    // console.log(token);
-    this.addForm.value.qualitysPet = this.getQualitys();
-    console.log(this.addForm.value);
-    this.submitted = true;
-    if (!this.addForm.valid) {
-      console.log('Todos los campos son requeridos.');
-      return false;
-    } else {
-      this.presentLoading('Por favor espere');
-      this.pet = {
-        ...this.addForm.value
-      };
-      this.pet.picturesPet = this.pics;
-      this.pet.dateCreatedPet = this.funService.getTime();
-      this.pet.adoptatedPet = false;
-      this.pet.createBy = this.funService.getLocal('localId');
-      this.pet.userName = this.user.email;
-      console.log(this.pet);
-      this.petService.crearPet(this.pet).subscribe((res) => {
-        console.log(res);
-        setTimeout(() => {
-          this.loading.dismiss();
-        }, 3000);
-        //  this.funService.navigate('/publications');
-      },
-        (err) => {
-          setTimeout(() => {
-            this.loading.dismiss();
-            const msg = err.error.error.message;
-            this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
-          }, 2000);
-        });
+  // onSubmit() {
+  //   // console.log(this.addForm.value);
+  //   const token = this.funService.getLocal('token');
+  //   // console.log(token);
+  //   this.addForm.value.qualitysPet = this.getQualitys();
+  //   this.submitted = true;
+  //   if (!this.addForm.valid) {
+  //     console.log('Todos los campos son requeridos.');
+  //     return false;
+  //   } else {
+  //     this.presentLoading('Por favor espere');
+  //     this.pet = {
+  //       ...this.addForm.value
+  //     };
+  //     this.pet.picturesPet = this.pics;
+  //     this.pet.dateCreated = this.funService.getTime();
+  //     this.pet.adoptatedPet = false;
+  //     this.pet.createBy = this.funService.getLocal('localId');
+  //     this.pet.userName = this.user.uid;
+  //     console.log(this.pet);
+  //     this.petService.crearPet(this.pet).subscribe((res) => {
+  //       console.log(res);
+  //       setTimeout(() => {
+  //         this.loading.dismiss();
+  //       }, 3000);
+  //       //  this.funService.navigate('/publications');
+  //     },
+  //       (err) => {
+  //         setTimeout(() => {
+  //           this.loading.dismiss();
+  //           const msg = err.error.error.message;
+  //           this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
+  //         }, 2000);
+  //       });
 
-    }
-  }
+  //   }
+  // }
   rangeChange(event, type) {
     switch (type) {
       case 1:
@@ -302,5 +297,52 @@ export class CreatePublicationPage implements OnInit {
     else {
       this.isPc = false;
     }
+  }
+
+
+  async setPet() {
+    this.presentLoading('Por favor espere');
+    console.log(this.addForm.value);
+    this.pet = {
+      ...this.addForm.value
+    };
+    this.pet.vaccines = this.dataVaccines(this.addForm.value.vaccines);
+    // setTimeout(() => {
+    this.addForm.value.qualitysPet = this.getQualitys();
+    this.submitted = true;
+    if (!this.addForm.valid) {
+      console.log('Todos los campos son requeridos.');
+      return false;
+    } else {
+      this.pet.picturesPet = this.pics;
+      this.pet.dateCreated = this.funService.getTime();
+      this.pet.adoptatedPet = false;
+      this.pet.createBy = this.funService.getLocal('localId');
+      this.pet.userName = this.user.uid;
+      // this.pet.vaccines = this.dataVaccines(this.pet.vaccines);
+      console.log(this.pet);
+      const id = this.funService.getId();
+      console.log(id);
+      this.pet.uid = id;
+      const PET = await this.petService.setPet(this.pet, id);
+      if (PET) {
+        console.log(PET);
+        this.loading.dismiss();
+        this.funService.navigate('/publications');
+      }
+    }
+    // }, 2000);
+  }
+  dataVaccines(data) {
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].vaccine === '' && data[i].description === '' && data[i].date === '') {
+        data.removeAt(i);
+      }
+      if (data[i].date !== '') {
+        data[i].date = new Date(data[i].date).getTime();
+      }
+    }
+    return data;
   }
 }

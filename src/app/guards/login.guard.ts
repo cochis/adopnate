@@ -7,17 +7,17 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanLoad {
+export class LoginGuard implements CanLoad {
   constructor(private auth: AuthService,
     private router: Router) {}
   canLoad():  Observable <boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.auth.user$.pipe(
       take(1),
       map(user=>{
-        if(user){
+        if(!user){
           return true;
         }else {
-          this.router.navigateByUrl('/login');
+          this.router.navigateByUrl('/publications');
           return false;
         }
       })

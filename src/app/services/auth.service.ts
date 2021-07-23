@@ -4,83 +4,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterUsuarioModel, UsuarioModel } from '../models/usuario.model';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { FunctionsService } from './functions.service';
+import { User } from '../models/user.model';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
+import { Observable, of } from 'rxjs';
+import { UsuariosService } from './usuarios.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  //Crear nuevo usuario
-  //    /accounts:signUp?key=[API_KEY]
-  //Login
-  //   /accounts:signInWithPassword?key=[API_KEY]
   private apikey = 'AIzaSyBF1ZAzkNAnnka432zXTHvmoAtIIMVwjeo';
   private url = 'https://identitytoolkit.googleapis.com/v1';
   private url2 = 'https://adopnate-default-rtdb.firebaseio.com';
   userToken: any;
+  public user$: Observable<User>;
+  userUpdated: User;
   constructor(private http: HttpClient,
-    private funService: FunctionsService) { }
-
-
-  logout() {
-    this.funService.removeLocal('token');
-    this.funService.removeLocal('expira');
-    this.funService.removeLocal('localId');
-  }
-  login(usuario: UsuarioModel) {
-    const authData = {
-      ...usuario,
-      returnSecureToken: true
-    };
-    return this.http.post(`${this.url}/accounts:signInWithPassword?key=${this.apikey}`, authData).
-      pipe(
-        map(resp => {
-          this.saveToken(resp['idToken']);
-          // this.saveLocalId(resp['localId']);
-          this.funService.setLocal('user', JSON.stringify(resp));
-          return resp;
-        })
-      );
-
-  }
-  nuevoUsuario(usuario: RegisterUsuarioModel) {
-    const authData = {
-      email: usuario.emailUser,
-      password: usuario.passwordUser,
-      returnSecureToken: true
-    };
-    console.log(authData);
-    return this.http.post(`${this.url}/accounts:signUp?key=${this.apikey}`, authData).
-      pipe(
-        map(resp => {
-          // eslint-disable-next-line @typescript-eslint/quotes
-          this.saveToken(resp['idToken']);
-          this.saveLocalId(resp['localId']);
-          return resp;
-        })
-      );
-  }
-
-  private saveToken(idToken) {
-    this.userToken = idToken;
-    this.funService.setLocal('token', idToken);
-    const today = new Date();
-    today.setSeconds(3600);
-    this.funService.setLocal('expira', today.getTime().toString());
-
-
-  }
-
-  private saveLocalId(localId){
-    this.funService.setLocal('localId', localId);
-  }
-  leerToken() {
-    if (localStorage.getItem('token')) {
-      this.userToken = this.funService.getLocal('token');
-    } else {
-      this.userToken = '';
-    }
-    return this.userToken;
+    private funService: FunctionsService,
+    public afAuth: AngularFireAuth,
+    private afs: AngularFirestore,
+    private userService: UsuariosService) {
+    this.user$ = this.afAuth.authState.pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+        }
+        else {
+          return of(null);
+        }
+      })
+    );
   }
 
   isAuth() {
@@ -101,5 +58,100 @@ export class AuthService {
       console.log('no fro expire Auth');
       return false;
     }
+  }
+  async logOut(): Promise<void> {
+    try {
+      this.funService.removeLocal('user');
+      await this.afAuth.signOut();
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  async logIn(email: string, password: string): Promise<User> {
+    try {
+      const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
+      this.updateUserData(user);
+      this.funService.setLocal('user', user);
+      return user;
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  async register(userRegister): Promise<User> {
+    console.log(userRegister);
+    try {
+      const { user } = await this.afAuth.createUserWithEmailAndPassword(userRegister.email, userRegister.password);
+      console.log(user);
+      userRegister.uid = user.uid;
+      userRegister.email = user.email;
+      userRegister.emailVerified = user.emailVerified;
+      userRegister.displayName = user.displayName;
+      console.log(userRegister);
+      this.funService.setLocal('user', userRegister);
+      this.updateUserData(userRegister);
+      await this.sendVerificationEmail();
+      return user;
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  async loginGoogle(): Promise<User> {
+    try {
+      const { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
+      this.userService.getDoc(user.uid).subscribe((usr)=>{
+        console.log('usr ====>>> ', usr);
+        this.funService.setLocal('user', usr);
+      });
+      return user;
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  async resetPassword(email: string): Promise<void> {
+    try {
+      console.log(' email rester=>', email);
+      return this.afAuth.sendPasswordResetEmail(email);
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  async sendVerificationEmail(): Promise<void> {
+    try {
+      return (await this.afAuth.currentUser).sendEmailVerification();
+    }
+    catch (error) {
+      console.log('error->', error);
+    }
+  }
+  isEmailVerified(user: User): boolean {
+    return user.emailVerified === true ? true : false;
+  }
+  private updateUserData(user: User) {
+    console.log('updateUser =>', user);
+    const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
+
+    const data: User = {
+      uid: this.funService.isUndefined(user.uid),
+      roleUser: this.funService.isUndefined(user.roleUser),
+      email: this.funService.isUndefined(user.email),
+      emailVerified: this.funService.isUndefined(user.emailVerified),
+      displayName: this.funService.isUndefined(user.displayName),
+      nameUser: this.funService.isUndefined(user.nameUser),
+      lastNameUser: this.funService.isUndefined(user.lastNameUser),
+      surNameUser: this.funService.isUndefined(user.surNameUser),
+      ageUser: this.funService.isUndefined(this.funService.calcularEdad(user.birthDate)),
+      birthDate: this.funService.isUndefined(user.birthDate),
+      ocupationUser: this.funService.isUndefined(user.ocupationUser),
+      adressUser: this.funService.isUndefined(user.adressUser),
+      conexionUser: this.funService.isUndefined(user.conexionUser),
+      dateCreated: this.funService.isUndefined(user.dateCreated)
+    };
+    console.log(data);
+    return userRef.set(data, { merge: true });
   }
 }

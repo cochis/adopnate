@@ -15,7 +15,10 @@
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Tipo de registro</ion-label>
                                 <ion-select placeholder="Selecciona uno" formControlName="roleUser" id="roleUser">
-                                    <ion-select-option *ngFor="let item of tiposUsuarios" [value]="item.value">{{item.type}}</ion-select-option>
+                                    <!-- <ion-select-option *ngFor="let item of tiposUsuarios" [value]="item.value">{{item.type}}</ion-select-option> -->
+                                    <ion-select-option value="Donate">Donador</ion-select-option>
+                                    <ion-select-option value="Recatista">Rescatista</ion-select-option>
+                                    <ion-select-option value="Asociación">Asociación</ion-select-option>
                                 </ion-select>
                             </ion-item>
                             <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.tiposUsuarios.errors?.required">
@@ -47,7 +50,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label position="floating" class="inputLabel">Fecha de nacimiento YYYY-MM-DD</ion-label>
-                                <ion-datetime displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" value="" formControlName="dateUser" id="dateUser"></ion-datetime>
+                                <ion-datetime displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" value="" formControlName="birthDate" id="birthDate"></ion-datetime>
                             </ion-item>
                             <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.dateUser.errors?.required">
                               El fecha de nacimiento es requerido.
@@ -103,18 +106,23 @@
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.phone.errors?.pattern">
                              El número de correo ingresado no valido.
                             </span> -->
-                            <ion-row>
+                            <!-- <ion-row>
                                 <ion-col>
                                     <ion-button type="submit" color="secondary" expand="block">Enviar</ion-button>
                                 </ion-col>
+                            </ion-row> -->
+                            <ion-row>
+                                <ion-col>
+                                    <ion-button color="secondary" expand="block" (click)="onRegister()">Registrarse</ion-button>
+                                </ion-col>
                             </ion-row>
                         </form>
-                        <ion-row>
+                        <!-- <ion-row>
                             <ion-col class="center">
                                 <ion-checkbox color="primary" [(ngModel)]="recordarme"></ion-checkbox>
                                 <ion-label> Recordar usuario </ion-label>
                             </ion-col>
-                        </ion-row>
+                        </ion-row> -->
                         <ion-row>
                             <ion-col class="center">
                                 <a [routerLink]="['/login']">

@@ -1,0 +1,36 @@
+<app-navbar titulo="Ingresa" (propagar)=" isPcV($event)"></app-navbar>
+
+<ion-content *ngIf="user$ | async as user">
+    <ion-grid>
+        <ion-row>
+            <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
+                <ion-card>
+                    <ion-card-header>
+                        Verificar correo electrónico
+                    </ion-card-header>
+                    <ion-card-content>
+                        <h1>Gracias por tu registro</h1>
+                        <p>Te enviamos un correo electrónico a <strong> {{user.email}}</strong></p>
+                        <p>Porfavor verifica tu correo y da click en el link de verificación</p>
+                        <ion-row>
+                            <ion-col class="center">
+                                <a [routerLink]="['/login']">
+                                    <ion-label>Loguearse</ion-label>
+                                </a>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-button (click)="reSendVerification()" color="danger" expand="block">Reenviar email de verificación
+                                </ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+</ion-content>
+<app-footer></app-footer>

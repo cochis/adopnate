@@ -34,8 +34,20 @@
                               Password ingresado invalido.
                             </span>
                             <ion-row>
+                                <ion-col class="center">
+                                    <a [routerLink]="['/forgot-password']">
+                                        <ion-label>Recordar contraseña</ion-label>
+                                    </a>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
                                 <ion-col>
-                                    <ion-button type="submit" color="danger" expand="block" [disabled]="loginForm.invalid">Enviar</ion-button>
+                                    <ion-button color="primary" expand="block" [disabled]="loginForm.invalid" (click)="onLogin()">New login</ion-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row>
+                                <ion-col>
+                                    <ion-button color="secondary" expand="block" (click)="loginGoogle()">Google</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>

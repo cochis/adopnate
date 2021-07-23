@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./pages/publications/home/home.module').then( m => m.HomePageModule),
     canLoad: [AuthGuard]
   },
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    canLoad: [LoginGuard]
   },
   {
     path: 'rememberPass',
@@ -38,10 +40,20 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
   {
+    path: 'verify-email',
+    loadChildren: () => import('./pages/verify-email/verify-email.module').then( m => m.VerifyEmailPageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'publications',
     pathMatch: 'full'
   }
+
+
 
 
 

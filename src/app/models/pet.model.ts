@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 export class PetModel {
-    uIdPet?:         string;
+    uid?:         string;
     userName?:        string;
     categoriesPet?:  categoriesPet[];
     namePet?:        string;
     agePet?:         number;
     racePet?:        string;
     cartillaPet?:    boolean;
-    vaccinesPet?:     vaccinesPet[];
+    vaccines?:     vaccines[];
     picturesPet?:     picturePet[];
     qualitysPet?:    qualitysPet[];
     descriptionPet?: string;
     createBy?:       string;
     adoptatedPet?:   boolean;
-    dateCreatedPet?:    number;
+    dateCreated?:    number;
 
 }
-export class vaccinesPet {
+export class vaccines {
     vaccine?:  string;
     description?:  string;
     date?: number;

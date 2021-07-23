@@ -8,7 +8,7 @@
                         Registra a tu pequeño
                     </ion-card-header>
                     <ion-card-content>
-                        <form [formGroup]="addForm" (ngSubmit)="onSubmit()" novalidate>
+                        <form [formGroup]="addForm" novalidate>
                             <ion-col size="12" size-md="6" size-lg="6" size-xl="5" class="center">
                                 <ion-button color="primary" (click)="addObject(3)">
                                     <ion-icon name="camera" color="tertiary"></ion-icon>
@@ -20,7 +20,9 @@
                                     <div [formGroupName]="i">
                                         <ion-col size="4" style="float:left">
 
-                                            <label [attr.for]="'file' + i" style="cursor: pointer;font-size:40px;margin-top:50px; "><ion-icon  name="image"></ion-icon></label>
+                                            <label [attr.for]="'file' + i" style="cursor: pointer;font-size:40px;margin-top:50px; ">
+                                                <ion-icon name="image"></ion-icon>
+                                            </label>
                                             <input type="file" type="file" [attr.id]="'file' + i" (change)="setImage($event)" style="display:none">
                                         </ion-col>
                                         <ion-col size="4" style="float:left">
@@ -127,7 +129,7 @@
                                 </ion-col>
                             </ion-row>
                             <ion-row class="center">
-                                <ion-item formArrayName="categoriesPet" *ngFor="let categoryPet of categoriesPet.controls; let i =index;" style="width=100%">
+                                <ion-item formArrayName="categoriesPet" *ngFor="let categoryPet of categoriesPet.controls; let i =index;" style="width:100%">
                                     <div [formGroupName]="i">
                                         <ion-col size="5" style="float:left">
                                             <ion-label position="floating" [attr.for]="'type' + i" class="inputLabel">
@@ -140,12 +142,10 @@
                                                 <ion-select-option value="sizePet">Tamaño de raza</ion-select-option>
                                             </ion-select>
 
-
-                                            <ion-input formControlName="type" type="text" [attr.id]="'type' + i">
-                                            </ion-input>
                                         </ion-col>
                                         <ion-col size="5" style="float:left">
-                                            <ion-label position="floating" [attr.for]="'value' + i" class="inputLabel">Descripción</ion-label>
+                                            <ion-label position="floating" [attr.for]="'value' + i" class="inputLabel">
+                                                Descripción</ion-label>
                                             <ion-input formControlName="value" type="text" [attr.id]="'value' + i">
                                             </ion-input>
                                         </ion-col>
@@ -275,7 +275,7 @@
 
                             <ion-row>
                                 <ion-col>
-                                    <ion-button type="submit" color="danger" [disabled]="addForm.invalid" expand="block">
+                                    <ion-button (click)="setPet()" color="danger" [disabled]="addForm.invalid" expand="block">
                                         Enviar</ion-button>
                                 </ion-col>
                             </ion-row>

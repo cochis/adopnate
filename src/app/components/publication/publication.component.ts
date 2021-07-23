@@ -22,30 +22,20 @@ export class PublicationComponent implements OnInit {
     // this.router.navigate(['/single-publication'], { queryParams: { uId: 'popular' } });
     // this.funService.navigate( url );
     item.type='viewPet';
-    console.log(item);
     this.funService.mostrarModal(item).then(res=>{
-      console.log(res.props.type);
       if(res.props.type ==='adoption'){
-        console.log('Entro a adopcion');
         this.funService.mostrarModal(item).then(reps=>{
-          console.log(reps);
-          console.log(reps.props.auth);
-          console.log(reps.props.type);
-          console.log(reps.props.role);
           if(!reps.props.auth && reps.props.type === 'adoption' && reps.props.role === 'userAdopted'){
-            console.log('se tiene que registrar');
             this.funService.navigateTo('/register');
           }
         });
       }
       else   if(res.props.type ==='donation'){
-        console.log('Entro a donacion');
         this.funService.mostrarModal(item).then(reps=>{
           console.log(reps);
           });
       }
       else   if(res.props.type === 'register'){
-        console.log('Entro a registro');
         this.funService.mostrarModal(item).then(reps=>{
           console.log(reps);
           });

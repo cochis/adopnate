@@ -1,17 +1,17 @@
 export class UsuarioModel {
-    uIdUser?: string;
+    uid?: string;
     roleUser?: string;
     nameUser?: string;
     lastNameUser?: string;
     surNameUser?: string;
     ageUser?: number;
-    dateUser?: number;
+    birthDate?: number;
     ocupationUser?: string;
     adressUser?: AdressUser;
     conexionUser?: ConexionUser;
     descriptionUser?: string;
     activatedUser?: boolean;
-    dateCreatedUser?: number;
+    dateCreated?: number;
     passwordUser?: string;
     emailUser?: string;
     localId?: string;

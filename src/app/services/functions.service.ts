@@ -4,6 +4,7 @@ import { AlertController, LoadingController, ModalController } from '@ionic/angu
 import * as SecureLS from 'secure-ls';
 import { ToastController } from '@ionic/angular';
 import { ModalComponent } from '../components/modal/modal.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
@@ -11,19 +12,20 @@ export class FunctionsService {
   loading: HTMLIonLoadingElement;
   ls = new SecureLS({ encodingType: 'aes' });
   constructor(private router: Router,
-              public alertController: AlertController,
-              public loadingCtrl: LoadingController,
-              public toastController: ToastController,
-              private modalCtrl: ModalController
-              ) { }
+    public alertController: AlertController,
+    public loadingCtrl: LoadingController,
+    public toastController: ToastController,
+    private modalCtrl: ModalController,
+    public database: AngularFirestore
+  ) { }
 
-  navigateTo(link,role?) {
+  navigateTo(link, role?) {
     console.log(link);
     console.log(role);
 
-    if(role){
+    if (role) {
       console.log('rgis');
-      this.router.navigate([link],role);
+      this.router.navigate([link], role);
     }
     else {
       this.router.navigate([link]);
@@ -64,7 +66,7 @@ export class FunctionsService {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  async sendMessage(type,hdr,subT,msg) {
+  async sendMessage(type, hdr, subT, msg) {
     const alert = await this.alertController.create({
       cssClass: type,
       header: hdr,
@@ -98,31 +100,74 @@ export class FunctionsService {
   }
 
 
-  navigate(link){
+  navigate(link) {
     this.router.navigateByUrl(link);
   }
 
-  setLocal(name,local) {
-    this.ls.set(name,local);
+  setLocal(name, local) {
+    this.ls.set(name, local);
   }
 
-  getLocal(name){
-   return this.ls.get(name);
+  getLocal(name) {
+    return this.ls.get(name);
   }
 
-  removeLocal(name){
+  removeLocal(name) {
     localStorage.removeItem(name);
   }
 
-  clearLocal(){
+  clearLocal() {
     localStorage.clear();
   }
-  getTime(time?){
-    if(time){
-      return  new Date(time).getTime();
-    }else{
-      return  new Date().getTime();
+  getTime(time?) {
+    if (time) {
+      return new Date(time).getTime();
+    } else {
+      return new Date().getTime();
     }
+  }
+  calcularEdad(fecha) {
+    const hoy = new Date();
+    const cumpleanos = new Date(fecha);
+    let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+    const m = hoy.getMonth() - cumpleanos.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+      edad--;
+    }
+    return edad;
+  }
+  isUndefined(param) {
+    console.log(typeof param);
+    console.log(param);
+    if (param == null || param === undefined) {
+      return null;
+    }
+    else if (typeof param == 'string') {
+      return param = (param !== undefined || param !== '') ? param : '';
+    }
+    else if (typeof param == 'boolean') {
+      return param = (param !== undefined || param !== false) ? param : false;
+    }
+    else if (typeof param == 'number') {
+      return param = (param !== undefined || param !== 0) ? param : 0;
+    }
+    else if (typeof param == 'object') {
+      return param = (param !== undefined || param !== []) ? param : [];
+    }
+  }
+  verifyEmail(isEmailVerified: boolean) {
+    console.log('isEmailVerified => ', isEmailVerified);
+    if (isEmailVerified) {
+      this.navigate('/publications');
+    }
+    else {
+      this.navigate('/verify-email');
+    }
+  }
+
+  getId() {
+    return this.database.createId();
+
   }
 }
 

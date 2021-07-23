@@ -6,14 +6,13 @@ export const environment = {
   urlApiFB: 'https://adopnate-default-rtdb.firebaseio.com/',
   production: false,
   firebase:{
-    apiKey: 'AIzaSyBF1ZAzkNAnnka432zXTHvmoAtIIMVwjeo',
-    authDomain: 'adopnate.firebaseapp.com',
-    databaseURL: 'https://adopnate-default-rtdb.firebaseio.com',
-    projectId: 'adopnate',
-    storageBucket: 'adopnate.appspot.com',
-    messagingSenderId: '220413988527',
-    appId: '1:220413988527:web:6718693344fd1131f08e5a',
-    measurementId: 'G-ERVXS24RDK'
+    apiKey: 'AIzaSyC2sPA4FuDa_Tvcp9dBZb_QJHZtGYfwCSg',
+    authDomain: 'adopnate-3a16c.firebaseapp.com',
+    projectId: 'adopnate-3a16c',
+    storageBucket: 'adopnate-3a16c.appspot.com',
+    messagingSenderId: '342036020533',
+    appId: '1:342036020533:web:690f0f7dafdd7f361f207c',
+    measurementId: 'G-W0WHQJX69D'
   }
 };
 

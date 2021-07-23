@@ -1,50 +1,52 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable @typescript-eslint/member-ordering */
-import { Component, Input, OnInit, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { ActionSheetController, PopoverController, Platform } from '@ionic/angular';
 import { AvatarMenuComponent } from '../avatar-menu/avatar-menu.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-@Input() titulo;
-plat= '';
-authenticated= false;
-@Output() messageEvent = new EventEmitter<string>();
-@Output() propagar = new EventEmitter<string>();
-isPc= false;
+  @Input() titulo;
+  plat = '';
+  authenticated = false;
+  @Output() messageEvent = new EventEmitter<string>();
+  @Output() propagar = new EventEmitter<string>();
+  isPc = false;
+  public user$: Observable<User> = this.auth.afAuth.user;
   constructor(private funService: FunctionsService,
     private actionSheetCtrl: ActionSheetController,
     private auth: AuthService,
     public popoverCtrl: PopoverController,
     public platform: Platform,
-    ) {
-      this.whatPlatform();
-      if(this.funService.getLocal('token') || this.auth.isAuth() ){
-        this.authenticated = true;
-      }
-    console.log('authenticated' , this.authenticated);
-    }
+  ) {
+    this.whatPlatform();
+  }
   ngOnInit() {
-    console.log(this.funService.getLocal('token'));
-    console.log(this.auth.isAuth() );
-    if(this.funService.getLocal('token') || this.auth.isAuth() ){
-      this.authenticated = true;
-    }
+    this.user$.subscribe(res => {
+      if (res !== null) {
+        this.authenticated = true;
+        // this.funService.setLocal('user',res);
+      } else {
+        this.authenticated = false;
+      }
+    });
   }
   logOut() {
-    this.auth.logout();
+    this.auth.logOut();
     this.funService.navigate('/login');
   }
   async avatarClick() {
-    if( this.authenticated ){
+    if (this.authenticated) {
       const actionSheet = await this.actionSheetCtrl.create({
         header: 'Perfil',
-        backdropDismiss: true,
+        backdropDismiss: false,
         buttons: [
           {
             text: 'Ayuda',
@@ -84,16 +86,16 @@ isPc= false;
       });
       await actionSheet.present();
 
-    }else {
+    } else {
       const actionSheet = await this.actionSheetCtrl.create({
         header: 'Perfil',
-        backdropDismiss: true,
+        backdropDismiss: false,
         buttons: [
           {
             text: 'Ingresar',
             icon: 'log-in',
             handler: () => {
-         this.funService.navigateTo('/login');
+              this.funService.navigateTo('/login');
             }
           }, {
             text: 'Registrarse',
@@ -118,34 +120,27 @@ isPc= false;
       component: AvatarMenuComponent,
       event: ev,
       translucent: true,
-      backdropDismiss: false
+      backdropDismiss: true
     });
     await popover.present();
     const { data } = await popover.onWillDismiss();
-    console.log(data);
     this.optMenuDektop(Number(data.menu));
   }
-  whatPlatform(){
+  whatPlatform() {
     setTimeout(() => {
-      if(this.platform.is('desktop'))
-    {
-      this.plat = 'desktop';
-      this.isPc = true;
-    }else{
-      this.plat = 'mobile';
-      this.isPc = false;
-    }
-    // const send: any = {
-    //   plat: this.plat,
-    //   authenticated: this.authenticated
-    // };
-    console.log('plat',this.plat);
-    this.messageEvent.emit(this.plat);
-    this.propagar.emit(this.plat);
+      if (this.platform.is('desktop')) {
+        this.plat = 'desktop';
+        this.isPc = true;
+      } else {
+        this.plat = 'mobile';
+        this.isPc = false;
+      }
+      this.messageEvent.emit(this.plat);
+      this.propagar.emit(this.plat);
     }, 1500);
   }
-  optMenuDektop(data){
-    switch (data ) {
+  optMenuDektop(data) {
+    switch (data) {
       case 1:
         console.log('help');
         break;
@@ -158,7 +153,7 @@ isPc= false;
         break;
       case 4:
         console.log('Salir');
-        this.logOut() ;
+        this.logOut();
         break;
       case 5:
         console.log('login');

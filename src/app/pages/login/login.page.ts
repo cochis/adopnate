@@ -20,20 +20,20 @@ export class LoginPage implements OnInit {
   isPc = false;
   authenticated = false;
   constructor(public formBuilder: FormBuilder,
-              private auth: AuthService,
-              private loadingCtrl: LoadingController,
-              private funService: FunctionsService) { }
+    private auth: AuthService,
+    private loadingCtrl: LoadingController,
+    private funService: FunctionsService) { }
   ngOnInit() {
     this.createForm();
-    if (   this.funService.getLocal('email') ) {
+    if (this.funService.getLocal('email')) {
       this.loginForm.setValue({
-        email:  this.funService.getLocal('email'),
+        email: this.funService.getLocal('email'),
         password: ''
-     });
+      });
       this.recordarme = true;
     }
   }
-  createForm(){
+  createForm() {
     this.usuario = new UsuarioModel();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
@@ -48,43 +48,75 @@ export class LoginPage implements OnInit {
   viewPassFunction(bol) {
     if (bol) {
       this.viewPass = false;
-     }
+    }
     else {
       this.viewPass = true;
     }
   }
-  onSubmit() {
-    this.submitted = true;
-    if (!this.loginForm.valid) {
-      return false;
-    } else {
-      this.presentLoading( 'Por favor espere');
-      this.usuario = {
-        ...this.loginForm.value
-      };
-      this.auth.login(this.usuario).subscribe((resp)=>{
-        console.log(resp);
-        // if ( this.recordarme ) {
-          this.funService.setLocal('email',this.loginForm.value.email);
-        // }else {
-        //   this.funService.removeLocal('email');
-        // }
-        setTimeout(() => {
-          this.loading.dismiss();
-          this.funService.navigate('/publications');
-        }, 3000);
-      },
-      (err)=> {
-        setTimeout(() => {
-          this.loading.dismiss();
-          const msg = err.error.error.message;
-          this.funService.sendMessage('alertDanger','Alert','SubTitle',msg);
-        }, 2000);
-      });
+  // onSubmit() {
+  //   this.submitted = true;
+  //   if (!this.loginForm.valid) {
+  //     return false;
+  //   } else {
+  //     this.presentLoading('Por favor espere');
+  //     this.usuario = {
+  //       ...this.loginForm.value
+  //     };
+  //     this.auth.login(this.usuario).subscribe((resp) => {
+  //       console.log(resp);
+  //       // if ( this.recordarme ) {
+  //       this.funService.setLocal('email', this.loginForm.value.email);
+  //       // }else {
+  //       //   this.funService.removeLocal('email');
+  //       // }
+  //       setTimeout(() => {
+  //         this.loading.dismiss();
+  //         this.funService.navigate('/publications');
+  //       }, 3000);
+  //     },
+  //       (err) => {
+  //         setTimeout(() => {
+  //           this.loading.dismiss();
+  //           const msg = err.error.error.message;
+  //           this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
+  //         }, 2000);
+  //       });
+  //   }
+  // }
+
+  async onLogin() {
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    console.log('email =>', email);
+    console.log('password =>', password);
+    try {
+      const user = await this.auth.logIn(email, password);
+      if (user) {
+        const isVerified = this.auth.isEmailVerified(user);
+        console.log('isVerified->', isVerified);
+        this.funService.verifyEmail(isVerified);
+      } else {
+
+      }
+    } catch (error) {
+      console.log('error=>', error);
     }
   }
-   // Loadding
-   async presentLoading( message: string) {
+  async loginGoogle() {
+    try {
+      const user = await this.auth.loginGoogle();
+      if (user) {
+        const isVerified = this.auth.isEmailVerified(user);
+        console.log('isVerified->', isVerified);
+        this.funService.verifyEmail(isVerified);
+      }
+    } catch (error) {
+      console.log('error=>', error);
+    }
+  }
+
+  // Loadding
+  async presentLoading(message: string) {
     this.loading = await this.loadingCtrl.create({
       message,
     });
@@ -92,11 +124,11 @@ export class LoginPage implements OnInit {
   }
   isPcV(isPcm: string) {
     console.log('isPc   publications', isPcm);
-      if (isPcm ==='Desktop'){
-        this.isPc= true;
-      }
-      else {
-        this.isPc = false;
-      }
+    if (isPcm === 'Desktop') {
+      this.isPc = true;
     }
+    else {
+      this.isPc = false;
+    }
+  }
 }

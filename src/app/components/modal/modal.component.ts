@@ -25,17 +25,13 @@ export class ModalComponent implements OnInit {
     if(this.funService.getLocal('token') || this.auth.isAuth() ){
       this.authenticated = true;
     }
-  console.log('authenticated' , this.authenticated);
   }
 
   ngOnInit() {
-    console.log(this.props.type);
     this.createForm();
     this.qualitysPet = this.props.pets[0].qualitysPet;
     for(let i =0; i< this.qualitysPet.length;i++){
-      // console.log(this.qualitysPet[i].value);
       this.qualitysPet[i].value = (this.qualitysPet[i].value/5);
-      // console.log(this.qualitysPet[i].value);
     }
   }
 
