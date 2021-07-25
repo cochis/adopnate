@@ -12,6 +12,8 @@ import { AvatarMenuComponent } from './avatar-menu/avatar-menu.component';
 import { SliderComponent } from './slider/slider.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 
 @NgModule({
@@ -25,14 +27,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
                 LoadingComponent,
                 AvatarMenuComponent,
                 SliderComponent,
-                ModalComponent
+                ModalComponent,
+                SearchBarComponent
 
                  ],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PipesModule
   ],
   exports:      [
                 AlertComponent,
@@ -44,7 +48,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
                 LoadingComponent,
                 AvatarMenuComponent,
                 SliderComponent,
-                ModalComponent
+                ModalComponent,
+                SearchBarComponent,
+                PipesModule
 
               ]
 })

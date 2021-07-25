@@ -8,6 +8,7 @@ import { PublicationsPageRoutingModule } from './publications-routing.module';
 
 import { PublicationsPage } from './publications.page';
 import { ComponentsModule } from '../../components/components.module';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from '../../components/components.module';
     FormsModule,
     IonicModule,
     PublicationsPageRoutingModule,
-    ComponentsModule
+    ComponentsModule,
+    PipesModule
   ],
   declarations: [PublicationsPage]
 })

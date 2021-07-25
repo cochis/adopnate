@@ -29,18 +29,18 @@ export class CreatePublicationPage implements OnInit {
   necesitaJugar = 0;
   nivelEnergia = 0;
   tendenciaLadrar = 0;
-  typePet = '';
   typeRacePet = '';
   agePets = '';
-  generPet = '';
-  sizePet = '';
   pics = [];
+  cartilla = false;
   user: UsuarioModel;
+  categoriesPet = [];
   constructor(public formBuilder: FormBuilder,
     private loadingCtrl: LoadingController,
     private funService: FunctionsService,
     private petService: PetService,
     private usuarioService: UsuariosService) {
+    console.log('cartilla =>>', this.cartilla);
   }
 
 
@@ -59,10 +59,15 @@ export class CreatePublicationPage implements OnInit {
       descriptionPet: ['', Validators.required],
       qualitysPet: this.formBuilder.array([]),
       cartillaPet: [false],
-      categoriesPet: this.formBuilder.array([]),
+      // categoriesPet: this.formBuilder.array([]),
       picturesPet: this.formBuilder.array([]),
-      // createBy: ['', Validators.required],
-      // dateCreatedPet: ['', Validators.required]
+      typePet: ['', Validators.required],
+      sizePet: ['', Validators.required],
+      longevityPet: ['', Validators.required],
+      generPet: ['', Validators.required],
+      estatePet: ['', Validators.required],
+      delegationPet: ['', Validators.required],
+      colonyPet: ['', Validators.required]
     });
   }
   get namePet() {
@@ -83,13 +88,35 @@ export class CreatePublicationPage implements OnInit {
   get cartillaPet() {
     return this.addForm.get('cartillaPet');
   }
-  get categoriesPet() {
-    return this.addForm.get('categoriesPet') as FormArray;
-  }
+  // get categoriesPet() {
+  //   return this.addForm.get('categoriesPet') as FormArray;
+  // }
   get picturesPet() {
     return this.addForm.get('picturesPet') as FormArray;
   }
+  get typePet() {
+    return this.addForm.get('typePet');
+  }
+  get sizePet() {
+    return this.addForm.get('sizePet');
+  }
+  get longevityPet() {
+    return this.addForm.get('longevityPet');
+  }
+  get generPet() {
+    return this.addForm.get('generPet');
+  }
+  get estatePet() {
+    return this.addForm.get('estatePet');
+  }
+  get delegationPet() {
+    return this.addForm.get('delegationPet');
+  }
+  get colonyPet() {
+    return this.addForm.get('colonyPet');
+  }
   addObject(type: number) {
+    console.log(type);
     switch (type) {
       case 1:
         const vaccinesFormGroup = this.formBuilder.group({
@@ -100,11 +127,11 @@ export class CreatePublicationPage implements OnInit {
         this.vaccines.push(vaccinesFormGroup);
         break;
       case 2:
-        const categoriesPetFormGroup = this.formBuilder.group({
-          value: '',
-          type: ''
-        });
-        this.categoriesPet.push(categoriesPetFormGroup);
+        // const categoriesPetFormGroup = this.formBuilder.group({
+        //   value: '',
+        //   type: ''
+        // });
+        // this.categoriesPet.push(categoriesPetFormGroup);
         break;
       case 3:
         const picturesPetFormGroup = this.formBuilder.group({
@@ -132,7 +159,7 @@ export class CreatePublicationPage implements OnInit {
         this.vaccines.removeAt(index);
         break;
       case 2:
-        this.categoriesPet.removeAt(index);
+        // this.categoriesPet.removeAt(index);
         break;
       case 3:
         this.picturesPet.removeAt(index);
@@ -166,43 +193,6 @@ export class CreatePublicationPage implements OnInit {
   get errorCtr() {
     return this.addForm.controls;
   }
-  // onSubmit() {
-  //   // console.log(this.addForm.value);
-  //   const token = this.funService.getLocal('token');
-  //   // console.log(token);
-  //   this.addForm.value.qualitysPet = this.getQualitys();
-  //   this.submitted = true;
-  //   if (!this.addForm.valid) {
-  //     console.log('Todos los campos son requeridos.');
-  //     return false;
-  //   } else {
-  //     this.presentLoading('Por favor espere');
-  //     this.pet = {
-  //       ...this.addForm.value
-  //     };
-  //     this.pet.picturesPet = this.pics;
-  //     this.pet.dateCreated = this.funService.getTime();
-  //     this.pet.adoptatedPet = false;
-  //     this.pet.createBy = this.funService.getLocal('localId');
-  //     this.pet.userName = this.user.uid;
-  //     console.log(this.pet);
-  //     this.petService.crearPet(this.pet).subscribe((res) => {
-  //       console.log(res);
-  //       setTimeout(() => {
-  //         this.loading.dismiss();
-  //       }, 3000);
-  //       //  this.funService.navigate('/publications');
-  //     },
-  //       (err) => {
-  //         setTimeout(() => {
-  //           this.loading.dismiss();
-  //           const msg = err.error.error.message;
-  //           this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
-  //         }, 2000);
-  //       });
-
-  //   }
-  // }
   rangeChange(event, type) {
     switch (type) {
       case 1:
@@ -237,6 +227,14 @@ export class CreatePublicationPage implements OnInit {
     //  this.porcentaje = event.detail.value / 100;
   }
   getQualitys() {
+    console.log(this.adaptacionDepartamento);
+    console.log(this.afectuosoFamilia);
+    console.log(this.amigableExtranos);
+    console.log(this.amigableNinos);
+    console.log(this.necesitaEjercicio);
+    console.log(this.necesitaJugar);
+    console.log(this.nivelEnergia);
+    console.log(this.tendenciaLadrar);
     const qualitysPet = [{
       sentence: 'Adaptación a departamento',
       value: this.adaptacionDepartamento
@@ -270,6 +268,8 @@ export class CreatePublicationPage implements OnInit {
       value: this.tendenciaLadrar
     }
     ];
+
+    console.log(qualitysPet);
     return qualitysPet;
   }
   async presentLoading(message: string) {
@@ -282,9 +282,9 @@ export class CreatePublicationPage implements OnInit {
     if (this.vaccines) {
       this.vaccines.controls.splice(0, this.vaccines.length);
     }
-    if (this.categoriesPet) {
-      this.categoriesPet.controls.splice(0, this.categoriesPet.length);
-    }
+    // if (this.categoriesPet) {
+    //   this.categoriesPet.controls.splice(0, this.categoriesPet.length);
+    // }
     if (this.picturesPet) {
       this.picturesPet.controls.splice(0, this.picturesPet.length);
     }
@@ -301,29 +301,51 @@ export class CreatePublicationPage implements OnInit {
 
 
   async setPet() {
-    this.presentLoading('Por favor espere');
     console.log(this.addForm.value);
     this.pet = {
       ...this.addForm.value
     };
     this.pet.vaccines = this.dataVaccines(this.addForm.value.vaccines);
     // setTimeout(() => {
-    this.addForm.value.qualitysPet = this.getQualitys();
+    this.pet.qualitysPet = this.getQualitys();
     this.submitted = true;
     if (!this.addForm.valid) {
       console.log('Todos los campos son requeridos.');
       return false;
     } else {
+      this.presentLoading('Por favor espere');
       this.pet.picturesPet = this.pics;
       this.pet.dateCreated = this.funService.getTime();
       this.pet.adoptatedPet = false;
-      this.pet.createBy = this.funService.getLocal('localId');
-      this.pet.userName = this.user.uid;
+      this.pet.userUid = this.user.uid;
+      this.pet.userName = this.user.displayName !== '' ? this.user.displayName : this.user.nameUser;
       // this.pet.vaccines = this.dataVaccines(this.pet.vaccines);
-      console.log(this.pet);
       const id = this.funService.getId();
       console.log(id);
       this.pet.uid = id;
+      console.log(this.addForm.value.typePet);
+      this.categoriesPet.push({
+        sentence: 'typePet',
+        value: this.addForm.value.typePet
+      });
+      this.categoriesPet.push({
+        sentence: 'sizePet',
+        value: this.addForm.value.sizePet
+      });
+      this.categoriesPet.push({
+        sentence: 'typePet',
+        value: this.addForm.value.typePet
+      });
+      this.categoriesPet.push({
+        sentence: 'longevityPet',
+        value: this.addForm.value.longevityPet
+      });
+      this.categoriesPet.push({
+        sentence: 'generPet',
+        value: this.addForm.value.generPet
+      });
+      this.pet.categoriesPet = this.categoriesPet;
+      console.log(this.pet);
       const PET = await this.petService.setPet(this.pet, id);
       if (PET) {
         console.log(PET);
@@ -344,5 +366,23 @@ export class CreatePublicationPage implements OnInit {
       }
     }
     return data;
+  }
+  checkVacuna(event) {
+    console.log(event);
+    const valor = event.detail.checked;
+    console.log(valor);
+    if (!valor) {
+      this.cartilla = false;
+      this.vaccines.clear();
+      console.log(this.vaccines);
+    }
+    else {
+      this.cartilla = true;
+    }
+    console.log(this.cartilla);
+  }
+
+  selectTypePet(event) {
+    console.log(event.detail);
   }
 }

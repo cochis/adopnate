@@ -1,6 +1,7 @@
 export class UsuarioModel {
     uid?: string;
     roleUser?: string;
+    displayName?: string;
     nameUser?: string;
     lastNameUser?: string;
     surNameUser?: string;

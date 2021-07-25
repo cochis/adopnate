@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
+import { LikeService } from 'src/app/services/like.service';
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.page.html',
@@ -25,9 +26,12 @@ export class PublicationsPage implements OnInit {
   public user$: Observable<User> = this.auth.afAuth.user;
   authenticated = false;
   pets: PetModel[] = [];
+  filtro = '';
+  columnaBusqueda = '';
   constructor(
     private auth: AuthService,
     private funService: FunctionsService,
+    private likeService: LikeService,
     private petService: PetService) {
     this.createData();
     this.user$.subscribe(res => {
@@ -43,11 +47,14 @@ export class PublicationsPage implements OnInit {
   ngOnInit() {
     this.petService.getPets().subscribe((res) => {
       console.log(res);
-      this.pets= res;
+      this.pets = res;
     },
       (err) => {
         console.log(err);
       });
+    this.likeService.getLikes().subscribe((res) => {
+      console.log('GetLikes', res);
+    });
   }
   loadData(event) {
     this.nextStep = false;
@@ -206,5 +213,9 @@ export class PublicationsPage implements OnInit {
   add() {
     console.log('add');
     this.funService.navigateTo('/create-publication');
+  }
+  searchBar(event) {
+    this.filtro = event.filter;
+    this.columnaBusqueda = event.text;
   }
 }

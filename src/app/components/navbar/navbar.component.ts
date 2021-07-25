@@ -31,10 +31,11 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit() {
     this.user$.subscribe(res => {
+      console.log(res);
       if (res !== null) {
         this.authenticated = true;
         console.log(res.photoURL);
-        this.avatarImage = (res.photoURL !== '' ? res.photoURL : '/assets/img/user.png');
+        this.avatarImage = ((res.photoURL !== '' || res.photoURL !== null) ? res.photoURL : '/assets/img/user.png');
         console.log(this.avatarImage);
         // this.funService.setLocal('user',res);
       } else {

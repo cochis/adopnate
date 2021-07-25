@@ -1,17 +1,12 @@
 <ion-slides pager="ios" class="slide-full" [options]="slideOptsOne" class="center" pagination="false">
-
-    <ion-slide *ngFor="let slide of slides" class="slidePet">
-
-        <div class="contenedor">
-            <img [src]="slide.img" class="slide-image" />
+    <ion-slide *ngFor="let slide of slides">
+        <div style="width:100%; height:300px; overflow:hidden; position :relative;">
+            <img [src]="slide.img" id="imgSlide" style=" " />
             <div class="centrado">
-
-                <ion-button *ngIf="authenticated" ((click))="onClick(slide.img)">
+                <ion-button ((click))="onClick(slide.img)">
                     Adoptar
                 </ion-button>
             </div>
         </div>
-
     </ion-slide>
-
 </ion-slides>

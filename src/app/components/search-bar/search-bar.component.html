@@ -1,0 +1,9 @@
+<ion-searchbar placeholder="Busca a tu nueva mascota" animated inputmode="text" (ionChange)="onSearchChange( $event)" [debounce]="500"></ion-searchbar>
+
+<ion-item lines="full">
+    <ion-label position="floating" class="inputLabel">Tipo de busqueda</ion-label>
+    <ion-select placeholder="Selecciona uno" [value]='columna' (ionChange)="select( $event)">
+        <ion-select-option value="namePet">Nombre</ion-select-option>
+        <ion-select-option value="agePet">Edad</ion-select-option>
+    </ion-select>
+</ion-item>

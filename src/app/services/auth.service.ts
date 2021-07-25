@@ -61,8 +61,11 @@ export class AuthService {
   }
   async logOut(): Promise<void> {
     try {
-      this.funService.removeLocal('user');
+      // const secureLocal = this.funService.getLocal('_secure__ls__metadata');
+      this.funService.clearLocal();
+      // this.funService.setLocal('_secure__ls__metadata', secureLocal);
       await this.afAuth.signOut();
+
     }
     catch (error) {
       console.log('error->', error);
@@ -99,9 +102,12 @@ export class AuthService {
     }
   }
   async loginGoogle(): Promise<User> {
+    console.log('logi nGoogle');
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
-      this.userService.getDoc(user.uid).subscribe((usr)=>{
+      console.log('user ====>>> ', user);
+      this.updateUserData(user);
+      this.userService.getDoc(user.uid).subscribe((usr) => {
         console.log('usr ====>>> ', usr);
         this.funService.setLocal('user', usr);
       });

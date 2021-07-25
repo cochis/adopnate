@@ -1,87 +1,121 @@
+<div style="clear:both"></div>
 <ion-card style="min-height:300px" class="mgB25" style=" border: 5px solid #3dc2ff;
 border-radius: 10px;" *ngIf="!item.adoptatedPet">
-    <div style="width: 100%; overflow: hidden;height: 150px;">
-        <div class="inner">
-            <img [src]="item.picturesPet[0].url" style="width: 100%; heigth:180px" alt="">
-        </div>
 
-        <ion-fab vertical="top" horizontal="end" slot="fixed">
-            <ion-fab-button class="btnFab">
-                <ion-icon name="heart-circle"></ion-icon>
-            </ion-fab-button>
-            <ion-fab-button class="btnFab">
-                59
-            </ion-fab-button>
-            <ion-fab-button class="btnFab">
-                <ion-icon name="share-social"></ion-icon>
-            </ion-fab-button>
-        </ion-fab>
-    </div>
-
-
+    <ion-col size="12">
+        <ion-slides [options]="slideOptsOne">
+            <ion-slide *ngFor="let slide of slides" style="width:100%">
+                <img [src]="slide.url" style="width: 350px;height:180px;" />
+            </ion-slide>
+        </ion-slides>
+    </ion-col>
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+        <ion-fab-button class="btnFab">
+            <ion-icon name="heart-circle" (click)="likes()" *ngIf="!likeCheck"></ion-icon>
+            <ion-icon name="heart" (click)="likes()" *ngIf="likeCheck" color="danger"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button class="btnFab">
+            59
+        </ion-fab-button>
+        <ion-fab-button class="btnFab">
+            <ion-icon name="share-social"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
     <ion-card-header class="algLeft" style="padding:0 20px">
-
-
-        <h3 class="petName" color="primary"> Gorda</h3>
+        <h3 class="petName" color="primary"> {{item.namePet}}</h3>
         <h4 class="donName" color="secondary"> {{item.userName}}</h4>
     </ion-card-header>
     <ion-card-content>
         <h5 class="ubication" color="tertiary" style="font-style: italic;"> Nezahualcoyotl Edo. de México</h5>
-        <ul style="list-style-type: none;height: 100px;
-        
-        overflow-y: scroll;">
+        <ul style="list-style-type: none;height: 180px;margin-left: -30px;">
             <li>
-                <div class="lstItems">
-                    {{item.racePet}}
+                <div class="lstItems infoPet">
+                    Raza : <b class="infoDescPet">{{item.racePet}}</b>
+                </div>
+            </li>
+            <li>
+                <div class="lstItems infoPet">
+                    Edad : <b class="infoDescPet">{{item.agePet}}</b>
+                </div>
+            </li>
+            <li>
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[0]" style="">
+                    Tipo de mascota : <b class="infoDescPet">
+                        <span *ngIf="item.categoriesPet[0].value === 'dog'">
+                            Perro
+                        </span> 
+                        <span *ngIf="item.categoriesPet[0].value === 'cat'">
+                            Gato
+                        </span> 
+                        <span *ngIf="item.categoriesPet[0].value === 'bird'">
+                            Ave
+                        </span> 
+                        <span *ngIf="item.categoriesPet[0].value === 'other'">
+                            Otro
+                        </span> 
+                        
+                        </b>
+                </div>
+            </li>
+            <li>
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[1]">
+                    Tamaño de raza : <b class="infoDescPet">
+                        <span *ngIf="item.categoriesPet[1].value === 'min'">
+                            Miniatura
+                        </span> 
+                        <span *ngIf="item.categoriesPet[1].value === 'small'">
+                            Pequeño
+                        </span> 
+                        <span *ngIf="item.categoriesPet[1].value === 'medium'">
+                            Mediano
+                        </span> 
+                        <span *ngIf="item.categoriesPet[1].value === 'big'">
+                            Grande
+                        </span> 
+                        <span *ngIf="item.categoriesPet[1].value === 'gigant'">
+                            Gigante
+                        </span> 
+                    </b>
+                </div>
+            </li>
+            <li>
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[3]">
+                    Longevidad : <b class="infoDescPet"> 
+                        <span *ngIf="item.categoriesPet[3].value === 'puppy'">
+                            Cachorro
+                        </span>     
+                        <span *ngIf="item.categoriesPet[3].value === 'adult'">
+                            Adulto
+                        </span>
+                        <span *ngIf="item.categoriesPet[3].value === 'senior'">
+                            Mayor
+                        </span>
+                    </b>
+                </div>
+            </li>
+            <li>
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[4]">
+                    Genero : <b class="infoDescPet">
+                        <span *ngIf="item.categoriesPet[4].value === 'male'">
+                            Macho
+                        </span>
+                        <span *ngIf="item.categoriesPet[4].value === 'female'">
+                            Hembra
+                        </span>
+                       
+                        </b>
                 </div>
 
             </li>
-            <li>
-                <div class="lstItems">
-                    Edad {{item.agePet}} años
-                </div>
-
-            </li>
-            <li>
-                <div class="lstItems" *ngIf="item.categoriesPet[0]">
-                    {{item.categoriesPet[0].type}} : {{item.categoriesPet[0].value}}
-                </div>
-
-            </li>
-            <li>
-                <div class="lstItems" *ngIf="item.categoriesPet[1]">
-                    {{item.categoriesPet[1].type}} : {{item.categoriesPet[1].value}}
-                </div>
-
-            </li>
-            <li>
-                <div class="lstItems" *ngIf="item.categoriesPet[2]">
-                    {{item.categoriesPet[2].type}} : {{item.categoriesPet[2].value}}
-                </div>
-
-            </li>
-            <li>
-                <div class="lstItems" *ngIf="item.categoriesPet[3]">
-                    {{item.categoriesPet[3].type}} : {{item.categoriesPet[3].value}}
-                </div>
-
-            </li>
-            <li>
+            <!-- <li>
                 <div class="lstItems" *ngIf="item.categoriesPet[4]">
-                    {{item.categoriesPet[4].type}} : {{item.categoriesPet[4].value}}
+                    Genero : {{item.categoriesPet[4].value}}
                 </div>
 
-            </li>
-
+            </li> -->
             <li>
                 <div class="lstItems">
-                    Mediano (11 Kg a 22 Kg)
-                </div>
-
-            </li>
-            <li>
-                <div class="lstItems">
-                    Descirpcion {{item.descriptionPet}}
+                    "<b class="infoDescPet"> {{item.descriptionPet}}</b>"
                 </div>
 
             </li>

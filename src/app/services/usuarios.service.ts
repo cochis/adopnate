@@ -29,6 +29,7 @@ export class UsuariosService {
     return this.http.get(`${this.url}/usuarios.json`);
   }
   getUser(id) {
+    console.log('entro get user ' , id);
     return this.http.get(`${this.url}/usuarios/${id}.json`);
   }
   updateUser<UsuarioModel>(id, usuario) {
