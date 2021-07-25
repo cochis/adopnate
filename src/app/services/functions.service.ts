@@ -5,6 +5,7 @@ import * as SecureLS from 'secure-ls';
 import { ToastController } from '@ionic/angular';
 import { ModalComponent } from '../components/modal/modal.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { SeoService } from './seo.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,9 +17,12 @@ export class FunctionsService {
     public loadingCtrl: LoadingController,
     public toastController: ToastController,
     private modalCtrl: ModalController,
-    public database: AngularFirestore
+    public database: AngularFirestore,
+    private seo: SeoService
   ) { }
-
+  createLinkForCanonicalURL() {
+    this.seo.createLinkForCanonicalURL();
+  }
   navigateTo(link, role?) {
     console.log(link);
     console.log(role);

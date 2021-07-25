@@ -379,7 +379,8 @@
                                         <ion-col size="2">
                                             <!-- style="margin-top: 17%; font-size: 35px; " -->
                                             <label color="primary" class="button-native" style="color:#3f3697">
-                                                <ion-icon name="remove-circle" color="danger" (click)="removeObject(3,i)"></ion-icon>
+                                                <ion-icon name="remove-circle" color="danger"
+                                                    (click)="removeObject(3,i)"></ion-icon>
                                             </label>
                                         </ion-col>
                                     </div>
@@ -391,9 +392,13 @@
                     </ion-card>
                     <!-- Boton Enviar -->
                     <ion-row>
-                        <ion-col>
-                            <ion-button (click)="setPet()" color="danger" expand="block">
-                                Enviar</ion-button>
+                        <ion-col size="6">
+                            <ion-button (click)="setPet()" color="primary" expand="block">Enviar</ion-button>
+
+                        </ion-col>
+                        <ion-col size="6">
+                            <ion-button (click)="cancel()" color="tertiary" expand="block">Cancelar</ion-button>
+
                         </ion-col>
                     </ion-row>
                 </form>

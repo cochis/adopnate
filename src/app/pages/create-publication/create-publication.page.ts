@@ -9,6 +9,8 @@ import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { UsuarioModel } from '../../models/usuario.model';
+import { SeoService } from 'src/app/services/seo.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-create-publication',
   templateUrl: './create-publication.page.html',
@@ -39,8 +41,22 @@ export class CreatePublicationPage implements OnInit {
     private loadingCtrl: LoadingController,
     private funService: FunctionsService,
     private petService: PetService,
-    private usuarioService: UsuariosService) {
-    console.log('cartilla =>>', this.cartilla);
+    private usuarioService: UsuariosService,
+    private seo: SeoService,
+    private title: Title) {
+      const t = 'Adopnate a pet | Registra a tu mascota';
+      this.title.setTitle(t);
+      this.seo.generateTags({
+        title: 'Adopnate a pet | Registra a tu mascota',
+        description:
+          'Registra a tu nuevo compañero de vida',
+        keywords:
+          'Registra al compañero de vida',
+        slug: 'Registra al mejor compañero de vida de alguien mas',
+        colorBar: '#3f3697',
+        image:
+          window.location.origin + '/assets/logo/adopnate_logo.png',
+      });
   }
 
 
@@ -354,6 +370,10 @@ export class CreatePublicationPage implements OnInit {
       }
     }
     // }, 2000);
+  }
+
+  cancel() {
+    this.funService.navigate('publications');
   }
   dataVaccines(data) {
     console.log(data);

@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
 import { LikeService } from 'src/app/services/like.service';
+import { SeoService } from 'src/app/services/seo.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.page.html',
@@ -32,7 +34,9 @@ export class PublicationsPage implements OnInit {
     private auth: AuthService,
     private funService: FunctionsService,
     private likeService: LikeService,
-    private petService: PetService) {
+    private petService: PetService,
+    private seo: SeoService,
+    private title: Title,) {
     this.createData();
     this.user$.subscribe(res => {
       console.log('usr$', res);
@@ -43,6 +47,23 @@ export class PublicationsPage implements OnInit {
       }
       console.log('this.authenticated => ', this.authenticated);
     });
+
+    const t = 'Adopnate a pet | Ven y conoce a tu nuevo compañero de vida';
+    this.title.setTitle(t);
+
+    this.seo.generateTags({
+      title: 'Adopnate a pet | Ven y conoce a tu nuevo compañero de vida',
+      description:
+        'Selecciona a tu nuevo compañero de vida',
+      keywords:
+        'Publicaciones disponibles para la elección de tu compañero',
+      slug: 'Publicaciones',
+      colorBar: '#3f3697',
+      image:
+        window.location.origin + '/assets/logo/adopnate_logo.png',
+    });
+
+
   }
   ngOnInit() {
     this.petService.getPets().subscribe((res) => {
