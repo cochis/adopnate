@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { SwUpdate } from '@angular/service-worker';
 import { ToastController } from '@ionic/angular';
 import { AppUpdateService } from './services/app-update.service';
-// import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -11,35 +11,16 @@ import { AppUpdateService } from './services/app-update.service';
 })
 export class AppComponent {
   constructor(private sw: AppUpdateService,
-              // private screenOrientation: ScreenOrientation
-              ) {
+    private screenOrientation: ScreenOrientation
+  ) {
     this.sw.checkForUpdates();
+    this.orientation();
   }
-  // private swUpdate: SwUpdate,
-    // private toastCtrl: ToastController
-    ngOnInit() {
-      // console.log(this.screenOrientation.type);
-    }
-  // async ngOnInit() {
-  //   this.swUpdate.available.subscribe(async res => {
+  ngOnInit() {
 
-  //     console.log('Nueva version');
-  //     const toast = await this.toastCtrl.create({
-  //       message: 'Update available!',
-  //       position: 'bottom',
-  //       buttons: [{ role: 'cancel', text: 'Reload' }]
-  //     });
-  //     await toast.present();
-  //     toast
-  //       .onDidDismiss()
-  //       .then(() => this.swUpdate.activateUpdate())
-  //       .then(() => window.location.reload());
-  //   });
-  //   this.swUpdate.checkForUpdate();
-  //   setInterval(() => {
-  //     console.log('Checando actualizacion');
-  //     this.swUpdate.checkForUpdate();
-  //   } , 1 * 5 * 1000);
-  // }
+  }
+  orientation() {
+    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+  }
 
 }

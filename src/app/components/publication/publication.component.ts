@@ -3,7 +3,8 @@ import { LikeModel } from 'src/app/models/like.model';
 import { User } from 'src/app/models/user.model';
 import { LikeService } from 'src/app/services/like.service';
 import { FunctionsService } from '../../services/functions.service';
-// import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { Platform } from '@ionic/angular';
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
@@ -28,13 +29,15 @@ export class PublicationComponent implements OnInit {
   };
   constructor(private funService: FunctionsService,
     private likeService: LikeService,
-    // private socialSharing: SocialSharing
+    private socialSharing: SocialSharing,
+    private platform: Platform
   ) { }
 
   ngOnInit() {
     this.userCurrent = this.funService.getLocal('user');
     this.slides = this.item.picturesPet;
-    // console.log('on init', this.item);s    this.userCurrent = this.funService.getLocal('user');
+    console.log('on init', this.item);
+
     this.getUnique();
   }
 
@@ -46,13 +49,13 @@ export class PublicationComponent implements OnInit {
       this.likeCheck = lk.actived;
 
     } else {
-      if( this.funService.getLocal('user')) {
+      if (this.funService.getLocal('user')) {
         this.likeService.getLikeUnique(this.item.uid, this.userCurrent.uid).subscribe(res => {
           if (res.length > 0) {
             this.likeCheck = res[0].actived;
-            const userLike =  res[0].uid + '' + res[0].uid;
-            if(this.funService.getLocal('user')){
-              this.funService.setLocal(userLike,res[0]);
+            const userLike = res[0].uid + '' + res[0].uid;
+            if (this.funService.getLocal('user')) {
+              this.funService.setLocal(userLike, res[0]);
             }
           }
         },
@@ -90,14 +93,28 @@ export class PublicationComponent implements OnInit {
     });
   }
   share() {
-    // this.socialSharing.share(
-    //   this.item,
-    //   this.item,
-    //   this.item,
-    //   this.item
-    // );
-
-
+    console.log(this.platform);
+    if (this.platform.is('cordova')) {
+      this.socialSharing.share(
+        this.item.namePet,
+        this.item.descriptionPet,
+        '',
+        'https://adopnate-3a16c.firebaseapp.com/publications'
+      );
+    } else {
+      console.log(navigator.share);
+      if (navigator.share) {
+        navigator.share({
+          title: this.item.namePet,
+          text: this.item.descriptionPet,
+          url: 'https://adopnate-3a16c.firebaseapp.com/publications'
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing', error));
+      } else {
+        console.log('No se pudo compartir porque no se soporta');
+      }
+    }
   }
   likes() {
     const idL = this.funService.getId();
