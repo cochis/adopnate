@@ -7,6 +7,7 @@ import { PetModel } from '../models/pet.model';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FunctionsService } from './functions.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { retornaDocumentos } from '../helpers/mostrar-documentos';
 @Injectable({
   providedIn: 'root'
 })
@@ -68,10 +69,18 @@ export class PetService {
   }
   getPets() {
     try {
-      console.log(' path=>', 'pets');
+      // console.log(' path=>', 'pets');
       const collection = this.database.collection('pets');
-      collection.ref.orderBy('dateCreated', 'asc');
+      collection.ref.orderBy('dateCreated', 'asc').limit(2);
       return collection.valueChanges();
+
+
+
+      // collection.ref.limit(2).orderBy('dateCreated').get().then(snap => {
+      //   retornaDocumentos(snap);
+      //   const lasDocument = snap.docs.length -1;
+      //   console.log(lasDocument);
+      //   return snap.data();
     }
     catch (error) {
       console.log('error->', error);

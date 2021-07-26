@@ -29,7 +29,13 @@ export class PublicationsPage implements OnInit {
   authenticated = false;
   pets: PetModel[] = [];
   filtro = '';
+  filtroPipeUser = '';
+  filtroPipePet = '';
+  count = 0;
+  lastDocument = null;
   columnaBusqueda = '';
+  userCurrent: any;
+  likesByUser: any;
   constructor(
     private auth: AuthService,
     private funService: FunctionsService,
@@ -39,13 +45,13 @@ export class PublicationsPage implements OnInit {
     private title: Title,) {
     this.createData();
     this.user$.subscribe(res => {
-      console.log('usr$', res);
+      // console.log('usr$', res);
       if (res !== null) {
         this.authenticated = true;
       } else {
         this.authenticated = false;
       }
-      console.log('this.authenticated => ', this.authenticated);
+      // console.log('this.authenticated => ', this.authenticated);
     });
 
     const t = 'Adopnate a pet | Ven y conoce a tu nuevo compañero de vida';
@@ -66,15 +72,18 @@ export class PublicationsPage implements OnInit {
 
   }
   ngOnInit() {
-    this.petService.getPets().subscribe((res) => {
-      console.log(res);
-      this.pets = res;
-    },
-      (err) => {
-        console.log(err);
-      });
+    this.userCurrent = this.funService.getLocal('user');
+    this.petService.getPets()
+      .subscribe((res) => {
+        // console.log(res);
+        this.pets = res;
+        // console.log(this.pets);
+      },
+        (err) => {
+          console.log(err);
+        });
     this.likeService.getLikes().subscribe((res) => {
-      console.log('GetLikes', res);
+      this.likesByUser = res;
     });
   }
   loadData(event) {
@@ -222,7 +231,7 @@ export class PublicationsPage implements OnInit {
     this.nextStep = true;
   }
   isPcV(isPcm: string) {
-    console.log('isPc   publications', isPcm);
+    // console.log('isPc   publications', isPcm);
     if (isPcm === 'Desktop') {
       this.isPc = true;
     }
@@ -232,11 +241,14 @@ export class PublicationsPage implements OnInit {
   }
 
   add() {
-    console.log('add');
+    // console.log('add');
     this.funService.navigateTo('/create-publication');
   }
   searchBar(event) {
     this.filtro = event.filter;
     this.columnaBusqueda = event.text;
+  }
+
+  agregarRegistros() {
   }
 }

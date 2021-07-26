@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { HttpClient } from '@angular/common/http';
@@ -19,16 +20,16 @@ export class LikeService {
         public database: AngularFirestore
     ) { }
     updateLike(like: LikeModel) {
-        console.log('updateUser =>', like);
+        // console.log('updateUser =>', like);
         const userRef: AngularFirestoreDocument<LikeModel> = this.database.doc(`likes/${like.uid}`);
         const data: LikeModel = {
-            uid: this.funService.getId(),
+            uid: this.funService.isUndefined(like.uid),
             uidPet: this.funService.isUndefined(like.uidPet),
             uidUser: this.funService.isUndefined(like.uidUser),
             actived: this.funService.isUndefined(like.actived),
             date: this.funService.isUndefined(like.date)
         };
-        console.log(data);
+        // console.log(data);
         return userRef.set(data, { merge: true });
     }
     getLike(id) {
@@ -46,6 +47,40 @@ export class LikeService {
             console.log('error->', error);
             return error;
         }
+    }
+
+
+    getLikeByUser(id) {
+        try {
+            const collection = this.database.collection('likes', ref => ref.where('uidUser', '==', id)).valueChanges();
+            return collection;
+        }
+        catch (error) {
+            console.log('error->', error);
+            return error;
+        }
+    }
+    getlikeByPet(id){
+        try {
+            const collection = this.database.collection('likes', ref => ref.where('uid', '==', id)).valueChanges();
+            return collection;
+        }
+        catch (error) {
+            console.log('error->', error);
+            return error;
+        }
+    }
+
+    getLikeUnique(uidPet,uidUser){
+        try {
+            const collection = this.database.collection('likes', ref => ref.where('uidPet', '==', uidPet).where('uidUser', '==', uidUser)).valueChanges();
+            return collection;
+        }
+        catch (error) {
+            console.log('error->', error);
+            return error;
+        }
+
     }
     updatePet(id, pet) { }
 }

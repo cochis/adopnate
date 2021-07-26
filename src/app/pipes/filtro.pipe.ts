@@ -8,9 +8,9 @@ export class FiltroPipe implements PipeTransform {
   transform(arreglo: any[],
     text: string,
     columna: string): any[] {
-    console.log('text===>' ,text);
-    console.log('columna===>' ,columna);
-    console.log(arreglo);
+    // console.log('text===>' ,text);
+    // console.log('columna===>' ,columna);
+    // console.log(arreglo);
     if (text === '') {
       return arreglo;
     }

@@ -15,7 +15,7 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
         <h4 class="donName" color="secondary"> {{item.userName}}</h4>
     </ion-card-header>
     <ion-card-content>
-        <h5 class="ubication" color="tertiary" style="font-style: italic;"> Nezahualcoyotl Edo. de México</h5>
+        <h5 class="ubication" color="tertiary" style="font-style: italic; text-transform: capitalize;"> <b> {{item.estatePet}} </b> {{item.delegationPet}}</h5>
         <ul style="list-style-type: none;height: 180px;margin-left: -30px;">
             <li>
                 <div class="lstItems infoPet">
@@ -118,7 +118,7 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
         <ion-icon name="heart" (click)="likes()" *ngIf="likeCheck" color="danger"></ion-icon>
     </ion-fab-button>
     <ion-fab-button class="btnFab">
-        59
+        {{count}}
     </ion-fab-button>
     <ion-fab-button class="btnFab">
         <ion-icon name="share-social" (click)="share()"></ion-icon>

@@ -11,12 +11,13 @@ import { FunctionsService } from '../../services/functions.service';
 })
 export class PublicationComponent implements OnInit {
   @Input() item: any;
+  @Input() count: any;
+  userCurrent: User;
   token: string;
   isPc = false;
   likeCheck = false;
   like: LikeModel = new LikeModel();
   thisLike = '';
-  userCurrent: User;
   slides = [];
   slideOptsOne = {
     initialSlide: 0,
@@ -28,34 +29,36 @@ export class PublicationComponent implements OnInit {
   constructor(private funService: FunctionsService,
     private likeService: LikeService,
     // private socialSharing: SocialSharing
-    ) { console.log(this.item); }
+  ) { }
 
   ngOnInit() {
-    this.slides = this.item.picturesPet;
-    console.log('on init', this.item);
     this.userCurrent = this.funService.getLocal('user');
+    this.slides = this.item.picturesPet;
+    // console.log('on init', this.item);s    this.userCurrent = this.funService.getLocal('user');
     this.getUnique();
   }
 
   async getUnique() {
     this.thisLike = this.item.uid + '' + this.userCurrent.uid;
-    console.log(' this.thisLike =====>>>>>' + this.thisLike);
+    // console.log(' this.thisLike =====>>>>>' + this.thisLike);
     if (this.funService.getLocal(this.thisLike)) {
+      console.log(this.funService.getLocal(this.thisLike));
+      const lk = this.funService.getLocal(this.thisLike);
+      this.likeCheck = lk.actived;
 
-      console.log('Este es cabron', this.funService.getLocal(this.thisLike));
-      const likeUnique = await this.likeService.getLike(this.funService.getLocal(this.thisLike));
-      likeUnique.subscribe((res: any) => {
-        console.log(res);
-        if (res.activated !== undefined || res.activated !== null) {
-          this.likeCheck = res.actived;
+    } else {
+      this.likeService.getLikeUnique(this.item.uid, this.userCurrent.uid).subscribe(res => {
+        console.log(res );
+        console.log(res.length);
+        if (res.length > 0) {
+          console.log(res[0].actived);
+          this.likeCheck = res[0].actived;
         }
       },
-        (err) => {
+        err => {
           console.log(err);
           this.likeCheck = false;
         });
-    } else {
-      console.log('No hay like');
     }
   }
   seePet(item) {
@@ -84,7 +87,7 @@ export class PublicationComponent implements OnInit {
       }
     });
   }
-  share(){
+  share() {
     // this.socialSharing.share(
     //   this.item,
     //   this.item,
@@ -103,9 +106,6 @@ export class PublicationComponent implements OnInit {
       this.likeCheck = false;
     }
     const userLike = this.item.uid + '' + this.userCurrent.uid;
-    console.log(this.item);
-    console.log(userLike);
-    console.log(this.funService.getLocal(userLike));
     if (!this.funService.getLocal(userLike)) {
       const data: LikeModel = {
         uid: idL,
@@ -114,18 +114,15 @@ export class PublicationComponent implements OnInit {
         actived: this.likeCheck,
         date: new Date().getTime()
       };
-      this.funService.setLocal(userLike, idL);
+      this.funService.setLocal('idL', idL);
+      this.funService.setLocal(userLike, data);
       this.likeService.updateLike(data);
     } else {
-      const data: LikeModel = {
-        uid: this.funService.getLocal(userLike),
-        uidPet: this.item.uid,
-        uidUser: this.userCurrent.uid,
-        actived: this.likeCheck,
-        date: new Date().getTime()
-      };
-      console.log(data);
-      this.likeService.updateLike(data);
+      const userLikeData = this.funService.getLocal(userLike);
+      userLikeData.actived = this.likeCheck;
+      console.log(userLikeData);
+      this.funService.setLocal(userLike, userLikeData);
+      this.likeService.updateLike(userLikeData);
     }
   }
 }
