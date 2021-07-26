@@ -42,23 +42,25 @@ export class PublicationComponent implements OnInit {
     this.thisLike = this.item.uid + '' + this.userCurrent.uid;
     // console.log(' this.thisLike =====>>>>>' + this.thisLike);
     if (this.funService.getLocal(this.thisLike)) {
-      console.log(this.funService.getLocal(this.thisLike));
       const lk = this.funService.getLocal(this.thisLike);
       this.likeCheck = lk.actived;
 
     } else {
-      this.likeService.getLikeUnique(this.item.uid, this.userCurrent.uid).subscribe(res => {
-        console.log(res );
-        console.log(res.length);
-        if (res.length > 0) {
-          console.log(res[0].actived);
-          this.likeCheck = res[0].actived;
-        }
-      },
-        err => {
-          console.log(err);
-          this.likeCheck = false;
-        });
+      if( this.funService.getLocal('user')) {
+        this.likeService.getLikeUnique(this.item.uid, this.userCurrent.uid).subscribe(res => {
+          if (res.length > 0) {
+            this.likeCheck = res[0].actived;
+            const userLike =  res[0].uid + '' + res[0].uid;
+            if(this.funService.getLocal('user')){
+              this.funService.setLocal(userLike,res[0]);
+            }
+          }
+        },
+          err => {
+            console.log(err);
+            this.likeCheck = false;
+          });
+      }
     }
   }
   seePet(item) {
@@ -120,7 +122,6 @@ export class PublicationComponent implements OnInit {
     } else {
       const userLikeData = this.funService.getLocal(userLike);
       userLikeData.actived = this.likeCheck;
-      console.log(userLikeData);
       this.funService.setLocal(userLike, userLikeData);
       this.likeService.updateLike(userLikeData);
     }

@@ -122,6 +122,7 @@ export class FunctionsService {
 
   clearLocal() {
     localStorage.clear();
+    localStorage.clear();
   }
   getTime(time?) {
     if (time) {

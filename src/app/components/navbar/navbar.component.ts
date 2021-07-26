@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-fallthrough */
 /* eslint-disable @typescript-eslint/member-ordering */
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
@@ -46,6 +47,7 @@ export class NavbarComponent implements OnInit {
   }
   logOut() {
     this.auth.logOut();
+    this.funService.clearLocal();
     this.funService.navigate('/login');
   }
   async avatarClick() {

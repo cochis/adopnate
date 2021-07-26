@@ -1,8 +1,8 @@
 {
     "name": "AdopNate a pet",
     "short_name": "AdopNate",
-    "theme_color": "#234f05",
-    "background_color": "#05084f",
+    "theme_color": "#3F3697",
+    "background_color": "#fff",
     "display": "standalone",
     "scope": "./",
     "start_url": "./",
