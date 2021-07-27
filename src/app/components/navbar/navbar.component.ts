@@ -53,8 +53,6 @@ export class NavbarComponent implements OnInit {
   async avatarClick() {
     if (this.authenticated) {
       const actionSheet = await this.actionSheetCtrl.create({
-        header: 'Perfil',
-        backdropDismiss: false,
         buttons: [
           {
             text: 'Ayuda',
@@ -96,8 +94,6 @@ export class NavbarComponent implements OnInit {
 
     } else {
       const actionSheet = await this.actionSheetCtrl.create({
-        header: 'Perfil',
-        backdropDismiss: false,
         buttons: [
           {
             text: 'Ingresar',
@@ -126,9 +122,9 @@ export class NavbarComponent implements OnInit {
   async presentPopover(ev: any) {
     const popover = await this.popoverCtrl.create({
       component: AvatarMenuComponent,
-      event: ev,
       translucent: true,
-      backdropDismiss: true
+      backdropDismiss: true,
+      animated: true
     });
     await popover.present();
     const { data } = await popover.onWillDismiss();

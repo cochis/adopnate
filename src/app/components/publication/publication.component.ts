@@ -20,6 +20,7 @@ export class PublicationComponent implements OnInit {
   like: LikeModel = new LikeModel();
   thisLike = '';
   slides = [];
+  auth =false;
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 1,
@@ -34,9 +35,13 @@ export class PublicationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.userCurrent = this.funService.getLocal('user');
     this.slides = this.item.picturesPet;
     console.log('on init', this.item);
+    if(this.userCurrent){
+      this.auth = true;
+    }
 
     this.getUnique();
   }
@@ -67,30 +72,32 @@ export class PublicationComponent implements OnInit {
     }
   }
   seePet(item) {
-    // console.log('single-publication/'+ this.item.uId);
-    // const url: string ='single-publication/'+ this.item.uId;
+    console.log(this.item);
+    console.log('single-publication/'+ this.item.uid);
+    const url: string ='single-publication/'+ this.item.uid;
+    this.funService.setLocal(this.item.uid,this.item);
     // this.router.navigate(['/single-publication'], { queryParams: { uId: 'popular' } });
-    // this.funService.navigate( url );
-    item.type = 'viewPet';
-    this.funService.mostrarModal(item).then(res => {
-      if (res.props.type === 'adoption') {
-        this.funService.mostrarModal(item).then(reps => {
-          if (!reps.props.auth && reps.props.type === 'adoption' && reps.props.role === 'userAdopted') {
-            this.funService.navigateTo('/register');
-          }
-        });
-      }
-      else if (res.props.type === 'donation') {
-        this.funService.mostrarModal(item).then(reps => {
-          console.log(reps);
-        });
-      }
-      else if (res.props.type === 'register') {
-        this.funService.mostrarModal(item).then(reps => {
-          console.log(reps);
-        });
-      }
-    });
+    this.funService.navigate( url );
+    // item.type = 'viewPet';
+    // this.funService.mostrarModal(item).then(res => {
+    //   if (res.props.type === 'adoption') {
+    //     this.funService.mostrarModal(item).then(reps => {
+    //       if (!reps.props.auth && reps.props.type === 'adoption' && reps.props.role === 'userAdopted') {
+    //         this.funService.navigateTo('/register');
+    //       }
+    //     });
+    //   }
+    //   else if (res.props.type === 'donation') {
+    //     this.funService.mostrarModal(item).then(reps => {
+    //       console.log(reps);
+    //     });
+    //   }
+    //   else if (res.props.type === 'register') {
+    //     this.funService.mostrarModal(item).then(reps => {
+    //       console.log(reps);
+    //     });
+    //   }
+    // });
   }
   share() {
     console.log(this.platform);

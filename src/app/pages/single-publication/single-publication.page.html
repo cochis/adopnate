@@ -6,38 +6,26 @@
             <ion-grid>
                 <ion-row>
                     <ion-col size="12" class="center">
-                        <h1>Mi perro</h1>
+                        <h2>{{pet.namePet}} </h2>
                     </ion-col>
-                    <!-- <ion-col size="12" size-sm="4" size-md="6" size-lg="4" class="center">
-                        <ion-card style="min-height:300px" class="mgB25">
-                            <ion-card-header class="center">
-                                <ion-card-subtitle class="pd10">Cochis</ion-card-subtitle>
-                                <img src="assets/img/user.png" alt="" style="width:150px">
-                                <ion-title> dsadsadsa</ion-title>
-                            </ion-card-header>
-                            <ion-card-content>
-
-                                <p>lorem </p>
-
-                            </ion-card-content>
-                        </ion-card>
-                    </ion-col> -->
-
                     <!-- Pet -->
-
                     <ion-col size="0" size-lg="2"></ion-col>
                     <ion-col size="12" size-sm="12" size-md="12" size-lg="8" class="center">
-                        <ion-card style="min-height:300px" class="mgB25 noBorder">
+                        <ion-card class="mgB25 noBorder">
                             <ion-card-header class="center">
-                                <img src="assets/img/perro4.jpg" />
-                                <ion-card-subtitle class="pd10">Usuario</ion-card-subtitle>
-                                <ion-title> Gorda
+                                <ion-slides [options]="slideOptsOne" style="width:100% !important;">
+                                    <ion-slide *ngFor="let slide of slides" style="width:100% !important;">
+                                        <img [src]="slide.url" style="width:100% !important;">
+                                    </ion-slide>
+                                </ion-slides>
+                                <ion-card-subtitle class="pd10">{{pet.dateCreated | date}}</ion-card-subtitle>
+                                <ion-title> {{pet.estatePet}} - {{pet.delegationPet}}
                                 </ion-title>
                                 <ion-chip color="primary" outline="true">
                                     <ion-avatar>
                                         <img src="assets/img/user.png" />
                                     </ion-avatar>
-                                    <ion-label>Oscar Ramirez</ion-label>
+                                    <ion-label> {{pet.userName}}</ion-label>
                                 </ion-chip>
                             </ion-card-header>
                         </ion-card>
@@ -50,32 +38,45 @@
                                     <ion-icon slot="icon-only" name="share-outline"></ion-icon>
                                 </ion-item-option>
                             </ion-item-options>
-                            <ion-item>
-                                <ion-label>
-                                    <h3> Nombre</h3>
-                                </ion-label>
-                                <ion-label slot="end" class="ion-text-end text-small"> Gorda </ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h3> Edad</h3>
-                                </ion-label>
-                                <ion-label slot="end" class="ion-text-end text-small"> 2 Años </ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h3> Raza</h3>
-                                </ion-label>
-                                <ion-label slot="end" class="ion-text-end text-small"> Pittbull </ion-label>
-                            </ion-item>
-                            <ion-item>
-                                <ion-label>
-                                    <h3>Descripcion</h3>
-                                </ion-label>
-                                <p>
-                                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam, repellendus corporis voluptatum atque voluptatem dolorum ipsum quaerat, veniam facere aliquid nemo unde rem, facilis delectus dolore tenetur accusamus laudantium distinctio.
-                                </p>
-                            </ion-item>
+                            <ion-col size="12" size-sm="12" size-xl="4">
+                                <ion-item>
+                                    <ion-label>
+                                        <h3> Nombre</h3>
+                                    </ion-label>
+                                    <ion-label slot="end" class="ion-text-end text-small"> {{pet.userName}} </ion-label>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="12" size-sm="12" size-xl="4">
+                                <ion-item>
+                                    <ion-label>
+                                        <h3> Edad</h3>
+                                    </ion-label>
+                                    <ion-label slot="end" class="ion-text-end text-small">{{pet.agePet}} </ion-label>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="12" size-sm="12" size-xl="4">
+                                <ion-item>
+                                    <ion-label>
+                                        <h3> Raza</h3>
+                                    </ion-label>
+                                    <ion-label slot="end" class="ion-text-end text-small">{{pet.racePet}} </ion-label>
+                                </ion-item>
+                            </ion-col>
+                            <ion-col size="12">
+                                <ion-item>
+                                    <ion-label>
+                                        <h3>Descripción</h3>
+                                    </ion-label>
+                                    <p>
+                                        {{pet.descriptionPet}}
+                                    </p>
+                                </ion-item>
+                            </ion-col>
+
+
+
+
+
                         </ion-card-content>
 
                     </ion-col>

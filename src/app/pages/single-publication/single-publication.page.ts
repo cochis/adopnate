@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FunctionsService } from 'src/app/services/functions.service';
+import { PetService } from 'src/app/services/pets.service';
+import { PetModel } from '../../models/pet.model';
 
 @Component({
   selector: 'app-single-publication',
@@ -11,9 +14,18 @@ import { map } from 'rxjs/operators';
 
 
 export class SinglePublicationPage implements OnInit {
-   heroe: any = {};
-   isPc= false;
-   pictures: { img: string;titulo: string;desc: string }[] = [
+  slideOptsOne = {
+    initialSlide: 0,
+    slidesPerView: 1,
+    autoplay: true,
+    pagination: true,
+    speed: 5000
+  };
+  slides=[];
+  pet: any;
+  uidPet = '';
+  isPc = false;
+  pictures: { img: string; titulo: string; desc: string }[] = [
     {
       img: 'assets/img/perro.jpg',
       titulo: 'Comparte Fotos',
@@ -43,21 +55,41 @@ export class SinglePublicationPage implements OnInit {
   ];
 
 
-  constructor( private activatedRoute: ActivatedRoute){
-    this.activatedRoute.params.subscribe( params =>{
-      this.heroe =   params.id ;
-        console.log(this.heroe);
-  });
+  constructor(private activatedRoute: ActivatedRoute,
+    private petService: PetService,
+    private funService: FunctionsService) {
+    this.activatedRoute.params.subscribe(params => {
+      this.uidPet = params.id;
+      console.log(this.uidPet);
+
+
+      if (this.funService.getLocal(this.uidPet)) {
+        this.pet = this.funService.getLocal(this.uidPet);
+        console.log(this.pet);
+        this.slides = this.pet.picturesPet;
+      }
+      else {
+        this.petService.getPet(this.uidPet).subscribe((res) => {
+          this.pet = res;
+          console.log(this.pet);
+          this.funService.setLocal(this.uidPet, this.pet);
+          this.slides = this.pet.picturesPet;
+        },
+          (err) => {
+            console.log(err);
+          });
+      }
+    });
   }
   ngOnInit() {
   }
   isPcV(isPcm: string) {
     console.log('isPc   publications', isPcm);
-      if (isPcm ==='Desktop'){
-        this.isPc= true;
-      }
-      else {
-        this.isPc = false;
-      }
+    if (isPcm === 'Desktop') {
+      this.isPc = true;
     }
+    else {
+      this.isPc = false;
+    }
+  }
 }

@@ -113,12 +113,13 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
 
 </ion-card>
 <ion-fab vertical="top" horizontal="end" slot="fixed" style="margin-right: 20px;margin-top: 20px;">
-    <ion-fab-button class="btnFab">
+    <ion-fab-button class="btnFab" *ngIf="auth">
         <ion-icon name="heart-circle" (click)="likes()" *ngIf="!likeCheck"></ion-icon>
         <ion-icon name="heart" (click)="likes()" *ngIf="likeCheck" color="danger"></ion-icon>
     </ion-fab-button>
     <ion-fab-button class="btnFab">
         {{count}}
+        <ion-icon name="heart" *ngIf="!auth" style="font-size: 10px;color:red;"></ion-icon>
     </ion-fab-button>
     <ion-fab-button class="btnFab">
         <ion-icon name="share-social" (click)="share()"></ion-icon>
