@@ -13,11 +13,12 @@
                     <ion-col size="12" size-sm="12" size-md="12" size-lg="8" class="center">
                         <ion-card class="mgB25 noBorder">
                             <ion-card-header class="center">
-                                <ion-slides [options]="slideOptsOne" style="width:100% !important;">
+                                <img [src]="pet.picturesPet[0].url" style="width:100% !important;  max-width: 450px; margin:auto">
+                                <!-- <ion-slides [options]="slideOptsOne" style="width:100% !important;">
                                     <ion-slide *ngFor="let slide of slides" style="width:100% !important;">
                                         <img [src]="slide.url" style="width:100% !important;">
                                     </ion-slide>
-                                </ion-slides>
+                                </ion-slides> -->
                                 <ion-card-subtitle class="pd10">{{pet.dateCreated | date}}</ion-card-subtitle>
                                 <ion-title> {{pet.estatePet}} - {{pet.delegationPet}}
                                 </ion-title>
