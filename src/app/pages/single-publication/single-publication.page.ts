@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { User } from 'src/app/models/user.model';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
+import { SeoService } from 'src/app/services/seo.service';
 import { PetModel } from '../../models/pet.model';
 
 @Component({
@@ -21,41 +24,17 @@ export class SinglePublicationPage implements OnInit {
     pagination: true,
     speed: 5000
   };
-  slides=[];
+  slides = [];
   pet: any;
   uidPet = '';
   isPc = false;
-  pictures: { img: string; titulo: string; desc: string }[] = [
-    {
-      img: 'assets/img/perro.jpg',
-      titulo: 'Comparte Fotos',
-      desc: 'Mira y comparte increíbles fotos de todo el mundo'
-    },
-    {
-      img: 'assets/img/perro1.jpg',
-      titulo: 'Escucha Música',
-      desc: 'Toda tu música favorita está aquí'
-    },
-    {
-      img: 'assets/img/perro2.jpg',
-      titulo: 'Nunca olvides nada',
-      desc: 'El mejor calendario del mundo a tu disposición'
-    },
-    {
-      img: 'assets/img/perro3.jpg',
-      titulo: 'Tu ubicación',
-      desc: 'Siempre sabremos donde estás!'
-    }
-    ,
-    {
-      img: 'assets/img/perro4.jpg',
-      titulo: 'Tu ubicación',
-      desc: 'Siempre sabremos donde estás!'
-    }
-  ];
+  usr: User;
+  checkEdit = false;
 
-
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
+    private seo: SeoService,
+    private title: Title,
+    private activatedRoute: ActivatedRoute,
     private petService: PetService,
     private funService: FunctionsService) {
     this.activatedRoute.params.subscribe(params => {
@@ -82,6 +61,33 @@ export class SinglePublicationPage implements OnInit {
     });
   }
   ngOnInit() {
+    this.usr = this.funService.getLocal('user');
+    console.log(this.usr.uid);
+    console.log(this.pet.userUid);
+    if (this.usr.uid === this.pet.userUid) {
+      this.checkEdit = true;
+      console.log(this.usr);
+    }
+    this.funService.createLinkForCanonicalURL();
+    const t = 'AdopNate | El es ' + this.pet.namePet;
+    this.title.setTitle(t);
+
+    this.seo.generateTags({
+      title: 'AdopNate | El es ' + this.pet.namePet,
+      description:
+        this.pet.descriptionPet,
+      keywords:
+        'Salva una vida, adopta,adopción, mascota',
+      slug: 'single-publication',
+      colorBar: '#3F3697',
+      image:
+        window.location.origin + '/assets/logo/adopnate_logo.png',
+    });
+
+  }
+  putImage(image){
+    const  img: any = document.getElementById('imgView');
+    img.src = image;
   }
   isPcV(isPcm: string) {
     console.log('isPc   publications', isPcm);

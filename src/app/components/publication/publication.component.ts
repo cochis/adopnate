@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, Input, OnInit } from '@angular/core';
 import { LikeModel } from 'src/app/models/like.model';
 import { User } from 'src/app/models/user.model';
@@ -6,6 +7,8 @@ import { FunctionsService } from '../../services/functions.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { SeoService } from 'src/app/services/seo.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-publication',
@@ -30,13 +33,34 @@ export class PublicationComponent implements OnInit {
     pagination: true,
     speed: 5000
   };
-  constructor(private funService: FunctionsService,
+  constructor(
+    private seo: SeoService,
+    private title: Title,
+    private funService: FunctionsService,
     private likeService: LikeService,
     private socialSharing: SocialSharing,
     private platform: Platform
   ) { }
 
   ngOnInit() {
+
+
+    this.funService.createLinkForCanonicalURL();
+    const t = 'AdopNate | Galería de mascotas';
+    this.title.setTitle(t);
+
+    this.seo.generateTags({
+      title: 'AdopNate | Galería de mascotas',
+      description:
+        'Has quimica con algunos de nuestros amiguitos',
+      keywords:
+        'Salva una vida, adopta,adopción, mascota',
+      slug: 'Inicio',
+      colorBar: '#3F3697',
+      image:
+        window.location.origin + '/assets/logo/adopnate_logo.png',
+    });
+
 
     this.userCurrent = this.funService.getLocal('user');
     this.slides = this.item.picturesPet;

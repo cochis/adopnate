@@ -349,10 +349,6 @@ export class CreatePublicationPage implements OnInit {
         value: this.addForm.value.sizePet
       });
       this.categoriesPet.push({
-        sentence: 'typePet',
-        value: this.addForm.value.typePet
-      });
-      this.categoriesPet.push({
         sentence: 'longevityPet',
         value: this.addForm.value.longevityPet
       });

@@ -21,7 +21,7 @@ export class SeoService {
   }
   generateTags(config: any) {
     config = {
-      title: 'Adopnate a pet | Dona o adopta una mascota',
+      title: 'AdopNate a pet | Dona o adopta una mascota',
       description:
         'Dona o adopta una mascota, dandole la oportunidad de una vida saludable y feliz a un compañero',
       keywords:

@@ -1,0 +1,35 @@
+.showPet {
+    max-width: 80%;
+}
+
+@media only screen and (max-width: 768px) {
+    .showPet {
+        max-width: 100%;
+    }
+}
+
+.picturesView {
+    display: inline-block;
+    align: right;
+    width: 15%;
+}
+
+.galeria {
+    width: 90%;
+    margin: auto;
+    list-style: none;
+    padding: 5px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.galeria li {
+    margin: 5px;
+}
+
+.galeria img {
+    width: 80px;
+    height: 50px;
+}

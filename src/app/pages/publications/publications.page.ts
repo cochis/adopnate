@@ -63,7 +63,7 @@ export class PublicationsPage implements OnInit {
         'Selecciona a tu nuevo compañero de vida',
       keywords:
         'Publicaciones disponibles para la elección de tu compañero',
-      slug: 'Publicaciones',
+      slug: 'publications',
       colorBar: '#3f3697',
       image:
         window.location.origin + '/assets/logo/adopnate_logo.png',

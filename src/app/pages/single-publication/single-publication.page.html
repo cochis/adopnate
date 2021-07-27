@@ -1,92 +1,191 @@
 <app-navbar titulo="Publicación" (propagar)=" isPcV($event)"></app-navbar>
 <ion-content>
     <!-- <app-refresher> </app-refresher> -->
-    <ion-grid>
-        <ion-row>
-            <ion-grid>
-                <ion-row>
-                    <ion-col size="12" class="center">
+    <ion-grid class="showPet center">
+
+
+        <ion-row class="center">
+            <ion-col size="12" size-sm="12" size-md="6">
+                <ion-card class="noBorder">
+                    <ion-card-header class="noBorder" style="border-radius:20px; border:4px solid #3f3697 ;background:#F0EBCC ;width: 100%;
+                    height: 390px;">
+
+                        <img [src]="pet.picturesPet[0].url" id="imgView" style="width:100% !important;  max-width: 450px;
+                        height: 350px; margin:auto;border-radius:20px;">
+
+                    </ion-card-header>
+                    <ion-card-content class="noBorder">
+                        <ul class="galeria">
+                            <li *ngFor="let item of pet.picturesPet" (click)="putImage(item.url)">
+                                <img [src]="item.url">
+                            </li>
+
+                        </ul>
+
                         <h2>{{pet.namePet}} </h2>
-                    </ion-col>
-                    <!-- Pet -->
-                    <ion-col size="0" size-lg="2"></ion-col>
-                    <ion-col size="12" size-sm="12" size-md="12" size-lg="8" class="center">
-                        <ion-card class="mgB25 noBorder">
-                            <ion-card-header class="center">
-                                <img [src]="pet.picturesPet[0].url" style="width:100% !important;  max-width: 450px; margin:auto">
-                                <!-- <ion-slides [options]="slideOptsOne" style="width:100% !important;">
-                                    <ion-slide *ngFor="let slide of slides" style="width:100% !important;">
-                                        <img [src]="slide.url" style="width:100% !important;">
-                                    </ion-slide>
-                                </ion-slides> -->
-                                <ion-card-subtitle class="pd10">{{pet.dateCreated | date}}</ion-card-subtitle>
-                                <ion-title> {{pet.estatePet}} - {{pet.delegationPet}}
-                                </ion-title>
-                                <ion-chip color="primary" outline="true">
-                                    <ion-avatar>
-                                        <img src="assets/img/user.png" />
-                                    </ion-avatar>
-                                    <ion-label> {{pet.userName}}</ion-label>
-                                </ion-chip>
-                            </ion-card-header>
-                        </ion-card>
-                        <ion-card-content>
-                            <ion-item-options side="start">
-                                <ion-item-option>
-                                    <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                                </ion-item-option>
-                                <ion-item-option color="danger">
-                                    <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                                </ion-item-option>
-                            </ion-item-options>
-                            <ion-col size="12" size-sm="12" size-xl="4">
-                                <ion-item>
-                                    <ion-label>
-                                        <h3> Nombre</h3>
-                                    </ion-label>
-                                    <ion-label slot="end" class="ion-text-end text-small"> {{pet.userName}} </ion-label>
-                                </ion-item>
-                            </ion-col>
-                            <ion-col size="12" size-sm="12" size-xl="4">
-                                <ion-item>
-                                    <ion-label>
-                                        <h3> Edad</h3>
-                                    </ion-label>
-                                    <ion-label slot="end" class="ion-text-end text-small">{{pet.agePet}} </ion-label>
-                                </ion-item>
-                            </ion-col>
-                            <ion-col size="12" size-sm="12" size-xl="4">
-                                <ion-item>
-                                    <ion-label>
-                                        <h3> Raza</h3>
-                                    </ion-label>
-                                    <ion-label slot="end" class="ion-text-end text-small">{{pet.racePet}} </ion-label>
-                                </ion-item>
-                            </ion-col>
-                            <ion-col size="12">
-                                <ion-item>
-                                    <ion-label>
-                                        <h3>Descripción</h3>
-                                    </ion-label>
-                                    <p>
-                                        {{pet.descriptionPet}}
-                                    </p>
-                                </ion-item>
-                            </ion-col>
+                        <ion-card-subtitle class="pd10">{{pet.dateCreated | date}}</ion-card-subtitle>
+                        <ion-card-title> {{pet.estatePet}} - {{pet.delegationPet}}
+                        </ion-card-title>
+                        <ion-chip color="primary" outline="true">
+                            <ion-avatar>
+                                <img src="assets/img/user.png" />
+                            </ion-avatar>
+                            <ion-label> {{pet.userName}}</ion-label>
+                        </ion-chip>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="12" size-sm="12" size-md="6">
+                <ion-item-options side="start">
+                    <ion-item-option>
+                        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
+                    </ion-item-option>
+                    <ion-item-option color="danger">
+                        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+                    </ion-item-option>
+                </ion-item-options>
+
+                <ion-col size="12" size-sm="12">
+                    <ion-item class="noBorder">
+                        <ion-label class="noBorder">
+                            <h3> Edad</h3>
+                        </ion-label>
+                        <ion-label slot="end" class="ion-text-end text-small">{{pet.agePet}} </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12" size-sm="12">
+                    <ion-item>
+                        <ion-label>
+                            <h3> Raza</h3>
+                        </ion-label>
+                        <ion-label slot="end" class="ion-text-end text-small">{{pet.racePet}} </ion-label>
+                    </ion-item>
+                </ion-col>
+                <ion-col size="12">
+                    <ion-label>
+                        <h3>Descripción</h3>
+                    </ion-label>
+
+                    <p>
+                        {{pet.descriptionPet}}
+                    </p>
+
+                </ion-col>
 
 
-
-
-
-                        </ion-card-content>
-
-                    </ion-col>
-                    <ion-col size="0" size-lg="2"></ion-col>
-                </ion-row>
-            </ion-grid>
+            </ion-col>
 
         </ion-row>
-    </ion-grid>
+        <ion-row>
+            <ion-col size="12" size-sm="12" size-md="6" class="center" *ngIf="pet.vaccines.length > 0 ">
+                <ion-card class="noBorder">
+                    <ion-card-title>
+                        Vacunas
+                    </ion-card-title>
 
+                    <ion-card-content>
+                        <ion-list *ngFor="let item of pet.vaccines  let i = index; ">
+                            <ion-col size="12">
+                                {{i}}.-{{item.vaccine}}
+
+                            </ion-col>
+                            <ion-col size="6">
+                                {{item.description}}
+                            </ion-col>
+                            <ion-col size="6">
+                                {{item.date | date}}
+
+                            </ion-col>
+
+
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+            <ion-col size="12" size-sm="12" size-md="6" class="center" *ngIf="pet.categoriesPet.length > 0 ">
+                <ion-card class="noBorder">
+                    <ion-card-title>
+                        Categorías
+                    </ion-card-title>
+
+                    <ion-card-content>
+                        <ion-list *ngFor="let item of pet.categoriesPet">
+                            <ion-col size="6" *ngIf="item.sentence ==='typePet'">
+                                Tipo de mascota
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.sentence ==='sizePet'">
+                                Tamaño de mascota
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.sentence ==='longevityPet'">
+                                Longevidad
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.sentence ==='generPet'">
+                                Genero de mascota
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='dog'">
+                                Perro
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='cat'">
+                                Gato
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='bird'">
+                                Ave
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='other'">
+                                Otro
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='min'">
+                                Miniatura
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='small'">
+                                Pequeño
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='medium'">
+                                Mediano
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='big'">
+                                Grande
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='gigant'">
+                                Gigante
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='puppy'">
+                                Cachorro
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='adult'">
+                                Adulto
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='senior'">
+                                Mayor
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='male'">
+                                Macho
+                            </ion-col>
+                            <ion-col size="6" *ngIf="item.value ==='female'">
+                                Hembra
+                            </ion-col>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="12" size-sm="12" size-md="6" *ngFor="let item of pet.qualitysPet">
+                <ion-label>{{item.sentence}}</ion-label>
+                <ion-range min="0" max="5" step="1" [value]="item.value" disabled="true">
+                    <ion-icon color="tertiary" slot="start" name="sad"></ion-icon>
+                    <ion-icon icon color="secondary" slot="end" name="happy"></ion-icon>
+                </ion-range>
+            </ion-col>
+        </ion-row>
+
+
+
+    </ion-grid>
+    <ion-fab vertical="top" horizontal="start" edge slot="fixed" *ngIf="checkEdit">
+        <ion-fab-button>
+            <ion-icon name="create"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>
 <app-footer></app-footer>
