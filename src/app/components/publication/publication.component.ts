@@ -5,6 +5,8 @@ import { LikeService } from 'src/app/services/like.service';
 import { FunctionsService } from '../../services/functions.service';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { Platform } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-publication',
   templateUrl: './publication.component.html',
@@ -20,7 +22,7 @@ export class PublicationComponent implements OnInit {
   like: LikeModel = new LikeModel();
   thisLike = '';
   slides = [];
-  auth =false;
+  auth = false;
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 1,
@@ -39,7 +41,7 @@ export class PublicationComponent implements OnInit {
     this.userCurrent = this.funService.getLocal('user');
     this.slides = this.item.picturesPet;
     console.log('on init', this.item);
-    if(this.userCurrent){
+    if (this.userCurrent) {
       this.auth = true;
     }
 
@@ -73,11 +75,11 @@ export class PublicationComponent implements OnInit {
   }
   seePet(item) {
     console.log(this.item);
-    console.log('single-publication/'+ this.item.uid);
-    const url: string ='single-publication/'+ this.item.uid;
-    this.funService.setLocal(this.item.uid,this.item);
+    console.log('single-publication/' + this.item.uid);
+    const url: string = 'single-publication/' + this.item.uid;
+    this.funService.setLocal(this.item.uid, this.item);
     // this.router.navigate(['/single-publication'], { queryParams: { uId: 'popular' } });
-    this.funService.navigate( url );
+    this.funService.navigate(url);
     // item.type = 'viewPet';
     // this.funService.mostrarModal(item).then(res => {
     //   if (res.props.type === 'adoption') {
@@ -106,7 +108,7 @@ export class PublicationComponent implements OnInit {
         this.item.namePet,
         this.item.descriptionPet,
         '',
-        'https://adopnate-3a16c.firebaseapp.com/publications'
+        environment.urlBase + 'single-publication/' + this.item.uid
       );
     } else {
       console.log(navigator.share);
@@ -114,7 +116,7 @@ export class PublicationComponent implements OnInit {
         navigator.share({
           title: this.item.namePet,
           text: this.item.descriptionPet,
-          url: 'https://adopnate-3a16c.firebaseapp.com/publications'
+          url: environment.urlBase + 'single-publication/' + this.item.uid
         })
           .then(() => console.log('Successful share'))
           .catch((error) => console.log('Error sharing', error));

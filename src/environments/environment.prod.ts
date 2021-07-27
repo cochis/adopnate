@@ -9,5 +9,6 @@ export const environment = {
     messagingSenderId: '342036020533',
     appId: '1:342036020533:web:690f0f7dafdd7f361f207c',
     measurementId: 'G-W0WHQJX69D'
-  }
+  },
+  urlBase: 'https://adopnate-3a16c.firebaseapp.com/'
 };
