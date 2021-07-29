@@ -62,8 +62,6 @@ export class CreatePublicationPage implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.user = this.funService.getLocal('user');
-    console.log(this.user);
   }
   createForm() {
     this.addForm = this.formBuilder.group({
@@ -305,14 +303,23 @@ export class CreatePublicationPage implements OnInit {
       this.picturesPet.controls.splice(0, this.picturesPet.length);
     }
   }
-  isPcV(isPcm: string) {
+  isPcV(isPcm: any) {
     console.log('isPc   publications', isPcm);
-    if (isPcm === 'Desktop') {
+    this.user = isPcm.user;
+    if(isPcm.user){
+      this.user = isPcm.user;
+      this.authenticated = true;
+    }else{
+      this.authenticated = false;
+    }
+    if (isPcm.plat === 'Desktop') {
       this.isPc = true;
     }
     else {
       this.isPc = false;
     }
+    console.log('User',this.user);
+    console.log('authenticated',this.authenticated);
   }
 
 

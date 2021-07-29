@@ -63,8 +63,9 @@ export class AuthService {
     try {
       // const secureLocal = this.funService.getLocal('_secure__ls__metadata');
       this.funService.clearLocal();
-      // this.funService.setLocal('_secure__ls__metadata', secureLocal);
       await this.afAuth.signOut();
+      this.funService.navigateTo('/publications');
+      // this.funService.setLocal('_secure__ls__metadata', secureLocal);
 
     }
     catch (error) {
@@ -72,9 +73,10 @@ export class AuthService {
     }
   }
   async logIn(email: string, password: string): Promise<User> {
+    this.funService.clearLocal();
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.updateUserData(user);
+      // this.updateUserData(user);
       this.funService.setLocal('user', user);
       return user;
     }
@@ -137,6 +139,7 @@ export class AuthService {
   isEmailVerified(user: User): boolean {
     return user.emailVerified === true ? true : false;
   }
+
   private updateUserData(user: User) {
     console.log('updateUser =>', user);
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);

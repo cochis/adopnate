@@ -8,6 +8,7 @@ import { AvatarMenuComponent } from '../avatar-menu/avatar-menu.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { RequestService } from 'src/app/services/request.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -18,13 +19,16 @@ export class NavbarComponent implements OnInit {
   plat = '';
   authenticated = false;
   @Output() messageEvent = new EventEmitter<string>();
-  @Output() propagar = new EventEmitter<string>();
+  @Output() propagar = new EventEmitter<any>();
   isPc = false;
   avatarImage = '';
+  user: User;
+  countNotifications = 0;
   public user$: Observable<User> = this.auth.afAuth.user;
   constructor(private funService: FunctionsService,
     private actionSheetCtrl: ActionSheetController,
     private auth: AuthService,
+    private requestService: RequestService,
     public popoverCtrl: PopoverController,
     public platform: Platform,
   ) {
@@ -32,13 +36,21 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit() {
     this.user$.subscribe(res => {
-      // console.log(res);
       if (res !== null) {
-        this.authenticated = true;
-        // console.log(res.photoURL);
-        this.avatarImage = ((res.photoURL !== '' || res.photoURL !== null) ? res.photoURL : '/assets/img/user.png');
-        // console.log(this.avatarImage);
-        // this.funService.setLocal('user',res);
+        this.user = res;
+        this.requestService.getRequestByUser(this.user.uid).subscribe((response) => {
+          this.countNotifications = 0;
+          response.forEach((item) => {
+            if (!item.viewNotification) {
+              this.countNotifications++;
+            }
+          });
+          this.authenticated = true;
+          this.avatarImage = (res.photoURL !== null ? res.photoURL : '/assets/img/user.png');
+        },
+          (err) => {
+            console.log(err);
+          });
       } else {
         this.authenticated = false;
         this.avatarImage = '/assets/img/user.png';
@@ -139,8 +151,13 @@ export class NavbarComponent implements OnInit {
         this.plat = 'mobile';
         this.isPc = false;
       }
-      this.messageEvent.emit(this.plat);
-      this.propagar.emit(this.plat);
+      const res = {
+        plat: this.plat,
+        user: this.user
+      };
+
+      // this.messageEvent.emit(res);
+      this.propagar.emit(res);
     }, 1500);
   }
   optMenuDektop(data) {

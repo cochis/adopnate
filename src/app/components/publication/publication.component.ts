@@ -18,7 +18,7 @@ import { Title } from '@angular/platform-browser';
 export class PublicationComponent implements OnInit {
   @Input() item: any;
   @Input() count: any;
-  userCurrent: User;
+  @Input() user: User;
   token: string;
   isPc = false;
   likeCheck = false;
@@ -43,8 +43,8 @@ export class PublicationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
+    console.log(this.item);
+    this.slides = this.item.picturesPet;
     this.funService.createLinkForCanonicalURL();
     const t = 'AdopNate | Galería de mascotas';
     this.title.setTitle(t);
@@ -60,28 +60,21 @@ export class PublicationComponent implements OnInit {
       image:
         window.location.origin + '/assets/logo/adopnate_logo.png',
     });
+    if(this.user){
 
-
-    this.userCurrent = this.funService.getLocal('user');
-    this.slides = this.item.picturesPet;
-    console.log('on init', this.item);
-    if (this.userCurrent) {
-      this.auth = true;
+      this.getUnique();
     }
-
-    this.getUnique();
   }
-
   async getUnique() {
-    this.thisLike = this.item.uid + '' + this.userCurrent.uid;
+    console.log(this.user);
+    this.thisLike = this.item.uid + '' + this.user.uid;
     // console.log(' this.thisLike =====>>>>>' + this.thisLike);
     if (this.funService.getLocal(this.thisLike)) {
       const lk = this.funService.getLocal(this.thisLike);
       this.likeCheck = lk.actived;
-
     } else {
       if (this.funService.getLocal('user')) {
-        this.likeService.getLikeUnique(this.item.uid, this.userCurrent.uid).subscribe(res => {
+        this.likeService.getLikeUnique(this.item.uid, this.user.uid).subscribe(res => {
           if (res.length > 0) {
             this.likeCheck = res[0].actived;
             const userLike = res[0].uid + '' + res[0].uid;
@@ -102,28 +95,7 @@ export class PublicationComponent implements OnInit {
     console.log('single-publication/' + this.item.uid);
     const url: string = 'single-publication/' + this.item.uid;
     this.funService.setLocal(this.item.uid, this.item);
-    // this.router.navigate(['/single-publication'], { queryParams: { uId: 'popular' } });
     this.funService.navigate(url);
-    // item.type = 'viewPet';
-    // this.funService.mostrarModal(item).then(res => {
-    //   if (res.props.type === 'adoption') {
-    //     this.funService.mostrarModal(item).then(reps => {
-    //       if (!reps.props.auth && reps.props.type === 'adoption' && reps.props.role === 'userAdopted') {
-    //         this.funService.navigateTo('/register');
-    //       }
-    //     });
-    //   }
-    //   else if (res.props.type === 'donation') {
-    //     this.funService.mostrarModal(item).then(reps => {
-    //       console.log(reps);
-    //     });
-    //   }
-    //   else if (res.props.type === 'register') {
-    //     this.funService.mostrarModal(item).then(reps => {
-    //       console.log(reps);
-    //     });
-    //   }
-    // });
   }
   share() {
     console.log(this.platform);
@@ -157,12 +129,12 @@ export class PublicationComponent implements OnInit {
     else {
       this.likeCheck = false;
     }
-    const userLike = this.item.uid + '' + this.userCurrent.uid;
+    const userLike = this.item.uid + '' + this.user.uid;
     if (!this.funService.getLocal(userLike)) {
       const data: LikeModel = {
         uid: idL,
         uidPet: this.item.uid,
-        uidUser: this.userCurrent.uid,
+        uidUser: this.user.uid,
         actived: this.likeCheck,
         date: new Date().getTime()
       };

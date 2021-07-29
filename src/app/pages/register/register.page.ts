@@ -83,69 +83,6 @@ export class RegisterPage implements OnInit {
       this.viewPass = true;
     }
   }
-  // onSubmit() {
-  //   // console.log(this.registerForm.value.dateUser);
-  //   // const dateUser = new Date(this.registerForm.value.dateUser);
-  //   // console.log(dateUser);
-  //   // this.usuario.dateUser = Number(new Date(dateUser).getTime());
-  //   // console.log( this.usuario.dateUser);
-  //   console.log(this.registerForm.value);
-  //   this.submitted = true;
-  //   if (!this.registerForm.valid) {
-  //     console.log('Todos los campos son requeridos.');
-  //     return false;
-  //   } else {
-  //     this.presentLoading('Por favor espere');
-  //     this.usuario = {
-  //       ...this.registerForm.value
-  //     };
-  //     console.log(this.usuario);
-  //     this.auth.nuevoUsuario(this.usuario).subscribe((resp: UserRegister) => {
-  //       console.log(this.usuario);
-  //       console.log(resp);
-  //       if (this.recordarme) {
-  //         this.funService.setLocal('email', this.usuario.emailUser);
-  //       } else {
-  //         this.funService.removeLocal('email');
-  //       }
-  //       setTimeout(() => {
-  //         this.usuario.birthDate = this.funService.getTime(this.usuario.birthDate);
-  //         this.usuario.dateCreated = this.funService.getTime();
-  //         this.usuario.activatedUser = true;
-  //         console.log(this.usuario);
-  //         const conexionUser = { email: { visible: true, value: this.usuario.emailUser } };
-  //         this.usuario.conexionUser = conexionUser;
-  //         this.usuario.emailUser = undefined;
-  //         this.usuario.passwordUser = undefined;
-  //         this.usuariosService.crearUsuario(this.usuario).subscribe((res: UsuarioModel) => {
-  //           setTimeout(() => {
-  //             this.userRegister = resp;
-  //             res.localId = this.userRegister.localId;
-  //             console.log('res', res);
-  //             this.usuariosService.updateUser(res.uIdUser, res);
-  //             this.loading.dismiss();
-  //           }, 1500);
-  //           this.funService.navigate('/publications');
-  //         },
-  //           (err) => {
-  //             setTimeout(() => {
-  //               this.loading.dismiss();
-  //               const msg = err.error.error.message;
-  //               this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
-  //             }, 2000);
-  //           });
-  //       }, 2000);
-  //     },
-  //       (err) => {
-  //         setTimeout(() => {
-  //           this.loading.dismiss();
-  //           const msg = err.error.error.message;
-  //           this.funService.sendMessage('alertDanger', 'Alert', 'SubTitle', msg);
-  //         }, 2000);
-  //       });
-  //   }
-  // }
-
   async onRegister() {
     console.log(this.registerForm.value);
     const roleUser = this.registerForm.value.roleUser;
@@ -171,7 +108,6 @@ export class RegisterPage implements OnInit {
       dateCreated
     };
     console.log(userRegister);
-
     try {
       const user = await this.auth.register(userRegister);
       if (user) {

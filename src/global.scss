@@ -251,3 +251,10 @@
     .ion-color-light {
         --ion-color-base: none !important;
     }
+    
+    .sc-ion-alert-md-h {
+        --max-width: 85%;
+        --max-height: 80%;
+        width: 100vh;
+        height: 100vh;
+    }

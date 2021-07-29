@@ -5,10 +5,14 @@
         <ion-buttons slot="end">
             <ion-back-button defaultHref="/" color="secondary">
             </ion-back-button>
-
-            <ion-button *ngIf="isPc" color="secondary" (click)="presentPopover( $event )">
-                <ion-chip color="primary" outline="false">
-                    <ion-avatar>
+            <ion-button>
+                <ion-icon name="notifications-circle-outline" *ngIf="countNotifications>0"></ion-icon>
+                <ion-badge color="tertiary" *ngIf="countNotifications>0">{{countNotifications}}</ion-badge>
+                <ion-icon name="notifications-circle" *ngIf="countNotifications===0"></ion-icon>
+            </ion-button>
+            <ion-button size="large" *ngIf="isPc" color="secondary" (click)="presentPopover( $event )">
+                <ion-chip color="primary" outline="false" size="large">
+                    <ion-avatar size="large">
                         <ion-img [src]="avatarImage"></ion-img>
 
                     </ion-avatar>

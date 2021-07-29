@@ -91,6 +91,7 @@ export class LoginPage implements OnInit {
     console.log('password =>', password);
     try {
       const user = await this.auth.logIn(email, password);
+      console.log('login user ',user);
       if (user) {
         const isVerified = this.auth.isEmailVerified(user);
         console.log('isVerified->', isVerified);

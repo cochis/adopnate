@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +8,7 @@ import { User } from 'src/app/models/user.model';
 import { FunctionsService } from 'src/app/services/functions.service';
 import { PetService } from 'src/app/services/pets.service';
 import { SeoService } from 'src/app/services/seo.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { PetModel } from '../../models/pet.model';
 
 @Component({
@@ -29,6 +31,8 @@ export class SinglePublicationPage implements OnInit {
   uidPet = '';
   isPc = false;
   usr: User;
+  user: User;
+  authenticated = false;
   checkEdit = false;
 
   constructor(
@@ -36,7 +40,8 @@ export class SinglePublicationPage implements OnInit {
     private title: Title,
     private activatedRoute: ActivatedRoute,
     private petService: PetService,
-    private funService: FunctionsService) {
+    private funService: FunctionsService,
+    private usuarioService: UsuariosService) {
     this.activatedRoute.params.subscribe(params => {
       this.uidPet = params.id;
       console.log(this.uidPet);
@@ -61,12 +66,16 @@ export class SinglePublicationPage implements OnInit {
     });
   }
   ngOnInit() {
-    this.usr = this.funService.getLocal('user');
-    console.log(this.usr.uid);
+    if(this.funService.getLocal('user')){
+      this.user = this.funService.getLocal('user');
+    }
+    console.log(this.user);
     console.log(this.pet.userUid);
-    if (this.usr.uid === this.pet.userUid) {
-      this.checkEdit = true;
-      console.log(this.usr);
+    if(this.user){
+      if (this.user.uid === this.pet.userUid) {
+        this.checkEdit = true;
+        console.log(this.user);
+      }
     }
     this.funService.createLinkForCanonicalURL();
     const t = 'AdopNate | El es ' + this.pet.namePet;
@@ -85,17 +94,53 @@ export class SinglePublicationPage implements OnInit {
     });
 
   }
-  putImage(image){
-    const  img: any = document.getElementById('imgView');
+  adoptar() {
+    if (this.user) {
+      this.usuarioService.getUser(this.user.uid).subscribe((res) => {
+        if (this.user) {
+          console.log('vamos a adoptar');
+          const props = {
+            user: res,
+            pet: this.pet,
+            type: 'adoption'
+          };
+          this.funService.mostrarModal(props);
+        }
+      },
+        (err) => {
+          console.log(err);
+        });
+    }else{
+      this.funService.sendMessage('Error', 'Necesitas estar registrado', 'Error', 'Favor de ingresar al login');
+    }
+
+  }
+  regresar() {
+    this.funService.navigate('/publications');
+  }
+  irRegistro() {
+    this.funService.navigate('/register');
+  }
+  putImage(image) {
+    const img: any = document.getElementById('imgView');
     img.src = image;
   }
-  isPcV(isPcm: string) {
+  isPcV(isPcm: any) {
     console.log('isPc   publications', isPcm);
-    if (isPcm === 'Desktop') {
+    if (isPcm.user) {
+      this.user = isPcm.user;
+      this.authenticated = true;
+    } else {
+      this.authenticated = false;
+    }
+    if (isPcm.plat === 'Desktop') {
       this.isPc = true;
     }
     else {
       this.isPc = false;
     }
+    console.log('User', this.user);
+    console.log('authenticated', this.authenticated);
   }
+
 }

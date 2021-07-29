@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-for-of */
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ModalController } from '@ionic/angular';
@@ -70,21 +71,36 @@ export class FunctionsService {
     console.log('onDidDismiss resolved with role', role);
   }
 
-  async sendMessage(type, hdr, subT, msg) {
-    const alert = await this.alertController.create({
-      cssClass: type,
-      header: hdr,
-      subHeader: subT,
-      message: msg,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-
-    const { role } = await alert.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
+  async sendMessage(type, hdr, subT, msg, lst?) {
+    if (lst) {
+      let res = '';
+      for (let i = 0; i < msg.length; i++) {
+        res += ' ' + msg[i].value + ',<br>';
+      }
+      res.slice(0, -1).trim();
+      const alert = await this.alertController.create({
+        cssClass: type,
+        header: hdr,
+        subHeader: subT,
+        message: res,
+        buttons: ['OK']
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    } else {
+      const alert = await this.alertController.create({
+        cssClass: type,
+        header: hdr,
+        subHeader: subT,
+        message: msg,
+        buttons: ['OK']
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      console.log('onDidDismiss resolved with role', role);
+    }
   }
-
   async mostrarModal(props) {
 
     const modal = await this.modalCtrl.create({
