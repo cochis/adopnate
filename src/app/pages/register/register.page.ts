@@ -89,12 +89,12 @@ export class RegisterPage implements OnInit {
     const nameUser = this.registerForm.value.nameUser;
     const lastNameUser = this.registerForm.value.lastNameUser;
     const surNameUser = this.registerForm.value.surNameUser;
-    const birthDate = new Date(this.registerForm.value.birthDate).getTime() ;
+    const birthDate = new Date(this.registerForm.value.birthDate).getTime();
     const ocupationUser = this.registerForm.value.ocupationUser;
     const email = this.registerForm.value.emailUser;
     const password = this.registerForm.value.passwordUser;
     const ageUser = this.funService.calcularEdad(this.registerForm.value.birthDate);
-    const dateCreated = new Date ().getTime();
+    const dateCreated = new Date().getTime();
     const userRegister = {
       roleUser,
       nameUser,
@@ -112,13 +112,32 @@ export class RegisterPage implements OnInit {
       const user = await this.auth.register(userRegister);
       if (user) {
         const isVerified = this.auth.isEmailVerified(user);
+        this.funService.sendMessage('Success', 'Bienvenido', '', 'Su usuario ha sido registrado');
         console.log('isVerified->', isVerified);
         this.funService.verifyEmail(isVerified);
       } else {
-
+        this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
       }
     } catch (error) {
       console.log('error=>', error);
+      this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
+    }
+  }
+
+  async registerGoogle() {
+    try {
+      const user = await this.auth.loginGoogle();
+      if (user) {
+        const isVerified = this.auth.isEmailVerified(user);
+        console.log('isVerified->', isVerified);
+        this.funService.verifyEmail(isVerified);
+        this.funService.sendMessage('Success', 'Bienvenido', '', 'Su usuario ha sido registrado');
+      } else {
+        this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
+      }
+    } catch (error) {
+      console.log('error=>', error);
+      this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
     }
   }
   // Loadding

@@ -9,6 +9,8 @@ import { Platform } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 import { SeoService } from 'src/app/services/seo.service';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-publication',
@@ -26,6 +28,7 @@ export class PublicationComponent implements OnInit {
   thisLike = '';
   slides = [];
   auth = false;
+  public user$: Observable<User> = this.isAuth.afAuth.user;
   slideOptsOne = {
     initialSlide: 0,
     slidesPerView: 1,
@@ -39,11 +42,26 @@ export class PublicationComponent implements OnInit {
     private funService: FunctionsService,
     private likeService: LikeService,
     private socialSharing: SocialSharing,
-    private platform: Platform
+    private platform: Platform,
+    private isAuth: AuthService
   ) { }
 
   ngOnInit() {
+    this.user$.subscribe(res => {
+      let user: User;
+      let authenticated: boolean;
+      if (res !== null) {
+        console.log(res);
+        this.user = res;
+        this.auth = true;
+      } else {
+        this.user = null;
+        this.auth = false;
+      }
+    });
+    // this.user = isAuth.user;
     console.log(this.item);
+    console.log(this.user);
     this.slides = this.item.picturesPet;
     this.funService.createLinkForCanonicalURL();
     const t = 'AdopNate | Galería de mascotas';
@@ -60,7 +78,7 @@ export class PublicationComponent implements OnInit {
       image:
         window.location.origin + '/assets/logo/adopnate_logo.png',
     });
-    if(this.user){
+    if (this.user) {
 
       this.getUnique();
     }

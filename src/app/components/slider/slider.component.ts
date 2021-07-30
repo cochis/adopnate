@@ -129,7 +129,7 @@ export class SliderComponent implements OnInit {
   ngOnInit() {}
   onClick(link) {
 
-   this.funService.navigateTo(link);
+   this.funService.navigate(link);
 
   }
 

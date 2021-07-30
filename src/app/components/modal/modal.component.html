@@ -77,7 +77,7 @@
                             <ion-col size="12" size-md="6" *ngIf="props.user.birthDate ===null ">
                                 <ion-item lines="full">
                                     <ion-label position="floating" class="inputLabel">Fecha de nacimiento </ion-label>
-                                    <ion-datetime displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" formControlName="birthDate" id="birthDate" (ionChange)="getDate($event)"></ion-datetime>
+                                    <ion-input displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" formControlName="birthDate" id="birthDate" (ionChange)="getDate($event)"></ion-input>
                                 </ion-item>
 
                             </ion-col>
@@ -141,7 +141,7 @@
                             <ion-col size="12" size-md="6">
                                 <ion-item lines="full">
                                     <ion-label position="floating" class="inputLabel">Correo electrónico</ion-label>
-                                    <ion-input formControlName="emailUser" type="email" id="emailUser" readonly>
+                                    <ion-input formControlName="emailUser" type="email" id="emailUser">
                                     </ion-input>
                                 </ion-item>
                                 <span class="error ion-padding" *ngIf="submitted && errorCtr.emailUser.errors?.required">

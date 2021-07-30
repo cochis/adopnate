@@ -1,3 +1,4 @@
+/* eslint-disable use-isnan */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/prefer-for-of */
 import { Component, Input, OnInit } from '@angular/core';
@@ -50,9 +51,6 @@ export class ModalComponent implements OnInit {
   }
 
   createForm() {
-    this.requesterForm = new FormGroup({
-      nameUser: new FormControl()
-    });
     this.requesterForm = this.formBuilder.group({
       nameUser: ['', [Validators.required, Validators.minLength(3)]],
       lastNameUser: ['', [Validators.required, Validators.minLength(3)]],
@@ -89,25 +87,23 @@ export class ModalComponent implements OnInit {
   }
 
   cargarDataAlFormulario() {
-
-    // this.forma.setValue({
     this.requesterForm.reset({
-      nameUser: this.props.user.nameUser,
-      lastNameUser: this.props.user.lastNameUser,
-      surNameUser: this.props.user.surNameUser,
-      ageUser: this.props.user.ageUser,
-      phoneHome: this.props.user.conexionUser.phoneHome.value ? this.props.user.conexionUser.phoneHome.value : '',
-      phoneCel: this.props.user.conexionUser.phoneCel.value ? this.props.user.conexionUser.phoneCel.value : '',
-      birthDate: this.props.user.birthDate ? this.props.user.birthDate : '',
-      ocupationUser: this.props.user.ocupationUser,
-      emailUser: this.props.user.email,
-      streetAdressUser: this.props.user.adressUser.streetAdress ? this.props.user.adressUser.streetAdress : '',
-      numberAdressExt: this.props.user.adressUser.numberAdressExt ? this.props.user.adressUser.numberAdressExt : '',
-      numberAdressInt: this.props.user.adressUser.numberAdressInt ? this.props.user.adressUser.numberAdressInt : '',
-      coloniAdress: this.props.user.adressUser.coloniAdress ? this.props.user.adressUser.coloniAdress : '',
-      cityAdress: this.props.user.adressUser.cityAdress ? this.props.user.adressUser.cityAdress : '',
-      stateAdress: this.props.user.adressUser.stateAdress ? this.props.user.adressUser.stateAdress : '',
-      cpAdress: this.props.user.adressUser.cpAdress ? this.props.user.adressUser.cpAdress : '',
+      nameUser: (this.props.user.nameUser !== null && this.props.user.nameUser !== undefined && this.props.user.nameUser !== '') ? this.props.user.nameUser : '',
+      lastNameUser: (this.props.user.lastNameUser !== null && this.props.user.lastNameUser !== undefined && this.props.user.lastNameUser !== '') ? this.props.user.lastNameUser : '',
+      surNameUser: (this.props.user.surNameUser !== null && this.props.user.surNameUser !== undefined && this.props.user.surNameUser !== '') ? this.props.user.surNameUser : '',
+      ageUser: (this.props.user.ageUser !== null && this.props.user.ageUser !== undefined && this.props.user.ageUser !== '' && this.props.user.ageUser !== NaN) ? this.props.user.ageUser : '',
+      phoneHome: '',
+      phoneCel: '',
+      birthDate: (this.props.user.birthDate !== null && this.props.user.birthDate !== undefined && this.props.user.birthDate !== '') ? this.props.user.birthDate : '',
+      ocupationUser: (this.props.user.ocupationUser !== null && this.props.user.ocupationUser !== undefined && this.props.user.ocupationUser !== '') ? this.props.user.ocupationUser : '',
+      emailUser: (this.props.user.email !== null && this.props.user.email !== undefined && this.props.user.email !== '') ? this.props.user.email : '',
+      streetAdressUser: '',
+      numberAdressExt: '',
+      numberAdressInt: '',
+      coloniAdress: '',
+      cityAdress: '',
+      stateAdress: '',
+      cpAdress: '',
       whyAdop: '',
       haveOtherAnimal: '',
       hadOtherAnimal: '',
@@ -268,8 +264,8 @@ export class ModalComponent implements OnInit {
           visible: true,
           value: this.props.user.email
         }
-      }
-
+      },
+      // dateCreated: this.user.dateCreated
     };
     console.log(this.user);
     console.log(this.props.pet);
@@ -311,6 +307,10 @@ export class ModalComponent implements OnInit {
       userUdated,
       request
     });
+
+    this.requesterForm.reset();
+
+    this.funService.navigate('/publications');
 
   }
   get errorCtr() {

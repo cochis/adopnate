@@ -97,10 +97,11 @@ export class LoginPage implements OnInit {
         console.log('isVerified->', isVerified);
         this.funService.verifyEmail(isVerified);
       } else {
-
+        this.funService.sendMessage('Error', 'Error', '', 'El usuario o la contraseña no coinciden.');
       }
     } catch (error) {
       console.log('error=>', error);
+      this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
     }
   }
   async loginGoogle() {
@@ -113,6 +114,7 @@ export class LoginPage implements OnInit {
       }
     } catch (error) {
       console.log('error=>', error);
+      this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
     }
   }
 

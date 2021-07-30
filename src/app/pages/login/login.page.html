@@ -15,23 +15,27 @@
                                 <ion-input formControlName="email" type="email" id="email"></ion-input>
                             </ion-item>
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.required">
-                              El correo es requerido.
+                                El correo es requerido.
                             </span>
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.email.errors?.pattern">
-                              Correo ingresado invalido.
+                                Correo ingresado invalido.
                             </span>
                             <ion-item lines="full">
                                 <ion-label position="floating" class="inputLabel">Contraseña</ion-label>
-                                <ion-input *ngIf="!viewPass" formControlName="password" type="password" id="password"></ion-input>
-                                <ion-input *ngIf="viewPass" formControlName="password" type="text" id="password"></ion-input>
+                                <ion-input *ngIf="!viewPass" formControlName="password" type="password" id="password">
+                                </ion-input>
+                                <ion-input *ngIf="viewPass" formControlName="password" type="text" id="password">
+                                </ion-input>
                             </ion-item>
-                            <span *ngIf="!viewPass" (click)="viewPassFunction(viewPass)">Ver Contraseña <ion-icon name="eye"></ion-icon></span>
-                            <span *ngIf="viewPass" (click)="viewPassFunction(viewPass)">Ocultar Contraseña <ion-icon name="eye"></ion-icon></span>
+                            <span *ngIf="!viewPass" (click)="viewPassFunction(viewPass)">Ver Contraseña <ion-icon
+                                    name="eye"></ion-icon></span>
+                            <span *ngIf="viewPass" (click)="viewPassFunction(viewPass)">Ocultar Contraseña <ion-icon
+                                    name="eye"></ion-icon></span>
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.password.errors?.required">
-                              El password es requerido.
+                                El password es requerido.
                             </span>
                             <span class="error ion-padding" *ngIf="submitted && errorCtr.password.errors?.pattern">
-                              Password ingresado invalido.
+                                Password ingresado invalido.
                             </span>
                             <ion-row>
                                 <ion-col class="center">
@@ -42,12 +46,12 @@
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <ion-button color="primary" expand="block" [disabled]="loginForm.invalid" (click)="onLogin()">New login</ion-button>
+                                    <ion-button color="primary" expand="block" [disabled]="loginForm.invalid" (click)="onLogin()">Ingresar</ion-button>
                                 </ion-col>
                             </ion-row>
                             <ion-row>
                                 <ion-col>
-                                    <ion-button color="secondary" expand="block" (click)="loginGoogle()">Google</ion-button>
+                                    <ion-button color="tertiary" (click)="loginGoogle()">Google</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>

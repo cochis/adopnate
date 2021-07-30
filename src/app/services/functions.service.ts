@@ -24,18 +24,6 @@ export class FunctionsService {
   createLinkForCanonicalURL() {
     this.seo.createLinkForCanonicalURL();
   }
-  navigateTo(link, role?) {
-    console.log(link);
-    console.log(role);
-
-    if (role) {
-      console.log('rgis');
-      this.router.navigate([link], role);
-    }
-    else {
-      this.router.navigate([link]);
-    }
-  }
   async toast(msn) {
     const toast = await this.toastController.create({
       message: msn,

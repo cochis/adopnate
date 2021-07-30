@@ -1,159 +1,255 @@
 <app-navbar titulo="Perfil" (propagar)=" isPcV($event)"></app-navbar>
 
 <ion-content>
-    <app-refresher></app-refresher>
+
 
     <ion-grid>
-        <ion-row class="center">
-            <ion-col size="0" size-sm="0" size-md="1" size-lg="1" class="center "></ion-col>
+        <form [formGroup]="editUserForm" (ngSubmit)="editarPerfil()" novalidate>
+            <ion-row class="center">
+                <ion-col size="0" size-sm="0" size-md="1" size-lg="1" class="center "></ion-col>
 
 
-            <ion-col size-sm="12" size-md="5" size-lg="5" class="center ">
-                <ion-card class="center noBorder">
+                <ion-col size-sm="12" size-md="5" size-lg="5" class="center ">
 
-                    <ion-img src="/assets/img/user.png" class="   imgPerfil center  "></ion-img>
-                    <ion-card-content>
-                        <ion-card-title>
-                            Oscar Ramirez
-                        </ion-card-title>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
-            <ion-col size-sm="12" size-md="5" size-lg="5" class="center ">
-                <ion-card>
-                    <ion-card-content>
-                        <ion-card-title>
-                            Datos de Contancto
-                        </ion-card-title>
-                        <ion-list>
-                            <ion-item-sliding>
-                                <ion-item-options side="start">
-                                    <ion-item-option (click)="favorite('user')">
-                                        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                                    </ion-item-option>
-                                    <ion-item-option color="danger" (click)="share('user')">
-                                        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
+                    <ion-card class="center noBorder">
+                        <ion-card-content>
 
-                                <ion-item>
-                                    <ion-label>
-                                        Correo
-                                    </ion-label>
+                            <img *ngIf="!showPhoto" src="/assets/img/user.png" class="center" style=" height: 180px;
+                                width: 180px;
+                                border-radius: 50%;
+                                border: 7px solid #3f3697;" id="imagenPrevisualizacion">
+                            <img *ngIf="showPhoto" [src]="showPhotoURL" class="center" style=" height: 180px;
+                                width: 180px;
+                                border-radius: 50%;
+                                border: 7px solid #3f3697;" id="imagenPrevisualizacion">
+                            <ion-row>
+                                <ion-col size=12 class="center" *ngIf="!readOnly">
+                                    <label for="fileImage" color="primary" class="button-native" style="color:#3f3697">
+                                        <ion-icon name="pencil" size="large" color="primary"></ion-icon>
+                                    </label>
+                                    <input type="file" type="file" id="fileImage" (change)="setImage($event)" style="display:none;">
 
-                                    <ion-label slot="end" class="ion-text-end text-small">
-                                        <h3>ing.oarrs@gmail.com</h3>
+                                </ion-col>
 
-                                    </ion-label>
-
-                                </ion-item>
-                                <ion-item-options side="end">
-                                    <ion-item-option color="danger" (click)="delete('user')">
-                                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-
-                            </ion-item-sliding>
-
-                            <ion-item-sliding>
-
-                                <ion-item-options side="start">
-                                    <ion-item-option (click)="favorite('user')">
-                                        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                                    </ion-item-option>
-                                    <ion-item-option color="danger" (click)="share('user')">
-                                        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-
-                                <ion-item>
-                                    <ion-label>
-                                        Telefono
-                                    </ion-label>
-
-                                    <ion-label slot="end" class="ion-text-end text-small">
-                                        <h3>557434444</h3>
-
-                                    </ion-label>
-
-                                </ion-item>
-
-                                <ion-item-options side="end">
-                                    <ion-item-option color="danger" (click)="delete('user')">
-                                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-
-                            </ion-item-sliding>
-                            <ion-item-sliding>
-                                <ion-item-options side="start">
-                                    <ion-item-option (click)="favorite('user')">
-                                        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                                    </ion-item-option>
-                                    <ion-item-option color="danger" (click)="share('user')">
-                                        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-                                <ion-item>
-                                    <ion-label>
-                                        Faceboook
-                                    </ion-label>
-
-                                    <ion-label slot="end" class="ion-text-end text-small">
-                                        <h3>https://www.facebook.com/Kabbalah-106362361657467/</h3>
-
-                                    </ion-label>
-
-                                </ion-item>
-
-                                <ion-item-options side="end">
-                                    <ion-item-option color="danger" (click)="delete('user')">
-                                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
+                            </ion-row>
 
 
-                            </ion-item-sliding>
-                            <ion-item-sliding>
-                                <ion-item-options side="start">
-                                    <ion-item-option (click)="favorite('user')">
-                                        <ion-icon slot="icon-only" name="heart-outline"></ion-icon>
-                                    </ion-item-option>
-                                    <ion-item-option color="danger" (click)="share('user')">
-                                        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-                                <ion-item>
-                                    <ion-label>
-                                        Direccion
-                                    </ion-label>
 
-                                    <ion-label slot="end" class="ion-text-end text-small">
-                                        <h3>Dr. Gustavo Baz 83 Col. Benito Juarez Cd. Nezahualcoyotl Edo. Mexico CP. 57000</h3>
+                            <ion-card-title *ngIf="showName">
+                                <ion-row>
+                                    <ion-list>
+                                        <ion-col size="12">
+                                            <ion-item class="center">
 
-                                    </ion-label>
 
-                                </ion-item>
+                                                <ion-label position="floating" class="inputLabel">Nombre
+                                                </ion-label>
 
-                                <ion-item-options side="end">
-                                    <ion-item-option color="danger" (click)="delete('user')">
-                                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                                    </ion-item-option>
-                                </ion-item-options>
-                            </ion-item-sliding>
-                        </ion-list>
-                    </ion-card-content>
-                </ion-card>
-            </ion-col>
+                                                <ion-input type="text" [readonly]="readOnly" formControlName="nameUser" type="text" id="nameUser" class="inputPerfil">
+                                                </ion-input>
 
-            <ion-col size="0" size-sm="0" size-md="1" size-lg="1" class="center "></ion-col>
 
-        </ion-row>
+                                            </ion-item>
+
+                                            <ion-item class="center">
+
+
+
+                                                <ion-label position="floating" class="inputLabel">Apellido paterno
+                                                </ion-label>
+                                                <ion-input type="text" [readonly]="readOnly" formControlName="lastNameUser" type="text" id="lastNameUser" class="inputPerfil">
+                                                </ion-input>
+
+                                            </ion-item>
+                                            <ion-item class="center">
+
+
+
+                                                <ion-label position="floating" class="inputLabel">Apellido materno
+                                                </ion-label>
+                                                <ion-input type="text" [readonly]="readOnly" formControlName="surNameUser" type="text" id="surNameUser" class="inputPerfil">
+                                                </ion-input>
+
+                                            </ion-item>
+
+                                        </ion-col>
+                                    </ion-list>
+                                </ion-row>
+                            </ion-card-title>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+
+
+                <ion-col size-sm="12" size-md="5" size-lg="5" class="center ">
+                    <ion-card>
+                        <ion-card-content class="noBorder">
+                            <ion-card-header style="padding:20px">
+                                <ion-card-title>
+                                    Datos de Contacto
+                                </ion-card-title>
+                            </ion-card-header>
+
+                            <ion-list>
+                                <ion-col size="12" size-md="6">
+
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Fecha de nacimiento
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Fecha de nacimiento" [readonly]="readOnly" (ionChange)="getDate()" formControlName="birthDate" type="date" id="birthDate"></ion-input>
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-md="6">
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Edad
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Edad" readOnly formControlName="ageUser" type="text" id="ageUser"></ion-input>
+
+                                    </ion-item>
+
+                                </ion-col>
+                                <ion-col size="12" size-md="6">
+
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Correo electrónico
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Correo" readOnly formControlName="email" type="text" id="email"></ion-input>
+
+                                    </ion-item>
+                                </ion-col>
+                                <ion-col size="12" size-md="6">
+
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Ocupación
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Ocupación" [readonly]="readOnly" formControlName="ocupationUser" type="text" id="ocupationUser"></ion-input>
+
+                                    </ion-item>
+                                </ion-col>
+
+                                <ion-col size="12" size-md="6">
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Teléfono de casa
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Telefóno casa" [readonly]="readOnly" formControlName="phoneHome" type="text" id="phoneHome"></ion-input>
+
+                                    </ion-item>
+
+                                </ion-col>
+
+                                <ion-col size="12" size-md="6">
+                                    <ion-item>
+                                        <ion-label position="floating" class="inputLabel">Teléfono movil
+                                        </ion-label>
+                                        <ion-input type="text" placeholder="Teléfono Celular" [readonly]="readOnly" formControlName="phoneCel" type="text" id="phoneCel"></ion-input>
+
+                                    </ion-item>
+                                </ion-col>
+
+                                <ion-col size="12" size-md="6" style="display:none;">
+                                    <ion-item>
+                                        <ion-label>Visible</ion-label>
+                                        <ion-checkbox slot="end" formControlName="visibleEmail" type="text" id="visibleEmail"></ion-checkbox>
+                                    </ion-item>
+
+                                </ion-col>
+                                <ion-col size-md="6" style="display:none;">
+                                    <ion-item>
+                                        <ion-label>Visible</ion-label>
+                                        <ion-checkbox slot="end" formControlName="visiblePhoneHome" type="text" id="visiblePhoneHome"></ion-checkbox>
+                                    </ion-item>
+
+                                </ion-col>
+                                <ion-col size-md="6" style="display:none;">
+                                    <ion-item>
+                                        <ion-label>Visible</ion-label>
+                                        <ion-checkbox slot="end" formControlName="visibleCelHome" type="text" id="visibleCelHome"></ion-checkbox>
+                                    </ion-item>
+
+
+                                </ion-col>
+
+                            </ion-list>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+
+                <ion-col size="0" size-sm="0" size-md="1" size-lg="1" class="center "></ion-col>
+
+            </ion-row>
+            <ion-row>
+
+                <ion-col size-sm="12" size-md="10" size-lg="10" class="center ">
+                    <ion-card class="noBorder">
+                        <ion-col size="12" class="center">
+                            <ion-header style="padding:20px">
+                                <ion-card-title>
+                                    Dirección
+                                </ion-card-title>
+                            </ion-header>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Dirección</ion-label>
+                            <ion-input type="text" placeholder="Calle o avenida " [readonly]="readOnly" formControlName="streetAdress" type="text" id="streetAdress"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Número exterior
+                            </ion-label>
+                            <ion-input type="text" placeholder="Número externo" [readonly]="readOnly" formControlName="numberAdressExt" type="text" id="numberAdressExt"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Número interior
+                            </ion-label>
+                            <ion-input type="text" placeholder="Número interno" [readonly]="readOnly" formControlName="numberAdressInt" type="text" id="numberAdressInt"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Estado</ion-label>
+                            <ion-input type="text" placeholder="Estado" [readonly]="readOnly" formControlName="stateAdress" type="text" id="stateAdress"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Delegación o municipio
+                            </ion-label>
+                            <ion-input type="text" placeholder="Delegación o municipio" [readonly]="readOnly" formControlName="cityAdress" type="text" id="cityAdress"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Colonia</ion-label>
+                            <ion-input type="text" placeholder="Colonia" [readonly]="readOnly" formControlName="coloniAdress" type="text" id="coloniAdress"></ion-input>
+                        </ion-col>
+                        <ion-col size="12" size-sm="12" size-md="6" size-lg="4">
+                            <ion-label position="floating" class="inputLabel">Código postal
+                            </ion-label>
+                            <ion-input type="text" placeholder="Codigo Postal" [readonly]="readOnly" formControlName="cpAdress" type="text" id="cpAdress"></ion-input>
+                        </ion-col>
+                    </ion-card>
+                </ion-col>
+
+
+            </ion-row>
+            <ion-row class="center">
+                <ion-col size="6" class="center">
+                    <ion-col size="12" size-md="4" class="center">
+                        <ion-button color="tertiary" expand="block" class="center" (click)="regresar()" *ngIf="readOnly">Regresar
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="12" size-md="4" class="center">
+                        <ion-button color="danger" expand="block" class="center" (click)="cancel()" *ngIf="!readOnly">Cancelar
+                        </ion-button>
+                    </ion-col>
+                    <ion-col size="12" size-md="4" class="center">
+                        <ion-button color="primary" expand="block" class="center" (click)="submit()" *ngIf="!readOnly">Enviar</ion-button>
+                    </ion-col>
+                </ion-col>
+            </ion-row>
+        </form>
     </ion-grid>
 
 
 
-
+    <ion-fab vertical="top" horizontal="start" edge slot="fixed" *ngIf="readOnly">
+        <ion-fab-button>
+            <ion-icon name="pencil" (click)="edit()"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>
 <app-footer></app-footer>

@@ -50,7 +50,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-label position="floating" class="inputLabel">Fecha de nacimiento YYYY-MM-DD</ion-label>
-                                <ion-datetime displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" value="" formControlName="birthDate" id="birthDate"></ion-datetime>
+                                <ion-input displayFormat="YYYY-MM-DD" min="1960-01-01" max="2021-12-31" value="" formControlName="birthDate" id="birthDate"></ion-input>
                             </ion-item>
                             <!-- <span class="error ion-padding" *ngIf="submitted && errorCtr.dateUser.errors?.required">
                               El fecha de nacimiento es requerido.
@@ -114,6 +114,12 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-button color="secondary" expand="block" (click)="onRegister()">Registrarse</ion-button>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row>
+                                <ion-col>
+                                    <ion-button color="tertiary" (click)="registerGoogle()">Google</ion-button>
                                 </ion-col>
                             </ion-row>
                         </form>

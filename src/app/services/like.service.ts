@@ -33,8 +33,15 @@ export class LikeService {
         return userRef.set(data, { merge: true });
     }
     getLike(id) {
-        const collection = this.database.collection('likes');
-        return collection.doc(id).valueChanges();
+        try {
+            const collection = this.database.collection('likes');
+            return collection.doc(id).valueChanges();
+        }
+        catch (error) {
+            console.log('error->', error);
+            return error;
+        }
+
     }
 
     getLikes() {
@@ -60,7 +67,7 @@ export class LikeService {
             return error;
         }
     }
-    getlikeByPet(id){
+    getlikeByPet(id) {
         try {
             const collection = this.database.collection('likes', ref => ref.where('uid', '==', id)).valueChanges();
             return collection;
@@ -71,7 +78,7 @@ export class LikeService {
         }
     }
 
-    getLikeUnique(uidPet,uidUser){
+    getLikeUnique(uidPet, uidUser) {
         try {
             const collection = this.database.collection('likes', ref => ref.where('uidPet', '==', uidPet).where('uidUser', '==', uidUser)).valueChanges();
             return collection;

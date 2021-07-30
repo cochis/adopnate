@@ -44,19 +44,19 @@ export class CreatePublicationPage implements OnInit {
     private usuarioService: UsuariosService,
     private seo: SeoService,
     private title: Title) {
-      const t = 'Adopnate a pet | Registra a tu mascota';
-      this.title.setTitle(t);
-      this.seo.generateTags({
-        title: 'Adopnate a pet | Registra a tu mascota',
-        description:
-          'Registra a tu nuevo compañero de vida',
-        keywords:
-          'Registra al compañero de vida',
-        slug: 'Registra al mejor compañero de vida de alguien mas',
-        colorBar: '#3f3697',
-        image:
-          window.location.origin + '/assets/logo/adopnate_logo.png',
-      });
+    const t = 'Adopnate a pet | Registra a tu mascota';
+    this.title.setTitle(t);
+    this.seo.generateTags({
+      title: 'Adopnate a pet | Registra a tu mascota',
+      description:
+        'Registra a tu nuevo compañero de vida',
+      keywords:
+        'Registra al compañero de vida',
+      slug: 'Registra al mejor compañero de vida de alguien mas',
+      colorBar: '#3f3697',
+      image:
+        window.location.origin + '/assets/logo/adopnate_logo.png',
+    });
   }
 
 
@@ -306,10 +306,10 @@ export class CreatePublicationPage implements OnInit {
   isPcV(isPcm: any) {
     console.log('isPc   publications', isPcm);
     this.user = isPcm.user;
-    if(isPcm.user){
+    if (isPcm.user) {
       this.user = isPcm.user;
       this.authenticated = true;
-    }else{
+    } else {
       this.authenticated = false;
     }
     if (isPcm.plat === 'Desktop') {
@@ -318,8 +318,8 @@ export class CreatePublicationPage implements OnInit {
     else {
       this.isPc = false;
     }
-    console.log('User',this.user);
-    console.log('authenticated',this.authenticated);
+    console.log('User', this.user);
+    console.log('authenticated', this.authenticated);
   }
 
 
@@ -370,6 +370,9 @@ export class CreatePublicationPage implements OnInit {
         console.log(PET);
         this.loading.dismiss();
         this.funService.navigate('/publications');
+        this.funService.sendMessage('Success', 'Mascota Agregada', '', 'Su mascota ya esta publicada');
+      }else {
+        this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
       }
     }
     // }, 2000);

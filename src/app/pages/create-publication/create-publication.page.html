@@ -157,7 +157,7 @@
                                     <ion-col size="3" style="float:left">
                                         <ion-label position="floating" [attr.for]="'date' + i" class="inputLabel">
                                             Fecha</ion-label>
-                                        <ion-datetime formControlName="date" display-timezone="utc" [attr.id]="'date' + i"></ion-datetime>
+                                        <ion-input formControlName="date" display-timezone="utc" [attr.id]="'date' + i"></ion-input>
                                     </ion-col>
                                     <ion-col size="2" style="float:left">
                                         <ion-button color="danger" (click)="removeObject(1,i)" expand="block" style="margin-top: 15px;">

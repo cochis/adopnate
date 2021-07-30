@@ -112,7 +112,7 @@ export class PublicationsPage implements OnInit {
 
   add() {
     // console.log('add');
-    this.funService.navigateTo('/create-publication');
+    this.funService.navigate('/create-publication');
   }
   searchBar(event) {
     this.filtro = event.filter;

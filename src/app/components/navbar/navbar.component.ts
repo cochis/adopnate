@@ -76,7 +76,7 @@ export class NavbarComponent implements OnInit {
             text: 'Editar perfil',
             icon: 'color-wand',
             handler: () => {
-              this.funService.navigateTo('/perfil');
+              this.funService.navigate('/perfil');
             }
           }, {
             text: 'Favoritos',
@@ -89,7 +89,7 @@ export class NavbarComponent implements OnInit {
             icon: 'bookmarks',
             handler: () => {
               // console.log('Publicaciones');
-              this.funService.navigateTo('/publications');
+              this.funService.navigate('/publications');
             }
           }, {
             text: 'Salir',
@@ -111,19 +111,19 @@ export class NavbarComponent implements OnInit {
             text: 'Ingresar',
             icon: 'log-in',
             handler: () => {
-              this.funService.navigateTo('/login');
+              this.funService.navigate('/login');
             }
           }, {
             text: 'Registrarse',
             icon: 'create',
             handler: () => {
-              this.funService.navigateTo('/register');
+              this.funService.navigate('/register');
             }
           }, {
             text: 'Publicaciones',
             icon: 'bookmarks',
             handler: () => {
-              this.funService.navigateTo('/publications');
+              this.funService.navigate('/publications');
             }
           }
         ]
@@ -167,7 +167,7 @@ export class NavbarComponent implements OnInit {
         break;
       case 2:
         console.log('editPerfil');
-        this.funService.navigateTo('/perfil');
+        this.funService.navigate('/perfil');
         break;
       case 3:
         console.log('favoritos');
@@ -178,15 +178,15 @@ export class NavbarComponent implements OnInit {
         break;
       case 5:
         console.log('login');
-        this.funService.navigateTo('/login');
+        this.funService.navigate('/login');
         break;
       case 6:
         console.log('register');
-        this.funService.navigateTo('/register');
+        this.funService.navigate('/register');
         break;
       case 7:
         console.log('Publicaciones');
-        this.funService.navigateTo('/publications');
+        this.funService.navigate('/publications');
         break;
       default:
         break;

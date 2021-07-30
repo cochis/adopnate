@@ -12,7 +12,8 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
 
     <ion-card-header class="algLeft" style="padding:0 20px">
         <h3 class="petName" color="primary"> {{item.namePet}}</h3>
-        <h4 class="donName" color="secondary"> {{item.userName}}</h4>
+        <h4 class="donName" color="secondary" *ngIf="item.userName !== ''"> {{item.userName}}</h4>
+        <h4 class="donName" color="secondary" *ngIf="item.userName === null">Donante</h4>
     </ion-card-header>
     <ion-card-content>
         <h5 class="ubication" color="tertiary" style="font-style: italic; text-transform: capitalize;"> <b> {{item.estatePet}} </b> {{item.delegationPet}}</h5>
