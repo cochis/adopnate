@@ -1,4 +1,4 @@
-/*
+    /*
  * App Global CSS
  * ----------------------------------------------------------------------------
  * Put style rules here that you want to apply globally. These styles are for
@@ -8,266 +8,261 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
-
-
-/* Core CSS required for Ionic components to work properly */
-
-@import "~@ionic/angular/css/core.css";
-
-/* Basic CSS for apps built with Ionic */
-
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
-@import "~@ionic/angular/css/display.css";
-
-/* Optional CSS utils that can be commented out */
-
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
-.file {
-    color: transparent;
-    padding-top: 39px;
-    margin-bottom: -50px;
-}
-
-.noBorder {
-    background-image: none;
-    border: none;
-    box-shadow: none !important;
-}
-
-.hidden {
-    display: none;
-}
-
-.center {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.algLeft {
-    text-align: left;
-}
-
-.pd10 {
-    padding: 10px;
-}
-
-.pd25 {
-    padding: 25px;
-}
-
-.pd50 {
-    padding: 50px;
-}
-
-.mg25 {
-    margin: 25px;
-}
-
-.mg50 {
-    margin: 50px;
-}
-
-.mgT25 {
-    margin-top: 25px;
-}
-
-.mgT50 {
-    margin-top: 50px;
-}
-
-.mgB25 {
-    margin-bottom: 25px;
-}
-
-.mgB10 {
-    margin-bottom: 10px;
-}
-
-.mgB50 {
-    margin-bottom: 50px;
-}
-
-.por50 {
-    width: 50%;
-    float: left;
-}
-
-.error {
-    color: red;
-    font-size: 15px;
-    font-weight: 600;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-// Formularios
-// .inputLabel {
-//     font-size: 18px;
-//     color: blue;
-//     font-weight: 700;
-// }
-//alertas
-.alertSuccess .alert-wrapper {
-    background: green;
-    border-radius: 30px;
-}
-
-.alertWarning .alert-wrapper {
-    background: yellow;
-    border-radius: 30px;
-}
-
-.alertDanger .alert-wrapper {
-    background: red;
-    border-radius: 30px;
-}
-
-.alert-wrapper {
-    background: #e5e5e5;
-}
-
-//perfil
-.imgPerfil {
-    max-width: 150px;
-}
-
-//fab publication
-.btnFab {
-    width: 33px;
-    height: 33px;
-    margin: 5px;
-}
-
-.itemPublication {
-    margin: 1px;
-}
-
-.item-inner {
-    border: none !important;
-}
-
-.petName {
-    margin-bottom: 0px;
-    font-weight: bold;
-    text-transform: capitalize;
-    color: #3880ff;
-}
-
-.donName {
-    font-size: 0.875rem;
-    line-height: 1em;
-    margin-top: 0;
-    text-transform: capitalize;
-    display: flex;
-    align-items: center;
-    margin-bottom: 0px;
-    color: #3dc2ff;
-}
-
-.lstItems {
-    text-transform: capitalize;
-}
-
-.texto-encima {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-}
-
-.centrado {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.infoPet {
-    font-size: 14px;
-    color: #8b93ad;
-    font-weight: 800;
-}
-
-.infoDescPet {
-    font-size: 14px;
-    color: #3dc2ff;
-    font-weight: 500;
-}
-
-.swiper-slide img {
-    max-height: none;
-}
-
-#imgSlide {
-    width: 100%;
-    height: 450px;
-    margin-top: -20%;
-}
-
-.tCap {
-    text-transform: capitalize !important;
-}
-
-.tUpp {
-    text-transform: uppercase !important;
-}
-
-.tLow {
-    text-transform: lowercase !important;
-}
-
-.tIni {
-    text-transform: initial !important;
-}
-
-@media only screen and (max-width: 768px) {
-    #imgSlide {
-        margin-top: 0;
-        height: 250px;
+    /* Core CSS required for Ionic components to work properly */
+    
+    @import "~@ionic/angular/css/core.css";
+    /* Basic CSS for apps built with Ionic */
+    
+    @import "~@ionic/angular/css/normalize.css";
+    @import "~@ionic/angular/css/structure.css";
+    @import "~@ionic/angular/css/typography.css";
+    @import "~@ionic/angular/css/display.css";
+    /* Optional CSS utils that can be commented out */
+    
+    @import "~@ionic/angular/css/padding.css";
+    @import "~@ionic/angular/css/float-elements.css";
+    @import "~@ionic/angular/css/text-alignment.css";
+    @import "~@ionic/angular/css/text-transformation.css";
+    @import "~@ionic/angular/css/flex-utils.css";
+    .file {
+        color: transparent;
+        padding-top: 39px;
+        margin-bottom: -50px;
     }
-}
-
-@media only screen and (max-width: 768px) {
-    .sc-ion-modal-md-h {
-        --width: 100%;
-        --height: 100%;
+    
+    .noBorder {
+        background-image: none;
+        border: none;
+        box-shadow: none !important;
     }
-    // .slidePet {
-    //     width: 100%;
-    //     height: auto;
+    
+    .hidden {
+        display: none;
+    }
+    
+    .center {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .algLeft {
+        text-align: left;
+    }
+    
+    .pd10 {
+        padding: 10px;
+    }
+    
+    .pd25 {
+        padding: 25px;
+    }
+    
+    .pd50 {
+        padding: 50px;
+    }
+    
+    .mg25 {
+        margin: 25px;
+    }
+    
+    .mg50 {
+        margin: 50px;
+    }
+    
+    .mgT25 {
+        margin-top: 25px;
+    }
+    
+    .mgT50 {
+        margin-top: 50px;
+    }
+    
+    .mgB25 {
+        margin-bottom: 25px;
+    }
+    
+    .mgB10 {
+        margin-bottom: 10px;
+    }
+    
+    .mgB50 {
+        margin-bottom: 50px;
+    }
+    
+    .por50 {
+        width: 50%;
+        float: left;
+    }
+    
+    .error {
+        color: red;
+        font-size: 15px;
+        font-weight: 600;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    // Formularios
+    // .inputLabel {
+    //     font-size: 18px;
+    //     color: blue;
+    //     font-weight: 700;
     // }
-}
-
-@media only screen and (min-width: 768px) {
-    .sc-ion-modal-md-h {
-        --width: 90%;
-        --height: 90%;
+    //alertas
+    .alertSuccess .alert-wrapper {
+        background: green;
+        border-radius: 30px;
     }
-    .slidePet {
-        // width: 33.3% !important;
-        // max-height: 200px;
+    
+    .alertWarning .alert-wrapper {
+        background: yellow;
+        border-radius: 30px;
     }
-}
-
-ion-content {
-    // --background: none !important;
-    // --background: url('/assets/img/background.svg') repeat 100% 100% !important;
-}
-
-ion-searchbar {
-    --box-shadow: none !important;
-}
-
-ion-col {
-    float: left;
-}
-
-.ion-color-light {
-    --ion-color-base: none !important;
-}
+    
+    .alertDanger .alert-wrapper {
+        background: red;
+        border-radius: 30px;
+    }
+    
+    .alert-wrapper {
+        background: #e5e5e5;
+    }
+    
+    //perfil
+    .imgPerfil {
+        max-width: 150px;
+    }
+    
+    //fab publication
+    .btnFab {
+        width: 33px;
+        height: 33px;
+        margin: 5px;
+    }
+    
+    .itemPublication {
+        margin: 1px;
+    }
+    
+    .item-inner {
+        border: none !important;
+    }
+    
+    .petName {
+        margin-bottom: 0px;
+        font-weight: bold;
+        text-transform: capitalize;
+        color: #3880ff;
+    }
+    
+    .donName {
+        font-size: 0.875rem;
+        line-height: 1em;
+        margin-top: 0;
+        text-transform: capitalize;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0px;
+        color: #3dc2ff;
+    }
+    
+    .lstItems {
+        text-transform: capitalize;
+    }
+    
+    .texto-encima {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    
+    .centrado {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .infoPet {
+        font-size: 14px;
+        color: #8b93ad;
+        font-weight: 800;
+    }
+    
+    .infoDescPet {
+        font-size: 14px;
+        color: #3dc2ff;
+        font-weight: 500;
+    }
+    
+    .swiper-slide img {
+        max-height: none;
+    }
+    
+    #imgSlide {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .tCap {
+        text-transform: capitalize !important;
+    }
+    
+    .tUpp {
+        text-transform: uppercase !important;
+    }
+    
+    .tLow {
+        text-transform: lowercase !important;
+    }
+    
+    .tIni {
+        text-transform: initial !important;
+    }
+    
+    @media only screen and (max-width: 768px) {
+        #imgSlide {
+            margin-top: 0;
+            height: 250px;
+        }
+    }
+    
+    @media only screen and (max-width: 768px) {
+        .sc-ion-modal-md-h {
+            --width: 100%;
+            --height: 100%;
+        }
+        // .slidePet {
+        //     width: 100%;
+        //     height: auto;
+        // }
+    }
+    
+    @media only screen and (min-width: 768px) {
+        .sc-ion-modal-md-h {
+            --width: 90%;
+            --height: 90%;
+        }
+        .slidePet {
+            // width: 33.3% !important;
+            // max-height: 200px;
+        }
+    }
+    
+    ion-content {
+        // --background: none !important;
+        // --background: url('/assets/img/background.svg') repeat 100% 100% !important;
+    }
+    
+    ion-searchbar {
+        --box-shadow: none !important;
+    }
+    
+    ion-col {
+        float: left;
+    }
+    
+    .ion-color-light {
+        --ion-color-base: none !important;
+    }
