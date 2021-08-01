@@ -63,6 +63,7 @@ export class AuthService {
     try {
       this.funService.clearLocal();
       await this.afAuth.signOut();
+      this.funService.clearLocal();
     }
     catch (error) {
       console.log('error->', error);
@@ -104,11 +105,15 @@ export class AuthService {
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
       console.log('user ====>>> ', user);
-      this.updateUserData(user);
       this.userService.getUser(user.uid).subscribe((usr) => {
         console.log('usr ====>>> ', usr);
         this.funService.setLocal('user', usr);
-      });
+      },
+        (err) => {
+          console.log(err);
+          this.updateUserData(user);
+          return user;
+        });
       return user;
     }
     catch (error) {
