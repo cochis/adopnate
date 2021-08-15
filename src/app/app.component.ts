@@ -14,7 +14,7 @@ export class AppComponent {
     private screenOrientation: ScreenOrientation
   ) {
     this.sw.checkForUpdates();
-    this.orientation();
+    // this.orientation();
   }
   ngOnInit() {
 

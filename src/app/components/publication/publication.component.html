@@ -10,26 +10,26 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
         </ion-slides>
     </ion-col>
 
-    <ion-card-header class="algLeft" style="padding:0 20px">
-        <h3 class="petName" color="primary"> {{item.namePet}}</h3>
-        <h4 class="donName" color="secondary" *ngIf="item.userName !== ''"> {{item.userName}}</h4>
-        <h4 class="donName" color="secondary" *ngIf="item.userName === null">Donante</h4>
+    <ion-card-header class="algLeft" style="padding:0 25px">
+        <h3 class="petName tIni" color="primary"> {{item.namePet}}</h3>
+        <h4 class="donName tCap" color="secondary" *ngIf="item.userName !== ''"> {{item.userName}}</h4>
+        <h4 class="donName tCap" color="secondary" *ngIf="item.userName === null">Donante</h4>
     </ion-card-header>
     <ion-card-content>
-        <h5 class="ubication" color="tertiary" style="font-style: italic; text-transform: capitalize;"> <b> {{item.estatePet}} </b> {{item.delegationPet}}</h5>
+        <h5 class="ubication" color="tertiary" style="font-style: italic;" class="tUpp"> <b> {{item.estatePet}} </b> {{item.delegationPet}}</h5>
         <ul style="list-style-type: none;height: 100%;margin-left: -30px;">
             <li>
                 <div class="lstItems infoPet">
-                    Raza : <b class="infoDescPet">{{item.racePet}}</b>
+                    Raza : <b class="infoDescPet tIni">{{item.racePet}}</b>
                 </div>
             </li>
             <li>
                 <div class="lstItems infoPet">
-                    Edad : <b class="infoDescPet">{{item.agePet}}</b>
+                    Edad : <b class="infoDescPet tIni">{{item.agePet}}</b>
                 </div>
             </li>
             <li>
-                <div class="lstItems infoPet" *ngIf="item.categoriesPet[0]" style="">
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[0]" class="tUpp">
                     Tipo de mascota : <b class="infoDescPet">
                         <span *ngIf="item.categoriesPet[0].value === 'dog'">
                             Perro
@@ -48,7 +48,7 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
                 </div>
             </li>
             <li>
-                <div class="lstItems infoPet" *ngIf="item.categoriesPet[1]">
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[1]" class="tUpp">
                     Tamaño de raza : <b class="infoDescPet">
                         <span *ngIf="item.categoriesPet[1].value === 'min'">
                             Miniatura
@@ -69,22 +69,22 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
                 </div>
             </li>
             <li>
-                <div class="lstItems infoPet" *ngIf="item.categoriesPet[3]">
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[3]" class="tUpp">
                     Longevidad : <b class="infoDescPet">
-                        <span *ngIf="item.categoriesPet[3].value === 'puppy'">
+                        <span *ngIf="item.categoriesPet[2].value === 'puppy'">
                             Cachorro
                         </span>
-                        <span *ngIf="item.categoriesPet[3].value === 'adult'">
+                        <span *ngIf="item.categoriesPet[2].value === 'adult'">
                             Adulto
                         </span>
-                        <span *ngIf="item.categoriesPet[3].value === 'senior'">
+                        <span *ngIf="item.categoriesPet[2].value === 'senior'">
                             Mayor
                         </span>
                     </b>
                 </div>
             </li>
             <li>
-                <div class="lstItems infoPet" *ngIf="item.categoriesPet[4]">
+                <div class="lstItems infoPet" *ngIf="item.categoriesPet[4]" class="tUpp">
                     Genero : <b class="infoDescPet">
                         <span *ngIf="item.categoriesPet[4].value === 'male'">
                             Macho
@@ -104,8 +104,9 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
 
             </li> -->
             <li>
-                <div class="lstItems">
-                    "<b class="infoDescPet"> {{item.descriptionPet}}</b>"
+                <div class="lstItems center tIni">
+                    <b class="infoDescPet" class="tIni"> {{item.descriptionPet}}</b>
+
                 </div>
 
             </li>
@@ -127,5 +128,5 @@ border-radius: 10px;" *ngIf="!item.adoptatedPet">
     </ion-fab-button>
 </ion-fab>
 <ion-footer class="center">
-    <ion-button color="secondary" class="mgB10" expand="full" (click)="seePet(item) "> <label color="light">Mas información</label> </ion-button>
+    <ion-button color="secondary" class="mgB10" expand="full" (click)="seePet(item) "> <label color="light"><ion-icon  size="large" name="add-circle"></ion-icon> <ion-icon size="large" name="information-circle"></ion-icon></label> </ion-button>
 </ion-footer>

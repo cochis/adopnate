@@ -1,0 +1,65 @@
+<app-navbar titulo="Notificaciones" (propagar)=" isPcV($event)"></app-navbar>
+<ion-content>
+    <!-- <app-refresher> </app-refresher> -->
+    <ion-grid class="showPet center">
+
+
+        <ion-row class="center">
+
+            <ion-col size="12" size-sm="12" size-md="4" size-lg="3" *ngFor="let item of items" (click)="checkView(item.item)">
+                <ion-fab vertical="top" horizontal="start" *ngIf="!item.item.adopted">
+                    <ion-fab-button>
+                        <ion-icon name="star" color="light" size="large"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+                <ion-fab vertical="top" horizontal="end" *ngIf="!item.item.viewNotification">
+                    <ion-fab-button>
+                        <ion-icon name="sparkles" color="light" size="large">
+                        </ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
+
+                <ion-card class="mgB25" style=" border: 5px solid #3dc2ff;
+                border-radius: 10px;">
+
+                    <img [src]="item.resPet.picturesPet[0].url" style="height: 210px;width:100%" />
+
+                    <ion-col size="12">
+                    </ion-col>
+
+                    <ion-card-header class="center" style="padding:0 25px">
+
+                        <h3 class="petName tIni" color="primary">
+
+                            {{item.resPet.namePet}}
+
+                        </h3>
+
+                    </ion-card-header>
+                    <ion-card-content class="center">
+                        <ion-avatar class="center mgT25 mgB50">
+                            <img [src]="item.resUser.photoURL" />
+                            <h3 class="petName tIni" color="primary"> {{item.resUser.nameUser}}</h3>
+                        </ion-avatar>
+
+                        <ion-button shape="round" expand="block" (click)="viewPerfil(item.resUser)">Ver perfil
+                        </ion-button>
+                        <ion-button shape="round" expand="block" (click)="viewQuestions(item.item)">
+                            Cuestionario</ion-button>
+
+                    </ion-card-content>
+
+                </ion-card>
+
+
+
+            </ion-col>
+
+        </ion-row>
+
+
+
+    </ion-grid>
+
+</ion-content>
+<app-footer></app-footer>

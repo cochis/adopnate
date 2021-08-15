@@ -14,6 +14,7 @@ import { ModalComponent } from './modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { ModalNotificationComponent } from './modal-notification/modal-notification.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { PipesModule } from '../pipes/pipes.module';
                 AvatarMenuComponent,
                 SliderComponent,
                 ModalComponent,
-                SearchBarComponent
+                SearchBarComponent,
+                ModalNotificationComponent
 
                  ],
   imports: [
@@ -50,7 +52,8 @@ import { PipesModule } from '../pipes/pipes.module';
                 SliderComponent,
                 ModalComponent,
                 SearchBarComponent,
-                PipesModule
+                PipesModule,
+                ModalNotificationComponent
 
               ]
 })

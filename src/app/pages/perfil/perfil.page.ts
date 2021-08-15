@@ -42,33 +42,19 @@ export class PerfilPage implements OnInit {
   ngOnInit() {
     this.createForm();
     console.log(this.editUserForm);
-    this.user$.subscribe(res => {
-      let user: User;
-      let authenticated: boolean;
-      if (res !== null) {
-        console.log(res);
-
-        this.usuariosService.getUser(res.uid).subscribe((res1) => {
-          this.user = res1;
-          console.log(res1);
-          this.cargarDataAlFormulario();
-          if (res.photoURL !== '' && res.photoURL !== null && res.photoURL !== undefined) {
-            this.showPhoto = true;
-            this.showPhotoURL = res.photoURL;
-          }
-          if (this.user.email !== '' && this.user.email !== null && this.user.email !== undefined) {
-            this.showEmail = true;
-            this.email = this.user.email;
-          }
-          this.auth = true;
-
-        });
-      } else {
-        this.funService.sendMessage('Error', 'Error', '', 'Por favor de realizar de nuevo la petición, se ha generado un error.');
-        this.user = null;
-        this.auth = false;
+    if (this.funService.getLocal('htua')) {
+      this.user = this.funService.getLocal('user');
+      this.cargarDataAlFormulario();
+      if (this.user.photoURL !== '' && this.user.photoURL !== null && this.user.photoURL !== undefined) {
+        this.showPhoto = true;
+        this.showPhotoURL = this.user.photoURL;
       }
-    });
+      else {
+        this.showPhoto = false;
+      }
+    } else {
+      this.funService.navigate('publications');
+    }
   }
   createForm() {
     this.editUserForm = this.formBuilder.group({
@@ -326,6 +312,7 @@ export class PerfilPage implements OnInit {
         this.user.photoURL = image;
         const userUpdated = this.usuariosService.updateUserData(this.user);
         if (userUpdated) {
+          this.funService.removeLocal('user');
           this.loading.dismiss();
           this.funService.sendMessage('Exito', 'Perfil modificado', '', 'Se ha realizado con exito la actualizacion de sus datos.');
           this.funService.navigate('/publications');

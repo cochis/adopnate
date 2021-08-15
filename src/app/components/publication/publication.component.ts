@@ -27,7 +27,7 @@ export class PublicationComponent implements OnInit {
   like: LikeModel = new LikeModel();
   thisLike = '';
   slides = [];
-  auth = false;
+  authenticated = false;
   public user$: Observable<User> = this.isAuth.afAuth.user;
   slideOptsOne = {
     initialSlide: 0,
@@ -47,19 +47,6 @@ export class PublicationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user$.subscribe(res => {
-      let user: User;
-      let authenticated: boolean;
-      if (res !== null) {
-        console.log(res);
-        this.user = res;
-        this.auth = true;
-      } else {
-        this.user = null;
-        this.auth = false;
-      }
-    });
-    // this.user = isAuth.user;
     console.log(this.item);
     console.log(this.user);
     this.slides = this.item.picturesPet;
@@ -86,7 +73,6 @@ export class PublicationComponent implements OnInit {
   async getUnique() {
     console.log(this.user);
     this.thisLike = this.item.uid + '' + this.user.uid;
-    // console.log(' this.thisLike =====>>>>>' + this.thisLike);
     if (this.funService.getLocal(this.thisLike)) {
       const lk = this.funService.getLocal(this.thisLike);
       this.likeCheck = lk.actived;
@@ -96,9 +82,6 @@ export class PublicationComponent implements OnInit {
           if (res.length > 0) {
             this.likeCheck = res[0].actived;
             const userLike = res[0].uid + '' + res[0].uid;
-            if (this.funService.getLocal('user')) {
-              this.funService.setLocal(userLike, res[0]);
-            }
           }
         },
           err => {
@@ -109,6 +92,7 @@ export class PublicationComponent implements OnInit {
     }
   }
   seePet(item) {
+    console.log('ietem solito', item);
     console.log(this.item);
     console.log('single-publication/' + this.item.uid);
     const url: string = 'single-publication/' + this.item.uid;

@@ -48,10 +48,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
   {
+    path: 'notifications',
+    loadChildren: () => import('./pages/notification/notification.module').then( m => m.NotificationPageModule)
+  },
+  {
+    path: 'adoptar',
+    loadChildren: () => import('./pages/getadoption/getadoption.module').then( m => m.GetadoptionPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'publications',
     pathMatch: 'full'
-  }
+  },
 
 
 

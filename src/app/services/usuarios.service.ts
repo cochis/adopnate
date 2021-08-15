@@ -32,10 +32,10 @@ export class UsuariosService {
   }
 
   updateUser<UsuarioModel>(id, usuario) {
-    this.http.put(`${this.url}/usuarios/${id}.json`, usuario).subscribe(res => {
-      this.funService.setLocal('user', JSON.stringify(res));
-      return res;
-    },
+    this.http.put(`${this.url}/usuarios/${id}.json`, usuario).subscribe(res =>
+      // this.funService.setLocal('user', JSON.stringify(res));
+       res
+    ,
       err => err);
   }
   updateUserData(user: User) {

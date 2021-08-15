@@ -30,8 +30,18 @@ export class AuthService {
     private userService: UsuariosService) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap((user) => {
+        console.log('user=====>>>' ,user);
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          // return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
+          this.userService.getUser(user.uid).subscribe((res) => {
+            console.log(res);
+            this.funService.setLocal('user', res);
+            return res;
+          },
+          (err)=>{
+            console.log('error al autentificar', err);
+            return err;
+          });
         }
         else {
           return of(null);
@@ -61,7 +71,6 @@ export class AuthService {
   }
   async logOut(): Promise<void> {
     try {
-      this.funService.clearLocal();
       await this.afAuth.signOut();
       this.funService.clearLocal();
     }
@@ -70,11 +79,10 @@ export class AuthService {
     }
   }
   async logIn(email: string, password: string): Promise<User> {
-    this.funService.clearLocal();
     try {
       const { user } = await this.afAuth.signInWithEmailAndPassword(email, password);
       // this.updateUserData(user);
-      this.funService.setLocal('user', user);
+      // this.funService.setLocal('user', user);
       return user;
     }
     catch (error) {
@@ -82,7 +90,6 @@ export class AuthService {
     }
   }
   async register(userRegister): Promise<User> {
-    console.log(userRegister);
     try {
       const { user } = await this.afAuth.createUserWithEmailAndPassword(userRegister.email, userRegister.password);
       console.log(user);
@@ -91,7 +98,7 @@ export class AuthService {
       userRegister.emailVerified = user.emailVerified;
       userRegister.displayName = user.displayName;
       console.log(userRegister);
-      this.funService.setLocal('user', userRegister);
+      // this.funService.setLocal('user', userRegister);
       this.updateUserData(userRegister);
       await this.sendVerificationEmail();
       return user;
@@ -104,10 +111,8 @@ export class AuthService {
     console.log('logi nGoogle');
     try {
       const { user } = await this.afAuth.signInWithPopup(new firebase.default.auth.GoogleAuthProvider());
-      console.log('user ====>>> ', user);
       this.userService.getUser(user.uid).subscribe((usr) => {
         console.log('usr ====>>> ', usr);
-        this.funService.setLocal('user', usr);
       },
         (err) => {
           console.log(err);

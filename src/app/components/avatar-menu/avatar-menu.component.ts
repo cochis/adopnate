@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { FunctionsService } from 'src/app/services/functions.service';
 
 @Component({
   selector: 'app-avatar-menu',
@@ -11,21 +12,21 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class AvatarMenuComponent implements OnInit {
   items = Array(7);
-  authenticated= false;
+  authenticated = false;
   public user$: Observable<User> = this.auth.afAuth.user;
-  constructor( private popoverCtrl: PopoverController,
-               private auth: AuthService) {
-                this.user$.subscribe(res => {
-                  if (res !== null) {
-                    this.authenticated = true;
-                  } else {
-                    this.authenticated = false;
-                  }
-                });
-   }
-  ngOnInit() {}
+  constructor(private popoverCtrl: PopoverController,
+    private funService: FunctionsService,
+    private auth: AuthService) {
+    if (this.funService.getLocal('htua')) {
+      this.authenticated = this.funService.getLocal('htua');
+    } else {
+      this.authenticated = false;
+    }
+    this.funService.setLocal('htua', false);
+  }
+  ngOnInit() { }
 
-  onClick( valor: number ) {
+  onClick(valor: number) {
     this.popoverCtrl.dismiss({
       menu: valor
     });

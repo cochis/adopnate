@@ -31,8 +31,7 @@
                             <ion-col size="12" size-md="6" size-lg="4" size-xl="3" class="center">
                                 <ion-item lines="full">
                                     <ion-label position="floating" class="inputLabel">Edad</ion-label>
-
-                                    <ion-select okText="Seleccionar" (ionChange)="selectTypePet($event)" formControlName="agePet" id="agePet">
+                                    <ion-select okText="Seleccionar" (ionChange)="selectTypePet($event)" formControlName="agePet" id="agePet" *ngIf="!isPc">
                                         <ion-select-option value="0m">0 meses</ion-select-option>
                                         <ion-select-option value="1m">1 mes</ion-select-option>
                                         <ion-select-option value="2m">2 meses</ion-select-option>
@@ -46,10 +45,31 @@
                                         <ion-select-option value="10m">10 meses</ion-select-option>
                                         <ion-select-option value="11m">11 meses</ion-select-option>
                                         <ion-select-option value="12m">12 meses</ion-select-option>
-                                        <ion-select-option [value]="i+'y'" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; let i =index;">
+                                        <ion-select-option [value]="i+'y'" *ngFor="let item of [1,1,1,1,1,1,1]; let i =index;">
                                             {{i}} años</ion-select-option>
                                     </ion-select>
-
+                                    <select (ionChange)="selectTypePet($event)" formControlName="agePet" id="agePet" *ngIf="isPc">
+                                        <option value="volvo">Volvo</option>
+                                        <option value="saab">Saab</option>
+                                        <option value="mercedes">Mercedes</option>
+                                        <option value="audi">Audi</option>
+                                        <option value="0m">0 meses</option>
+                                        <option value="1m">1 mes</option>
+                                        <option value="2m">2 meses</option>
+                                        <option value="3m">3 meses</option>
+                                        <option value="4m">4 meses</option>
+                                        <option value="5m">5 meses</option>
+                                        <option value="6m">6 meses</option>
+                                        <option value="7m">7 meses</option>
+                                        <option value="8m">8 meses</option>
+                                        <option value="9m">9 meses</option>
+                                        <option value="10m">10 meses</option>
+                                        <option value="11m">11 meses</option>
+                                        <option value="12m">12 meses</option>
+                                        <option [value]="i+'y'" *ngFor="let item of [1,1,1,1,1,1,1]; let i =index;">
+                                            {{i}} años</option>
+                                        .
+                                    </select>
                                     <!-- 
                                     <ion-input formControlName="agePet" type="number" min="0" max="30" id="agePet">
                                     </ion-input> -->
@@ -157,11 +177,11 @@
                                     <ion-col size="3" style="float:left">
                                         <ion-label position="floating" [attr.for]="'date' + i" class="inputLabel">
                                             Fecha</ion-label>
-                                        <ion-input formControlName="date" display-timezone="utc" [attr.id]="'date' + i"></ion-input>
+                                        <ion-input type="date" formControlName="date" display-timezone="utc" [attr.id]="'date' + i"></ion-input>
                                     </ion-col>
                                     <ion-col size="2" style="float:left">
-                                        <ion-button color="danger" (click)="removeObject(1,i)" expand="block" style="margin-top: 15px;">
-                                            <ion-icon name="remove-circle"></ion-icon>
+                                        <ion-button color="danger" (click)="removeObject(1,i)" expand="block" style="margin-top: 15px; ">
+                                            <ion-icon size="large" name="remove-circle"></ion-icon>
                                         </ion-button>
                                     </ion-col>
                                 </div>
@@ -379,7 +399,7 @@
                                         <ion-col size="2">
                                             <!-- style="margin-top: 17%; font-size: 35px; " -->
                                             <label color="primary" class="button-native" style="color:#3f3697">
-                                                <ion-icon name="remove-circle" color="danger"
+                                                <ion-icon name="remove-circle" size="large" color="primary"
                                                     (click)="removeObject(3,i)"></ion-icon>
                                             </label>
                                         </ion-col>

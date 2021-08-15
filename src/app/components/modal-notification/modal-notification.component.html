@@ -1,0 +1,244 @@
+<ion-row *ngIf="type ==='perfil'">
+
+    <ion-card style="min-height:100vh">
+        <ion-card-content style="min-height:80%">
+            <!-- Nombre  -->
+            <ion-col size="12" size-md="6" size-lg="4">
+
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Nombres</ion-label>
+                    <ion-input type="text" class="tCap" [value]="dataT.nameUser" readonly disabled>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+
+            <!-- Apellido paterno -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Apellido paterno</ion-label>
+                    <ion-input type="text" class="tCap" [value]="dataT.lastNameUser" readonly disabled></ion-input>
+                </ion-item>
+            </ion-col>
+
+            <!-- Apellido Materno -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Apellido materno</ion-label>
+                    <ion-input type="text" class="tCap" [value]="dataT.surNameUser" readonly disabled>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+
+            <!-- Edad -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Fecha de nacimiento </ion-label>
+                    <ion-input displayFormat="YYYY-MM-DD" [value]="dataT.birthDate" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Edad</ion-label>
+                    <ion-input type="number" [value]="dataT.ageUser" readonly disabled>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+            <!-- Telefono Casa -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Teléfono casa</ion-label>
+                    <ion-input type="number" [value]="dataT.conexionUser.phoneHome.value" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+
+            <!-- Telefono celular -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Teléfono celular</ion-label>
+                    <ion-input type="number" [value]="dataT.conexionUser.phoneCel.value" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- Ocupación -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Ocupación</ion-label>
+                    <ion-input type="text" class="tIni" [value]="dataT.ocupationUser" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+
+            <!-- emailUser -->
+            <ion-col size="12" size-md="6" size-lg="4">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">Correo electrónico</ion-label>
+                    <ion-input type="text" [value]="dataT.conexionUser.email.value" readonly disabled>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+
+
+        </ion-card-content>
+        <ion-card-header>
+            <ion-col size="12" class="center">
+                <ion-col size="4" *ngIf="dataT.conexionUser.email.value">
+                    <ion-button expand="block" color="tertiary" (click)="contact()">
+                        <ion-label color="primary">Enviar correo</ion-label>
+                        <ion-icon name="mail"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="4" *ngIf="dataT.conexionUser.phoneCel.value">
+                    <ion-button expand="block" color="tertiary" (click)="contact()">
+                        <ion-label color="primary">Llamar Celular</ion-label>
+                        <ion-icon name="call"></ion-icon>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="4" *ngIf="dataT.conexionUser.phoneHome.value">
+                    <ion-button expand="block" color="tertiary" (click)="contact()">
+                        <ion-label color="primary">Llamar a casa</ion-label>
+                        <ion-icon name="call"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            </ion-col>
+
+        </ion-card-header>
+    </ion-card>
+</ion-row>
+
+
+
+
+<ion-row *ngIf="type ==='questions'">
+    <ion-card style="min-height:100vh">
+        <ion-card-content style="min-height:80%">
+
+            <!-- ¿Por que deseas adoptar?  -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel opacityNone"><br>¿Por que deseas adoptar?
+                    </ion-label>
+                    <ion-input type="text" id="whyAdop" [value]="dataT.qts1" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+            </ion-col>
+            <!-- ¿Actualmente tienes otros animales? ¿Cuales?  -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Actualmente tienes otros animales?
+                        <br>¿Cuales?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts2" readonly disabled>
+                    </ion-input>
+                </ion-item>
+            </ion-col>
+            <!-- ¿Has tenido otros mascotas? ¿Que paso con ellos?  -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Has tenido otros mascotas?
+                        <br>¿Que paso con ellos?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts3" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Vives en casa o departamento? ¿Como es el area donde vivira el nuevo inquilino?  -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Vives en casa o departamento?
+                        <br>¿Como es el area donde vivira el nuevo inquilino?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts4" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- En caso de vivir en un lugar rentado ¿Tus arrendadores permiten animales?  -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">En caso de vivir en un lugar rentado
+                        <br>¿Tus arrendadores permiten animales?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts5" readonly disabled>
+                    </ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Que edades tienen quienes viviran con el adoptado? -->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel"><br>¿Que edades tienen quienes viviran con el adoptado?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts6" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- En caso de que sea perro ¿Cuantas veces y cuanto tiempo saldra a pasear al dia?-->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">En caso de que sea perro
+                        <br>¿Cuantas veces y cuanto tiempo saldrá a pasear al dia?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts7" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Donde pasara la mayor parte del dia el adoptado y con quien?-->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Donde pasara la mayor parte
+                        <br>del dia el adoptado y con quien?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts8" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Donde dormirá el adoptado?-->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel"><br>¿Donde dormirá el adoptado?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts9" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Cuanto tiempo pasará sin compañia humana el adoptado?-->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Cuanto tiempo pasará sin
+                        <br>compañia humana el adoptado?
+                    </ion-label>
+                    <ion-input type="text" [value]="dataT.qts10" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+            <!-- ¿Quien sera el responsable y se hara cargo de cubrir los gastos del adoptado?-->
+            <ion-col size="12" size-md="6">
+                <ion-item lines="full">
+                    <ion-label position="floating" class="inputLabel">¿Quien sera el responsable y se hara <br>cargo de cubrir los gastos del adoptado?</ion-label>
+                    <ion-input type="text" [value]="dataT.qts11" readonly disabled class="opacityNone"></ion-input>
+                </ion-item>
+
+            </ion-col>
+        </ion-card-content>
+
+
+    </ion-card>
+
+
+
+</ion-row>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="salirSinArgumentos()">
+        <ion-icon color="danger" name="close-circle"></ion-icon>
+    </ion-fab-button>
+</ion-fab>

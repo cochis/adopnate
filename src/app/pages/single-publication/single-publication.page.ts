@@ -66,12 +66,12 @@ export class SinglePublicationPage implements OnInit {
     });
   }
   ngOnInit() {
-    if(this.funService.getLocal('user')){
+    if (this.funService.getLocal('user')) {
       this.user = this.funService.getLocal('user');
     }
     console.log(this.user);
     console.log(this.pet.userUid);
-    if(this.user){
+    if (this.user) {
       if (this.user.uid === this.pet.userUid) {
         this.checkEdit = true;
         console.log(this.user);
@@ -95,22 +95,25 @@ export class SinglePublicationPage implements OnInit {
 
   }
   adoptar() {
-    if (this.user) {
+
+
+    if (this.user || this.funService.getLocal('user')) {
       this.usuarioService.getUser(this.user.uid).subscribe((res) => {
         if (this.user) {
-          console.log('vamos a adoptar');
           const props = {
             user: res,
             pet: this.pet,
             type: 'adoption'
           };
-          this.funService.mostrarModal(props);
+          this.funService.setLocal('propsToAdop', props);
+          this.funService.navigate('/adoptar');
+          // this.funService.mostrarModal(props);
         }
       },
         (err) => {
           console.log(err);
         });
-    }else{
+    } else {
       this.funService.sendMessage('Error', 'Necesitas estar registrado', 'Error', 'Favor de ingresar al login');
     }
 

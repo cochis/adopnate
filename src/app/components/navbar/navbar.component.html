@@ -5,7 +5,7 @@
         <ion-buttons slot="end">
             <ion-back-button defaultHref="/" color="secondary">
             </ion-back-button>
-            <ion-button>
+            <ion-button (click)="notifications()">
                 <ion-icon name="notifications-circle-outline" *ngIf="countNotifications>0"></ion-icon>
                 <ion-badge color="tertiary" *ngIf="countNotifications>0">{{countNotifications}}</ion-badge>
                 <ion-icon name="notifications-circle" *ngIf="countNotifications===0"></ion-icon>

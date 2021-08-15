@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { RequestService } from 'src/app/services/request.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -30,33 +31,56 @@ export class NavbarComponent implements OnInit {
     private auth: AuthService,
     private requestService: RequestService,
     public popoverCtrl: PopoverController,
+    private userService: UsuariosService,
     public platform: Platform,
   ) {
     this.whatPlatform();
+    if (!this.funService.getLocal('user')) {
+      console.log('Desde busqueda');
+      this.user$.subscribe(res => {
+        if (res !== null) {
+          this.userService.getUser(res.uid).subscribe((res1) => {
+            console.log(res1);
+            this.funService.setLocal('user', res1);
+            this.user = res1;
+            this.requestService.getRequestByUser(this.user.uid).subscribe((response) => {
+              this.countNotifications = 0;
+              response.forEach((item) => {
+                if (!item.viewNotification) {
+                  this.countNotifications++;
+                }
+              });
+              this.authenticated = true;
+              this.funService.setLocal('htua', true);
+              this.avatarImage = (res.photoURL !== null ? res.photoURL : '/assets/img/user.png');
+            },
+              (err) => {
+                this.funService.removeLocal('user');
+                console.log(err);
+              });
+          },
+            (err) => {
+              console.log('error al autentificar', err);
+              this.funService.removeLocal('user');
+              return err;
+            });
+        } else {
+          this.funService.setLocal('htua', false);
+          this.authenticated = false;
+          this.avatarImage = '/assets/img/user.png';
+          this.funService.removeLocal('user');
+        }
+      });
+    } else {
+      console.log('Desde Local');
+      this.user = this.funService.getLocal('user');
+      console.log(this.user);
+      this.funService.setLocal('htua', true);
+      this.authenticated = true;
+      this.avatarImage = (this.user.photoURL !== null ? this.user.photoURL : '/assets/img/user.png');
+    }
   }
-  ngOnInit() {
-    this.user$.subscribe(res => {
-      if (res !== null) {
-        this.user = res;
-        this.requestService.getRequestByUser(this.user.uid).subscribe((response) => {
-          this.countNotifications = 0;
-          response.forEach((item) => {
-            if (!item.viewNotification) {
-              this.countNotifications++;
-            }
-          });
-          this.authenticated = true;
-          this.avatarImage = (res.photoURL !== null ? res.photoURL : '/assets/img/user.png');
-        },
-          (err) => {
-            console.log(err);
-          });
-      } else {
-        this.authenticated = false;
-        this.avatarImage = '/assets/img/user.png';
-      }
-    });
-  }
+  ngOnInit() { }
   logOut() {
     this.auth.logOut();
     this.funService.clearLocal();
@@ -159,6 +183,9 @@ export class NavbarComponent implements OnInit {
       // this.messageEvent.emit(res);
       this.propagar.emit(res);
     }, 1500);
+  }
+  notifications() {
+    this.funService.navigate('/notifications');
   }
   optMenuDektop(data) {
     switch (data) {
